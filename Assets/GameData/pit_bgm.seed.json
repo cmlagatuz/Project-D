@@ -1,0 +1,106 @@
+{
+  "_comment": "Per-objective BGM config. Drop your imported audio files in Audio/Summons/<clipKey>.mp3 and Audio/Divine/<clipKey>.mp3, then Import Pit BGM auto-binds them. All music is user-supplied.",
+  "summonThemes": [
+    {
+      "objectiveId": "summon_ifrit",
+      "displayName": "Ifrit Theme",
+      "clipKey": "summon_ifrit",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "summon_shiva",
+      "displayName": "Shiva Theme",
+      "clipKey": "summon_shiva",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "summon_ramuh",
+      "displayName": "Ramuh Theme",
+      "clipKey": "summon_ramuh",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "summon_garuda",
+      "displayName": "Garuda Theme",
+      "clipKey": "summon_garuda",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "summon_titan",
+      "displayName": "Titan Theme",
+      "clipKey": "summon_titan",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "summon_leviathan",
+      "displayName": "Leviathan Theme",
+      "clipKey": "summon_leviathan",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "summon_odin",
+      "displayName": "Odin Theme",
+      "clipKey": "summon_odin",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    }
+  ],
+  "divineThemes": [
+    {
+      "objectiveId": "divine_materia",
+      "displayName": "Materia Theme",
+      "clipKey": "divine_materia",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "divine_cosmos",
+      "displayName": "Cosmos Theme",
+      "clipKey": "divine_cosmos",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "divine_spiritus",
+      "displayName": "Spiritus Theme",
+      "clipKey": "divine_spiritus",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    },
+    {
+      "objectiveId": "divine_chaos",
+      "displayName": "Chaos Theme",
+      "clipKey": "divine_chaos",
+      "volume": 0.8,
+      "fadeInSeconds": 1.2,
+      "fadeOutSeconds": 1.5,
+      "loop": true
+    }
+  ]
+}

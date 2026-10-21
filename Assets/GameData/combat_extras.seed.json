@@ -1,0 +1,1087 @@
+{
+  "_comment": "Per-champion basic-attack chains (by weapon class), universal CC reactions, healing/shield/cleanse overlays, and death + respawn-countdown. Import via Tools > Project D > Import Combat Extras. Timings are seconds.",
+  "champions": [
+    {
+      "championId": "wol",
+      "attackChain": {
+        "weaponClass": "Sword",
+        "swings": [
+          {
+            "clipName": "wol_attack_1",
+            "hitFrame": 0.2,
+            "totalDuration": 0.48,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_wol_hit_1",
+            "swingSfxKey": "sfx_sword_swing_1"
+          },
+          {
+            "clipName": "wol_attack_2",
+            "hitFrame": 0.22,
+            "totalDuration": 0.5,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_wol_hit_2",
+            "swingSfxKey": "sfx_sword_swing_2"
+          },
+          {
+            "clipName": "wol_attack_3",
+            "hitFrame": 0.26,
+            "totalDuration": 0.6,
+            "cancelWindow": 0.34,
+            "impactVfxKey": "vfx_wol_hit_3",
+            "swingSfxKey": "sfx_sword_swing_3"
+          }
+        ],
+        "comboResetSeconds": 1.2,
+        "baseAttacksPerSecond": 0.7,
+        "notes": "Measured knightly swings; 3rd hit is a heavier overhead. Shield stays raised between swings (defensive read)."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "wol_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "wol_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "wol_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "wol_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "wol_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "wol_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "wol_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "wol_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "wol_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for wol; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "wol_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "wol_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "wol_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "wol_death",
+        "deathVfxKey": "vfx_death_dissolve",
+        "countdownLoopClip": "wol_respawn_wait",
+        "reviveClip": "wol_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play wol_death then hold wol_respawn_wait at the fountain during the countdown (floating timer shown). At zero, wol_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "garland",
+      "attackChain": {
+        "weaponClass": "Greatsword",
+        "swings": [
+          {
+            "clipName": "garland_attack_1",
+            "hitFrame": 0.32,
+            "totalDuration": 0.7,
+            "cancelWindow": 0.4,
+            "impactVfxKey": "vfx_garland_hit_1",
+            "swingSfxKey": "sfx_greatsword_swing_1"
+          },
+          {
+            "clipName": "garland_attack_2",
+            "hitFrame": 0.36,
+            "totalDuration": 0.78,
+            "cancelWindow": 0.44,
+            "impactVfxKey": "vfx_garland_hit_2",
+            "swingSfxKey": "sfx_greatsword_swing_2"
+          }
+        ],
+        "comboResetSeconds": 1.5,
+        "baseAttacksPerSecond": 0.55,
+        "notes": "Ponderous two-hit greatsword combo; huge follow-through, slow reset \u2014 rewards commitment."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "garland_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "garland_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "garland_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "garland_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "garland_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "garland_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "garland_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "garland_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "garland_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for garland; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "garland_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "garland_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "garland_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "garland_death",
+        "deathVfxKey": "vfx_death_dissolve",
+        "countdownLoopClip": "garland_respawn_wait",
+        "reviveClip": "garland_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play garland_death then hold garland_respawn_wait at the fountain during the countdown (floating timer shown). At zero, garland_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "firion",
+      "attackChain": {
+        "weaponClass": "Bow",
+        "swings": [
+          {
+            "clipName": "firion_attack_1",
+            "hitFrame": 0.16,
+            "totalDuration": 0.4,
+            "cancelWindow": 0.22,
+            "impactVfxKey": "vfx_firion_hit_1",
+            "swingSfxKey": "sfx_bow_swing_1"
+          },
+          {
+            "clipName": "firion_attack_2",
+            "hitFrame": 0.18,
+            "totalDuration": 0.42,
+            "cancelWindow": 0.24,
+            "impactVfxKey": "vfx_firion_hit_2",
+            "swingSfxKey": "sfx_bow_swing_2"
+          }
+        ],
+        "comboResetSeconds": 1.0,
+        "baseAttacksPerSecond": 0.75,
+        "notes": "Default ranged bow auto; on ability the WeaponSocket swaps to lance/sword for that clip then back to bow."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "firion_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "firion_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "firion_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "firion_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "firion_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "firion_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "firion_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "firion_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "firion_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for firion; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "firion_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "firion_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "firion_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "firion_death",
+        "deathVfxKey": "vfx_death_dissolve",
+        "countdownLoopClip": "firion_respawn_wait",
+        "reviveClip": "firion_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play firion_death then hold firion_respawn_wait at the fountain during the countdown (floating timer shown). At zero, firion_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "emperor",
+      "attackChain": {
+        "weaponClass": "Staff",
+        "swings": [
+          {
+            "clipName": "emperor_attack_1",
+            "hitFrame": 0.22,
+            "totalDuration": 0.52,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_emperor_hit_1",
+            "swingSfxKey": "sfx_staff_swing_1"
+          },
+          {
+            "clipName": "emperor_attack_2",
+            "hitFrame": 0.24,
+            "totalDuration": 0.54,
+            "cancelWindow": 0.32,
+            "impactVfxKey": "vfx_emperor_hit_2",
+            "swingSfxKey": "sfx_staff_swing_2"
+          }
+        ],
+        "comboResetSeconds": 1.3,
+        "baseAttacksPerSecond": 0.6,
+        "notes": "Ranged arcane bolts flicked from the staff tip; regal, minimal footwork."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "emperor_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "emperor_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "emperor_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "emperor_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "emperor_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "emperor_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "emperor_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "emperor_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "emperor_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for emperor; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "emperor_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "emperor_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "emperor_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "emperor_death",
+        "deathVfxKey": "vfx_dark_dissolve",
+        "countdownLoopClip": "emperor_respawn_wait",
+        "reviveClip": "emperor_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play emperor_death then hold emperor_respawn_wait at the fountain during the countdown (floating timer shown). At zero, emperor_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "onion_knight",
+      "attackChain": {
+        "weaponClass": "DualBlade",
+        "swings": [
+          {
+            "clipName": "onion_knight_attack_1",
+            "hitFrame": 0.14,
+            "totalDuration": 0.34,
+            "cancelWindow": 0.18,
+            "impactVfxKey": "vfx_onion_knight_hit_1",
+            "swingSfxKey": "sfx_dualblade_swing_1"
+          },
+          {
+            "clipName": "onion_knight_attack_2",
+            "hitFrame": 0.15,
+            "totalDuration": 0.34,
+            "cancelWindow": 0.18,
+            "impactVfxKey": "vfx_onion_knight_hit_2",
+            "swingSfxKey": "sfx_dualblade_swing_2"
+          },
+          {
+            "clipName": "onion_knight_attack_3",
+            "hitFrame": 0.16,
+            "totalDuration": 0.36,
+            "cancelWindow": 0.2,
+            "impactVfxKey": "vfx_onion_knight_hit_3",
+            "swingSfxKey": "sfx_dualblade_swing_3"
+          }
+        ],
+        "comboResetSeconds": 1.0,
+        "baseAttacksPerSecond": 0.85,
+        "notes": "Fast 3-hit flurry; in Ninja stance clips play ~15% faster (scale by attack speed), Sage stance is ranged bolt autos."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "onion_knight_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "onion_knight_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "onion_knight_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "onion_knight_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "onion_knight_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "onion_knight_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "onion_knight_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "onion_knight_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "onion_knight_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for onion_knight; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "onion_knight_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "onion_knight_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "onion_knight_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "onion_knight_death",
+        "deathVfxKey": "vfx_death_dissolve",
+        "countdownLoopClip": "onion_knight_respawn_wait",
+        "reviveClip": "onion_knight_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play onion_knight_death then hold onion_knight_respawn_wait at the fountain during the countdown (floating timer shown). At zero, onion_knight_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "cloud_of_darkness",
+      "attackChain": {
+        "weaponClass": "Tentacle",
+        "swings": [
+          {
+            "clipName": "cloud_of_darkness_attack_1",
+            "hitFrame": 0.2,
+            "totalDuration": 0.5,
+            "cancelWindow": 0.28,
+            "impactVfxKey": "vfx_cloud_of_darkness_hit_1",
+            "swingSfxKey": "sfx_tentacle_swing_1"
+          },
+          {
+            "clipName": "cloud_of_darkness_attack_2",
+            "hitFrame": 0.22,
+            "totalDuration": 0.52,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_cloud_of_darkness_hit_2",
+            "swingSfxKey": "sfx_tentacle_swing_2"
+          }
+        ],
+        "comboResetSeconds": 1.3,
+        "baseAttacksPerSecond": 0.62,
+        "notes": "Ranged particle-beam jabs from the tentacles; body floats, upper torso leads."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "cloud_of_darkness_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "cloud_of_darkness_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "cloud_of_darkness_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "cloud_of_darkness_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "cloud_of_darkness_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "cloud_of_darkness_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "cloud_of_darkness_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "cloud_of_darkness_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "cloud_of_darkness_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for cloud_of_darkness; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "cloud_of_darkness_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "cloud_of_darkness_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "cloud_of_darkness_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "cloud_of_darkness_death",
+        "deathVfxKey": "vfx_void_dissolve",
+        "countdownLoopClip": "cloud_of_darkness_respawn_wait",
+        "reviveClip": "cloud_of_darkness_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play cloud_of_darkness_death then hold cloud_of_darkness_respawn_wait at the fountain during the countdown (floating timer shown). At zero, cloud_of_darkness_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "cecil",
+      "attackChain": {
+        "weaponClass": "Sword",
+        "swings": [
+          {
+            "clipName": "cecil_attack_1",
+            "hitFrame": 0.2,
+            "totalDuration": 0.48,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_cecil_hit_1",
+            "swingSfxKey": "sfx_sword_swing_1"
+          },
+          {
+            "clipName": "cecil_attack_2",
+            "hitFrame": 0.22,
+            "totalDuration": 0.5,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_cecil_hit_2",
+            "swingSfxKey": "sfx_sword_swing_2"
+          },
+          {
+            "clipName": "cecil_attack_3",
+            "hitFrame": 0.26,
+            "totalDuration": 0.6,
+            "cancelWindow": 0.34,
+            "impactVfxKey": "vfx_cecil_hit_3",
+            "swingSfxKey": "sfx_sword_swing_3"
+          }
+        ],
+        "comboResetSeconds": 1.2,
+        "baseAttacksPerSecond": 0.7,
+        "notes": "Stance-flavored autos: Dark = heavier dark-edged cuts, Paladin = brighter faster cuts (share timing)."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "cecil_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "cecil_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "cecil_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "cecil_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "cecil_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "cecil_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "cecil_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "cecil_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "cecil_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for cecil; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "cecil_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "cecil_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "cecil_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "cecil_death",
+        "deathVfxKey": "vfx_light_dissolve",
+        "countdownLoopClip": "cecil_respawn_wait",
+        "reviveClip": "cecil_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play cecil_death then hold cecil_respawn_wait at the fountain during the countdown (floating timer shown). At zero, cecil_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "kain",
+      "attackChain": {
+        "weaponClass": "Lance",
+        "swings": [
+          {
+            "clipName": "kain_attack_1",
+            "hitFrame": 0.18,
+            "totalDuration": 0.44,
+            "cancelWindow": 0.26,
+            "impactVfxKey": "vfx_kain_hit_1",
+            "swingSfxKey": "sfx_lance_swing_1"
+          },
+          {
+            "clipName": "kain_attack_2",
+            "hitFrame": 0.2,
+            "totalDuration": 0.46,
+            "cancelWindow": 0.28,
+            "impactVfxKey": "vfx_kain_hit_2",
+            "swingSfxKey": "sfx_lance_swing_2"
+          }
+        ],
+        "comboResetSeconds": 1.2,
+        "baseAttacksPerSecond": 0.72,
+        "notes": "Quick two-hit lance pokes with long reach; light footwork keeps him mobile."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "kain_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "kain_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "kain_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "kain_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "kain_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "kain_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "kain_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "kain_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "kain_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for kain; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "kain_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "kain_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "kain_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "kain_death",
+        "deathVfxKey": "vfx_death_dissolve",
+        "countdownLoopClip": "kain_respawn_wait",
+        "reviveClip": "kain_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play kain_death then hold kain_respawn_wait at the fountain during the countdown (floating timer shown). At zero, kain_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "bartz",
+      "attackChain": {
+        "weaponClass": "Sword",
+        "swings": [
+          {
+            "clipName": "bartz_attack_1",
+            "hitFrame": 0.2,
+            "totalDuration": 0.48,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_bartz_hit_1",
+            "swingSfxKey": "sfx_sword_swing_1"
+          },
+          {
+            "clipName": "bartz_attack_2",
+            "hitFrame": 0.22,
+            "totalDuration": 0.5,
+            "cancelWindow": 0.3,
+            "impactVfxKey": "vfx_bartz_hit_2",
+            "swingSfxKey": "sfx_sword_swing_2"
+          },
+          {
+            "clipName": "bartz_attack_3",
+            "hitFrame": 0.26,
+            "totalDuration": 0.6,
+            "cancelWindow": 0.34,
+            "impactVfxKey": "vfx_bartz_hit_3",
+            "swingSfxKey": "sfx_sword_swing_3"
+          }
+        ],
+        "comboResetSeconds": 1.2,
+        "baseAttacksPerSecond": 0.7,
+        "notes": "Adaptable 3-hit sword combo; personality-forward flourishes on the 3rd hit."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "bartz_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "bartz_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "bartz_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "bartz_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "bartz_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "bartz_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "bartz_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "bartz_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "bartz_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for bartz; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "bartz_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "bartz_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "bartz_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "bartz_death",
+        "deathVfxKey": "vfx_death_dissolve",
+        "countdownLoopClip": "bartz_respawn_wait",
+        "reviveClip": "bartz_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play bartz_death then hold bartz_respawn_wait at the fountain during the countdown (floating timer shown). At zero, bartz_spawn re-materializes with vfx_respawn_materialize."
+      }
+    },
+    {
+      "championId": "exdeath",
+      "attackChain": {
+        "weaponClass": "Greatsword",
+        "swings": [
+          {
+            "clipName": "exdeath_attack_1",
+            "hitFrame": 0.32,
+            "totalDuration": 0.7,
+            "cancelWindow": 0.4,
+            "impactVfxKey": "vfx_exdeath_hit_1",
+            "swingSfxKey": "sfx_greatsword_swing_1"
+          },
+          {
+            "clipName": "exdeath_attack_2",
+            "hitFrame": 0.36,
+            "totalDuration": 0.78,
+            "cancelWindow": 0.44,
+            "impactVfxKey": "vfx_exdeath_hit_2",
+            "swingSfxKey": "sfx_greatsword_swing_2"
+          }
+        ],
+        "comboResetSeconds": 1.5,
+        "baseAttacksPerSecond": 0.55,
+        "notes": "Heavy planted greatsword swings; almost no travel \u2014 an immovable bruiser-caster."
+      },
+      "reactions": {
+        "flinch": {
+          "clipName": "exdeath_flinch",
+          "duration": 0.2,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "hitReact": {
+          "clipName": "exdeath_hit_react",
+          "duration": 0.35,
+          "interrupts": false,
+          "reactVfxKey": ""
+        },
+        "knockback": {
+          "clipName": "exdeath_knockback",
+          "duration": 0.45,
+          "interrupts": true,
+          "reactVfxKey": "vfx_impact_dust"
+        },
+        "knockup": {
+          "clipName": "exdeath_knockup",
+          "duration": 0.55,
+          "interrupts": true,
+          "reactVfxKey": "vfx_launch"
+        },
+        "airborneLoop": {
+          "clipName": "exdeath_airborne_loop",
+          "duration": 0.3,
+          "interrupts": true,
+          "reactVfxKey": ""
+        },
+        "stun": {
+          "clipName": "exdeath_stun",
+          "duration": 0.6,
+          "interrupts": true,
+          "reactVfxKey": "vfx_stun_stars"
+        },
+        "root": {
+          "clipName": "exdeath_root",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_root_bind"
+        },
+        "silence": {
+          "clipName": "exdeath_silence",
+          "duration": 0.5,
+          "interrupts": false,
+          "reactVfxKey": "vfx_silence_seal"
+        },
+        "slowOverlay": {
+          "clipName": "exdeath_slow_overlay",
+          "duration": 0.0,
+          "interrupts": false,
+          "reactVfxKey": "vfx_slow_drag"
+        },
+        "notes": "Universal CC reactions for exdeath; all are triggered by SERVER crowd-control events, never guessed on the client. Knockup enters an airborne loop until the server clears it."
+      },
+      "healing": {
+        "healReceiveClip": "exdeath_heal_receive",
+        "healReceiveVfxKey": "vfx_heal_glow",
+        "shieldGainClip": "exdeath_shield_gain",
+        "shieldGainVfxKey": "vfx_shield_on",
+        "shieldBreakVfxKey": "vfx_shield_break",
+        "buffReceiveVfxKey": "vfx_buff_up",
+        "cleanseClip": "exdeath_cleanse",
+        "cleanseVfxKey": "vfx_cleanse_burst",
+        "additiveOnly": true,
+        "notes": "Heal/shield/buff overlays play on the ADDITIVE upper layer so they never interrupt locomotion, casts, or attacks. Shield gain shows a hex-plate flash; shield break shatters it; cleanse sweeps a ring from the feet up."
+      },
+      "deathRespawn": {
+        "deathClip": "exdeath_death",
+        "deathVfxKey": "vfx_void_dissolve",
+        "countdownLoopClip": "exdeath_respawn_wait",
+        "reviveClip": "exdeath_spawn",
+        "reviveVfxKey": "vfx_respawn_materialize",
+        "showCountdownNumber": true,
+        "notes": "On death play exdeath_death then hold exdeath_respawn_wait at the fountain during the countdown (floating timer shown). At zero, exdeath_spawn re-materializes with vfx_respawn_materialize."
+      }
+    }
+  ]
+}

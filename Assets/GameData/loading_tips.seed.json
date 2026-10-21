@@ -1,0 +1,219 @@
+{
+  "_comment": "Loading tips + trivia + general tips. FF names/lore are placeholders; tip text is original.",
+  "champions": [
+    {
+      "championId": "wol",
+      "displayName": "Warrior of Light",
+      "sourceWorld": "FF I",
+      "role": "Vanguard",
+      "defaultLane": "Baron",
+      "playingTips": [
+        "Angle Shield of Light toward the enemy's biggest damage source.",
+        "Vanguard Step onto an ally to reposition, or onto an enemy to knock them off your carry.",
+        "Pop Shining Bulwark before you dive so the field and marks are live."
+      ],
+      "playingAgainstTips": [
+        "Bait Shield of Light before committing burst; it heavily reduces frontal damage.",
+        "Spread out against Shining Bulwark so its field covers fewer allies."
+      ],
+      "trivia": [
+        "The Warriors of Light bore the crystals in the world's oldest recorded conflict.",
+        "In the arena he answers the call of Cosmos, the embodiment of order."
+      ]
+    },
+    {
+      "championId": "garland",
+      "displayName": "Garland",
+      "sourceWorld": "FF I",
+      "role": "Fighter",
+      "defaultLane": "Baron",
+      "playingTips": [
+        "Open Chain of Ruin, recast to lunge, then Greatblade Reap to clump the group.",
+        "Iron Advance is unstoppable during wind-up; punch through crowd control with it.",
+        "Cycle of Strife rewards long fights; pick your moments against hit-and-run foes."
+      ],
+      "playingAgainstTips": [
+        "Kite Garland with slows; his stacks decay when he can't keep swinging.",
+        "Don't clump against Greatblade Reap; the edge drags you back in."
+      ],
+      "trivia": [
+        "Garland is bound to a loop that resurrects him across the ages.",
+        "A servant of Chaos, he revels in a battle that never truly ends."
+      ]
+    },
+    {
+      "championId": "firion",
+      "displayName": "Firion",
+      "sourceWorld": "FF II",
+      "role": "Marksman",
+      "defaultLane": "Dragon",
+      "playingTips": [
+        "Weave weapons: Spearline into Bow Volley into Blood Blade keeps Arsenal Rhythm stacked.",
+        "Bow Volley reveals; use it to check brush before rotating.",
+        "Aim Wild Rose Arsenal's final shot at a low-health target."
+      ],
+      "playingAgainstTips": [
+        "Firion is combo-dependent; interrupt his rhythm and his damage falls off.",
+        "Punish him when he steps in for Blood Blade."
+      ],
+      "trivia": [
+        "Firion fights for a rebellion whose symbol is the wild rose.",
+        "He is famed for mastering every weapon he picks up."
+      ]
+    },
+    {
+      "championId": "emperor",
+      "displayName": "The Emperor",
+      "sourceWorld": "FF II",
+      "role": "Mage",
+      "defaultLane": "Mid",
+      "playingTips": [
+        "Pre-place Hell Snare in brush where it's hardest to see.",
+        "Trigger two separate traps to apply Exposed and open a burst window.",
+        "Imperial Repulse can shove a diver back onto your Thunder Sigil."
+      ],
+      "playingAgainstTips": [
+        "The Emperor is weak without setup; dive before his traps are placed.",
+        "Avoid stacking hazards; two traps make you Exposed."
+      ],
+      "trivia": [
+        "The Emperor of Palamecia conquered through cunning and dark sorcery.",
+        "He is ambitious enough to claim both Heaven and Hell."
+      ]
+    },
+    {
+      "championId": "onion_knight",
+      "displayName": "Onion Knight",
+      "sourceWorld": "FF III",
+      "role": "Assassin",
+      "defaultLane": "Mid",
+      "playingTips": [
+        "In Ninja stance, Swift Blade resets on a marked target.",
+        "Swap to Sage before Dualcast for the empowered bolts, then swap back to escape.",
+        "Job Mastery rewards alternating physical then magical casts."
+      ],
+      "playingAgainstTips": [
+        "Bully Onion Knight early; he spikes late and is squishy.",
+        "Watch his stance colour; a mistimed Job Shift wastes his combo."
+      ],
+      "trivia": [
+        "A gifted youth whose strength blossoms when others underestimate him.",
+        "The crystals let him master any job they reveal."
+      ]
+    },
+    {
+      "championId": "cloud_of_darkness",
+      "displayName": "Cloud of Darkness",
+      "sourceWorld": "FF III",
+      "role": "Mage",
+      "defaultLane": "Mid",
+      "playingTips": [
+        "Land Zero Ray at max range to stack Void without stepping up.",
+        "Dark Flood zones a chokepoint and slows dives.",
+        "Save Unbound Form to dodge the key engage; you can't cast during it."
+      ],
+      "playingAgainstTips": [
+        "Collapse on Cloud of Darkness; she is immobile.",
+        "Break her vision to deny the Void ramp."
+      ],
+      "trivia": [
+        "The embodiment of the Void, existing only to return all to nothing.",
+        "She is neither cruel nor kind, simply the end of creation."
+      ]
+    },
+    {
+      "championId": "cecil",
+      "displayName": "Cecil Harvey",
+      "sourceWorld": "FF IV",
+      "role": "Vanguard",
+      "defaultLane": "Baron",
+      "playingTips": [
+        "Farm in Dark Knight to fill the Light gauge, then Redemption into Paladin.",
+        "Cover leaps to shield a diving ally; time it for the enemy burst.",
+        "Don't sit in Dark Knight at low health; the self-damage adds up."
+      ],
+      "playingAgainstTips": [
+        "Force Cecil to commit a stance; he's weakest with the wrong tool.",
+        "Punish greedy Dark Knight play; his abilities cost health."
+      ],
+      "trivia": [
+        "A Dark Knight who climbed Mount Ordeals to be reborn as a Paladin.",
+        "Both his past and his redemption live within him."
+      ]
+    },
+    {
+      "championId": "kain",
+      "displayName": "Kain Highwind",
+      "sourceWorld": "FF IV",
+      "role": "Assassin",
+      "defaultLane": "Jungle",
+      "playingTips": [
+        "Land Dragon Pin first so the slow guarantees High Jump connects.",
+        "You are untargetable while airborne; use it to dodge a key ability.",
+        "Vault over walls to reset a chase."
+      ],
+      "playingAgainstTips": [
+        "Respect High Jump; spread so his slam hits fewer targets.",
+        "Punish a whiffed leap hard on the landing."
+      ],
+      "trivia": [
+        "Captain of the Baron Dragoons and Cecil's closest rival.",
+        "His spear is said to reach the heavens."
+      ]
+    },
+    {
+      "championId": "bartz",
+      "displayName": "Bartz Klauser",
+      "sourceWorld": "FF V",
+      "role": "Fighter",
+      "defaultLane": "Dragon",
+      "playingTips": [
+        "Pick your Job Parade loadout to cover your team's gaps.",
+        "Match Spellblade Arc's element to the enemy.",
+        "Activate Guard Job as you commit to convert damage into speed."
+      ],
+      "playingAgainstTips": [
+        "Bartz has no single dominant strength; deny his setup.",
+        "His loadout is locked pre-match; scout and plan around it."
+      ],
+      "trivia": [
+        "An easygoing wanderer who inherited a promise to protect the crystals.",
+        "He mimics the techniques of every hero he meets."
+      ]
+    },
+    {
+      "championId": "exdeath",
+      "displayName": "Exdeath",
+      "sourceWorld": "FF V",
+      "role": "Mage",
+      "defaultLane": "Support",
+      "playingTips": [
+        "Hold ground to bank Rooted defenses, then move to unleash stored energy.",
+        "Gravity Well into Black Branch drags enemies onto the roots.",
+        "Trap foes inside Grand Cross with Gravity Well."
+      ],
+      "playingAgainstTips": [
+        "Kite Exdeath; he has almost no mobility.",
+        "Bait the long Grand Cross wind-up."
+      ],
+      "trivia": [
+        "An ancient tree that absorbed centuries of sealed evil into armored form.",
+        "He seeks to consume all existence into the Great Void."
+      ]
+    }
+  ],
+  "generalTips": [
+    "The three elemental summons are revealed at match start; plan objective timings around them.",
+    "Odin only unlocks after all three elemental trials are resolved.",
+    "Ward the river before contesting the Rift of the Gods.",
+    "Boots take the dedicated 6th slot; your other five are for items.",
+    "Bought an item by mistake? Undo it for a full refund within the grace window.",
+    "Selling returns 60% of an item's cost; undo returns 100% right after buying.",
+    "A champion-exclusive item only appears while that champion is locked in.",
+    "Last-hitting the objective grants its blessing to your whole team.",
+    "Danger telegraphs stay visible even on reduced-effects settings.",
+    "Destroying a lane seal spawns a Goblin Warlord to help you push.",
+    "Recall at the fountain to restock consumables between fights.",
+    "Divine manifestations rotate with no immediate repeat; the next is previewed."
+  ]
+}

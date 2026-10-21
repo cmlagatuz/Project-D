@@ -1,0 +1,145 @@
+{
+  "_comment": "Per-champion recommended build order. Starter -> Boots -> core legendaries (including the champion-exclusive) -> situational. Non-boots core fits the 5 general slots; boots use the dedicated boots slot. Import via Tools > Project D > Import Store Items.",
+  "builds": [
+    {
+      "championId": "wol",
+      "role": "Vanguard",
+      "order": [
+        "start_bronze_shield",
+        "boot_hermes",
+        "exc_crystal_shield",
+        "leg_aegis",
+        "leg_save_the_queen",
+        "leg_adamant_vest",
+        "leg_ribbon",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "garland",
+      "role": "Fighter",
+      "order": [
+        "start_broadsword",
+        "boot_sprint",
+        "exc_chaos_blade",
+        "leg_ultima_weapon",
+        "leg_excalibur",
+        "leg_ragnarok",
+        "epi_black_belt",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "firion",
+      "role": "Marksman",
+      "order": [
+        "start_bronze_bow",
+        "boot_sprint",
+        "exc_blood_sword",
+        "leg_artemis_bow",
+        "leg_yoichi_bow",
+        "leg_sagittarius",
+        "leg_orichalcum",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "emperor",
+      "role": "Mage",
+      "order": [
+        "start_mythril_rod",
+        "boot_sorcerer",
+        "exc_imperial_sigil",
+        "leg_mace_of_zeus",
+        "leg_staff_of_magi",
+        "leg_nirvana",
+        "leg_ribbon",
+        "con_ether"
+      ]
+    },
+    {
+      "championId": "onion_knight",
+      "role": "Assassin",
+      "order": [
+        "start_mythril_dagger",
+        "boot_assassin",
+        "exc_onion_armor",
+        "leg_muramasa",
+        "leg_zwill_crossblade",
+        "leg_orichalcum",
+        "leg_ribbon",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "cloud_of_darkness",
+      "role": "Mage",
+      "order": [
+        "start_mythril_rod",
+        "boot_sorcerer",
+        "exc_void_core",
+        "leg_staff_of_magi",
+        "leg_mace_of_zeus",
+        "leg_lilith_rod",
+        "leg_safety_bit",
+        "con_ether"
+      ]
+    },
+    {
+      "championId": "cecil",
+      "role": "Vanguard",
+      "order": [
+        "start_bronze_shield",
+        "boot_hermes",
+        "exc_deathbringer",
+        "leg_clerics_robe",
+        "leg_aegis",
+        "leg_adamant_vest",
+        "leg_ribbon",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "kain",
+      "role": "Assassin",
+      "order": [
+        "start_mythril_dagger",
+        "boot_assassin",
+        "exc_abels_lance",
+        "leg_muramasa",
+        "leg_ragnarok",
+        "leg_death_penalty",
+        "leg_safety_bit",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "bartz",
+      "role": "Fighter",
+      "order": [
+        "start_broadsword",
+        "boot_sprint",
+        "exc_chicken_knife",
+        "leg_genji_glove",
+        "leg_excalibur",
+        "leg_ultima_weapon",
+        "epi_champion_belt",
+        "con_hi_potion"
+      ]
+    },
+    {
+      "championId": "exdeath",
+      "role": "Vanguard",
+      "order": [
+        "start_bronze_shield",
+        "boot_sorcerer",
+        "exc_cursed_shield",
+        "leg_mace_of_zeus",
+        "leg_adamant_vest",
+        "leg_ribbon",
+        "epi_reflect_ring",
+        "con_ether"
+      ]
+    }
+  ]
+}

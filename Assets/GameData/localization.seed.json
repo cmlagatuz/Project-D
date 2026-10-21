@@ -1,0 +1,446 @@
+{
+  "_comment": "UI + subtitle localization tables. English is the source/fallback; other languages may be partial (missing keys fall back to English). All strings are original Project D copy. Import via Tools > Project D > Import Localization.",
+  "keyCount": 77,
+  "languages": [
+    {
+      "languageCode": "en",
+      "entries": [
+        {
+          "key": "common.apply",
+          "value": "Apply"
+        },
+        {
+          "key": "common.cancel",
+          "value": "Cancel"
+        },
+        {
+          "key": "common.reset",
+          "value": "Reset"
+        },
+        {
+          "key": "common.on",
+          "value": "On"
+        },
+        {
+          "key": "common.off",
+          "value": "Off"
+        },
+        {
+          "key": "common.back",
+          "value": "Back"
+        },
+        {
+          "key": "settings.title",
+          "value": "Settings"
+        },
+        {
+          "key": "settings.tab.graphics",
+          "value": "Graphics"
+        },
+        {
+          "key": "settings.tab.sound",
+          "value": "Sound"
+        },
+        {
+          "key": "settings.tab.accessibility",
+          "value": "Accessibility"
+        },
+        {
+          "key": "settings.tab.ui",
+          "value": "UI"
+        },
+        {
+          "key": "settings.tab.controls",
+          "value": "Controls"
+        },
+        {
+          "key": "graphics.quality",
+          "value": "Quality Preset"
+        },
+        {
+          "key": "graphics.quality.low",
+          "value": "Low"
+        },
+        {
+          "key": "graphics.quality.medium",
+          "value": "Medium"
+        },
+        {
+          "key": "graphics.quality.high",
+          "value": "High"
+        },
+        {
+          "key": "graphics.quality.custom",
+          "value": "Custom"
+        },
+        {
+          "key": "graphics.framerate",
+          "value": "Frame Rate"
+        },
+        {
+          "key": "graphics.framerate.hint",
+          "value": "Device max: {0} FPS"
+        },
+        {
+          "key": "graphics.antialiasing",
+          "value": "Anti-aliasing"
+        },
+        {
+          "key": "graphics.bloom",
+          "value": "Bloom"
+        },
+        {
+          "key": "graphics.batterysaver",
+          "value": "Battery saver (caps 30 FPS)"
+        },
+        {
+          "key": "graphics.renderscale",
+          "value": "Render scale"
+        },
+        {
+          "key": "sound.volume",
+          "value": "Volume"
+        },
+        {
+          "key": "sound.master",
+          "value": "Master"
+        },
+        {
+          "key": "sound.music",
+          "value": "Music"
+        },
+        {
+          "key": "sound.sfx",
+          "value": "SFX"
+        },
+        {
+          "key": "sound.voice",
+          "value": "Voice / VO"
+        },
+        {
+          "key": "sound.ambience",
+          "value": "Ambience"
+        },
+        {
+          "key": "sound.mastermute",
+          "value": "Master mute"
+        },
+        {
+          "key": "sound.duckmusic",
+          "value": "Lower music during VO"
+        },
+        {
+          "key": "access.subtitles",
+          "value": "VO Subtitles"
+        },
+        {
+          "key": "access.subtitles.enabled",
+          "value": "Subtitles On"
+        },
+        {
+          "key": "access.subtitles.mode.off",
+          "value": "Off"
+        },
+        {
+          "key": "access.subtitles.mode.speakertext",
+          "value": "Speaker + Text"
+        },
+        {
+          "key": "access.subtitles.mode.textonly",
+          "value": "Text Only"
+        },
+        {
+          "key": "access.subtitles.speakername",
+          "value": "Show speaker name"
+        },
+        {
+          "key": "access.subtitles.size",
+          "value": "Subtitle size"
+        },
+        {
+          "key": "access.subtitles.bgopacity",
+          "value": "Background opacity"
+        },
+        {
+          "key": "access.language",
+          "value": "Language"
+        },
+        {
+          "key": "access.subtitle.language",
+          "value": "Subtitle Language"
+        },
+        {
+          "key": "access.subtitle.matchui",
+          "value": "Match UI language"
+        },
+        {
+          "key": "access.colorfilter",
+          "value": "Color filter"
+        },
+        {
+          "key": "access.reduceshake",
+          "value": "Reduce screen shake"
+        },
+        {
+          "key": "access.reduceflashes",
+          "value": "Reduce flashes"
+        },
+        {
+          "key": "access.reduceeffects",
+          "value": "Reduce effect density"
+        },
+        {
+          "key": "ui.language",
+          "value": "UI Language"
+        },
+        {
+          "key": "ui.hudscale",
+          "value": "HUD scale"
+        },
+        {
+          "key": "ui.hudopacity",
+          "value": "HUD opacity"
+        },
+        {
+          "key": "ui.damagenumbers",
+          "value": "Show damage numbers"
+        },
+        {
+          "key": "ui.allybars",
+          "value": "Show ally health bars"
+        },
+        {
+          "key": "ui.minimapleft",
+          "value": "Minimap on left"
+        },
+        {
+          "key": "controls.inputstyle",
+          "value": "Input Style"
+        },
+        {
+          "key": "controls.movement",
+          "value": "Movement"
+        },
+        {
+          "key": "controls.cast",
+          "value": "Cast Style"
+        },
+        {
+          "key": "controls.handedness",
+          "value": "Handedness"
+        },
+        {
+          "key": "controls.righthanded",
+          "value": "Right-handed"
+        },
+        {
+          "key": "controls.lefthanded",
+          "value": "Left-handed"
+        },
+        {
+          "key": "controls.deadzone",
+          "value": "Stick dead zone"
+        },
+        {
+          "key": "controls.sticksize",
+          "value": "Stick size"
+        },
+        {
+          "key": "controls.haptics",
+          "value": "Haptics"
+        },
+        {
+          "key": "controls.taptomove",
+          "value": "Tap-to-move fallback"
+        },
+        {
+          "key": "controls.edithud",
+          "value": "Edit HUD Layout"
+        },
+        {
+          "key": "rank.queue",
+          "value": "Ranked Queue"
+        },
+        {
+          "key": "rank.searching",
+          "value": "Searching for match..."
+        },
+        {
+          "key": "rank.found",
+          "value": "Match found!"
+        },
+        {
+          "key": "rank.tier.bronze",
+          "value": "Bronze"
+        },
+        {
+          "key": "rank.tier.silver",
+          "value": "Silver"
+        },
+        {
+          "key": "rank.tier.gold",
+          "value": "Gold"
+        },
+        {
+          "key": "rank.tier.platinum",
+          "value": "Platinum"
+        },
+        {
+          "key": "rank.tier.diamond",
+          "value": "Diamond"
+        },
+        {
+          "key": "rank.tier.master",
+          "value": "Master"
+        },
+        {
+          "key": "rank.lp",
+          "value": "{0} LP"
+        },
+        {
+          "key": "rank.winstreak",
+          "value": "Win streak: {0}"
+        },
+        {
+          "key": "load.entering",
+          "value": "Entering the arena..."
+        },
+        {
+          "key": "load.waiting",
+          "value": "Waiting for players..."
+        },
+        {
+          "key": "load.loading",
+          "value": "Loading..."
+        }
+      ]
+    },
+    {
+      "languageCode": "es-419",
+      "entries": [
+        {
+          "key": "common.apply",
+          "value": "Aplicar"
+        },
+        {
+          "key": "common.cancel",
+          "value": "Cancelar"
+        },
+        {
+          "key": "common.reset",
+          "value": "Restablecer"
+        },
+        {
+          "key": "settings.title",
+          "value": "Configuracion"
+        },
+        {
+          "key": "settings.tab.graphics",
+          "value": "Graficos"
+        },
+        {
+          "key": "settings.tab.sound",
+          "value": "Sonido"
+        },
+        {
+          "key": "settings.tab.accessibility",
+          "value": "Accesibilidad"
+        },
+        {
+          "key": "settings.tab.ui",
+          "value": "Interfaz"
+        },
+        {
+          "key": "settings.tab.controls",
+          "value": "Controles"
+        },
+        {
+          "key": "graphics.framerate",
+          "value": "Tasa de cuadros"
+        },
+        {
+          "key": "graphics.framerate.hint",
+          "value": "Maximo del dispositivo: {0} FPS"
+        },
+        {
+          "key": "access.subtitles.enabled",
+          "value": "Subtitulos activados"
+        },
+        {
+          "key": "ui.language",
+          "value": "Idioma de la interfaz"
+        },
+        {
+          "key": "access.subtitle.language",
+          "value": "Idioma de subtitulos"
+        },
+        {
+          "key": "load.loading",
+          "value": "Cargando..."
+        },
+        {
+          "key": "rank.searching",
+          "value": "Buscando partida..."
+        }
+      ]
+    },
+    {
+      "languageCode": "pt-BR",
+      "entries": [
+        {
+          "key": "common.apply",
+          "value": "Aplicar"
+        },
+        {
+          "key": "common.cancel",
+          "value": "Cancelar"
+        },
+        {
+          "key": "settings.title",
+          "value": "Configuracoes"
+        },
+        {
+          "key": "settings.tab.graphics",
+          "value": "Graficos"
+        },
+        {
+          "key": "settings.tab.sound",
+          "value": "Som"
+        },
+        {
+          "key": "access.subtitles.enabled",
+          "value": "Legendas ativadas"
+        },
+        {
+          "key": "ui.language",
+          "value": "Idioma da interface"
+        },
+        {
+          "key": "load.loading",
+          "value": "Carregando..."
+        }
+      ]
+    },
+    {
+      "languageCode": "ja",
+      "entries": [
+        {
+          "key": "settings.title",
+          "value": "Settings (JA)"
+        },
+        {
+          "key": "common.apply",
+          "value": "Apply (JA)"
+        },
+        {
+          "key": "ui.language",
+          "value": "UI Language (JA)"
+        },
+        {
+          "key": "load.loading",
+          "value": "Loading (JA)..."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "_comment": "Objective ScriptableObject seed (GCD 7.x). Import via Tools > Project D > Import Summon Data.",
+  "elementalSummons": [
+    { "monsterId": "summon_ifrit",     "displayName": "Ifrit",     "domain": "Fire",      "reward": "Infernal Favor: adaptive offense + short capped burn" },
+    { "monsterId": "summon_shiva",     "displayName": "Shiva",     "domain": "Ice",       "reward": "Glacial Favor: brief slow on ability damage + minor CC resist" },
+    { "monsterId": "summon_ramuh",     "displayName": "Ramuh",     "domain": "Lightning", "reward": "Judgment Favor: ability haste + periodic chain lightning" },
+    { "monsterId": "summon_garuda",    "displayName": "Garuda",    "domain": "Wind",      "reward": "Tempest Favor: move + attack speed, out-of-combat acceleration" },
+    { "monsterId": "summon_titan",     "displayName": "Titan",     "domain": "Earth",     "reward": "Earthen Favor: defenses + periodic shield + limited displacement resist" },
+    { "monsterId": "summon_leviathan", "displayName": "Leviathan", "domain": "Water",     "reward": "Tidal Favor: regen + limited resource return, river synergy" }
+  ],
+  "elderSummon": {
+    "monsterId": "summon_odin", "displayName": "Odin", "domain": "Elder",
+    "reward": "Zantetsuken's Edge: time-limited execute pressure + core damage, removable by death or expiry"
+  },
+  "divineManifestations": [
+    { "monsterId": "divine_materia",  "displayName": "Materia",  "domain": "Restoration", "reward": "Team recovery, improved healing/shielding, ability haste" },
+    { "monsterId": "divine_cosmos",   "displayName": "Cosmos",   "domain": "Protection",  "reward": "Max health, defenses, periodic shield, minor minion empower" },
+    { "monsterId": "divine_spiritus", "displayName": "Spiritus", "domain": "Arcane",      "reward": "Magic power + penetration, short ability burn, structure pressure" },
+    { "monsterId": "divine_chaos",    "displayName": "Chaos",    "domain": "Martial",     "reward": "Attack damage + penetration, injured-enemy pressure, structure pressure" }
+  ]
+}

@@ -1,0 +1,1796 @@
+{
+  "_comment": "Neutral animation sets: elemental summons, Odin (elder), divine manifestations, jungle monsters (small/medium/large), and goblin minions. Import via Tools > Project D > Import Neutral Animations. Objectives include a reward-grant flourish.",
+  "neutrals": [
+    {
+      "neutralId": "ifrit",
+      "displayName": "Ifrit",
+      "kind": "ElementalSummon",
+      "spawnClip": "ifrit_spawn",
+      "idleClip": "ifrit_idle",
+      "moveClip": "ifrit_move",
+      "basicAttacks": [
+        "ifrit_attack_1"
+      ],
+      "basicHitFrame": 0.34,
+      "signatureA": {
+        "abilityId": "ifrit_sig_a",
+        "displayName": "Hellfire Cone",
+        "clipName": "ifrit_hellfire",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.45,
+        "active": 0.3,
+        "recovery": 0.45,
+        "cancelWindow": 0.75,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.45,
+            "key": "vfx_fire_cone",
+            "socket": "mouth"
+          },
+          {
+            "time": 0.55,
+            "key": "vfx_fire_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_ifrit_roar",
+            "socket": "root"
+          },
+          {
+            "time": 0.45,
+            "key": "sfx_fire_blast",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Rear back, inhale (0.45), then breathe a wide fire cone; scorched-ground residue during active. Heavy stomp recovery."
+      },
+      "signatureB": {
+        "abilityId": "ifrit_sig_b",
+        "displayName": "Meteor Punch",
+        "clipName": "ifrit_punch",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.2,
+        "recovery": 0.4,
+        "cancelWindow": 0.55,
+        "loop": false,
+        "motion": "RootMotion",
+        "targeting": "Directional",
+        "travelDistance": 4.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_leap",
+            "socket": "feet"
+          },
+          {
+            "time": 0.55,
+            "key": "vfx_ground_crack",
+            "socket": "fist"
+          }
+        ],
+        "sfxCues": [],
+        "animatorNotes": "Leaping fist-slam that cracks the ground; expanding fire rings on impact."
+      },
+      "signatureUltimate": null,
+      "hitReactClip": "ifrit_hit_react",
+      "enrageClip": "",
+      "deathClip": "ifrit_death",
+      "deathVfxKey": "vfx_fire_dissolve",
+      "rewardGrantClip": "ifrit_reward_grant",
+      "rewardGrantVfxKey": "vfx_infernal_favor",
+      "notes": "Fire summon. Big, aggressive body language. On death, kneel and shatter into embers while the Infernal Favor blessing streams to the killing team."
+    },
+    {
+      "neutralId": "shiva",
+      "displayName": "Shiva",
+      "kind": "ElementalSummon",
+      "spawnClip": "shiva_spawn",
+      "idleClip": "shiva_idle",
+      "moveClip": "shiva_move",
+      "basicAttacks": [
+        "shiva_attack_1"
+      ],
+      "basicHitFrame": 0.3,
+      "signatureA": {
+        "abilityId": "shiva_sig_a",
+        "displayName": "Diamond Dust",
+        "clipName": "shiva_diamond_dust",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.4,
+        "active": 0.35,
+        "recovery": 0.4,
+        "cancelWindow": 0.75,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.4,
+            "key": "vfx_ice_lanes",
+            "socket": "hand_r"
+          },
+          {
+            "time": 0.6,
+            "key": "vfx_frost_burst",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.15,
+            "key": "sfx_shiva_chant",
+            "socket": "root"
+          },
+          {
+            "time": 0.4,
+            "key": "sfx_ice_shatter",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Graceful arm sweep spawns delayed ice crystals in lanes, then a radial frost burst. Elegant, unhurried."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "shiva_hit_react",
+      "enrageClip": "",
+      "deathClip": "shiva_death",
+      "deathVfxKey": "vfx_ice_shatter_death",
+      "rewardGrantClip": "shiva_reward_grant",
+      "rewardGrantVfxKey": "vfx_glacial_favor",
+      "notes": "Ice summon. Serene, dancer-like motion; brief slow applied by ability hits."
+    },
+    {
+      "neutralId": "ramuh",
+      "displayName": "Ramuh",
+      "kind": "ElementalSummon",
+      "spawnClip": "ramuh_spawn",
+      "idleClip": "ramuh_idle",
+      "moveClip": "ramuh_move",
+      "basicAttacks": [
+        "ramuh_attack_1"
+      ],
+      "basicHitFrame": 0.32,
+      "signatureA": {
+        "abilityId": "ramuh_sig_a",
+        "displayName": "Judgment Bolt",
+        "clipName": "ramuh_judgment",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.42,
+        "active": 0.25,
+        "recovery": 0.4,
+        "cancelWindow": 0.67,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.42,
+            "key": "vfx_bolt_mark",
+            "socket": "staff_tip"
+          },
+          {
+            "time": 0.62,
+            "key": "vfx_chain_lightning",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_thunder_roll",
+            "socket": "root"
+          },
+          {
+            "time": 0.62,
+            "key": "sfx_thunder_strike",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Raise the staff; a telegraphed bolt marks the ground then chains between nearby targets. Patriarchal, deliberate."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "ramuh_hit_react",
+      "enrageClip": "",
+      "deathClip": "ramuh_death",
+      "deathVfxKey": "vfx_lightning_dissolve",
+      "rewardGrantClip": "ramuh_reward_grant",
+      "rewardGrantVfxKey": "vfx_judgment_favor",
+      "notes": "Lightning summon."
+    },
+    {
+      "neutralId": "garuda",
+      "displayName": "Garuda",
+      "kind": "ElementalSummon",
+      "spawnClip": "garuda_spawn",
+      "idleClip": "garuda_idle",
+      "moveClip": "garuda_move",
+      "basicAttacks": [
+        "garuda_attack_1"
+      ],
+      "basicHitFrame": 0.28,
+      "signatureA": {
+        "abilityId": "garuda_sig_a",
+        "displayName": "Aerial Blast",
+        "clipName": "garuda_aerial_blast",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.3,
+        "recovery": 0.35,
+        "cancelWindow": 0.65,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_cyclone",
+            "socket": "wings"
+          },
+          {
+            "time": 0.55,
+            "key": "vfx_gust_displace",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.15,
+            "key": "sfx_wind_screech",
+            "socket": "root"
+          },
+          {
+            "time": 0.35,
+            "key": "sfx_cyclone",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Beat the wings to spawn cyclones and displacing gusts; rotating safe sectors. Fast, erratic, avian."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "garuda_hit_react",
+      "enrageClip": "",
+      "deathClip": "garuda_death",
+      "deathVfxKey": "vfx_feather_dissolve",
+      "rewardGrantClip": "garuda_reward_grant",
+      "rewardGrantVfxKey": "vfx_tempest_favor",
+      "notes": "Wind summon; grants move+attack speed."
+    },
+    {
+      "neutralId": "titan",
+      "displayName": "Titan",
+      "kind": "ElementalSummon",
+      "spawnClip": "titan_spawn",
+      "idleClip": "titan_idle",
+      "moveClip": "titan_move",
+      "basicAttacks": [
+        "titan_attack_1"
+      ],
+      "basicHitFrame": 0.45,
+      "signatureA": {
+        "abilityId": "titan_sig_a",
+        "displayName": "Gaia's Wrath",
+        "clipName": "titan_gaias_wrath",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.5,
+        "active": 0.3,
+        "recovery": 0.5,
+        "cancelWindow": 0.8,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.5,
+            "key": "vfx_ground_lines",
+            "socket": "fists"
+          },
+          {
+            "time": 0.7,
+            "key": "vfx_rock_fall",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.25,
+            "key": "sfx_titan_bellow",
+            "socket": "root"
+          },
+          {
+            "time": 0.5,
+            "key": "sfx_quake",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Massive double-fist ground pound sends cracking lines forward; falling-rock markers then a frontal slam. Immense weight; slow everything."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "titan_hit_react",
+      "enrageClip": "",
+      "deathClip": "titan_death",
+      "deathVfxKey": "vfx_stone_crumble",
+      "rewardGrantClip": "titan_reward_grant",
+      "rewardGrantVfxKey": "vfx_earthen_favor",
+      "notes": "Earth summon; defensive blessing."
+    },
+    {
+      "neutralId": "leviathan",
+      "displayName": "Leviathan",
+      "kind": "ElementalSummon",
+      "spawnClip": "leviathan_spawn",
+      "idleClip": "leviathan_idle",
+      "moveClip": "leviathan_move",
+      "basicAttacks": [
+        "leviathan_attack_1"
+      ],
+      "basicHitFrame": 0.36,
+      "signatureA": {
+        "abilityId": "leviathan_sig_a",
+        "displayName": "Tidal Wave",
+        "clipName": "leviathan_tidal_wave",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.4,
+        "active": 0.35,
+        "recovery": 0.42,
+        "cancelWindow": 0.75,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.4,
+            "key": "vfx_water_surge",
+            "socket": "head"
+          },
+          {
+            "time": 0.62,
+            "key": "vfx_knockup_circles",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.18,
+            "key": "sfx_leviathan_roar",
+            "socket": "root"
+          },
+          {
+            "time": 0.4,
+            "key": "sfx_tidal",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Serpentine rear-and-crash; a tidal sweep with water lanes and knock-up circles. Sinuous, flowing spine motion."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "leviathan_hit_react",
+      "enrageClip": "",
+      "deathClip": "leviathan_death",
+      "deathVfxKey": "vfx_water_dissolve",
+      "rewardGrantClip": "leviathan_reward_grant",
+      "rewardGrantVfxKey": "vfx_tidal_favor",
+      "notes": "Water summon; regen + resource blessing near river."
+    },
+    {
+      "neutralId": "odin",
+      "displayName": "Odin",
+      "kind": "ElderSummon",
+      "spawnClip": "odin_spawn",
+      "idleClip": "odin_idle",
+      "moveClip": "odin_move",
+      "basicAttacks": [
+        "odin_attack_1"
+      ],
+      "basicHitFrame": 0.5,
+      "signatureA": {
+        "abilityId": "odin_gungnir",
+        "displayName": "Gungnir",
+        "clipName": "odin_gungnir",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.5,
+        "active": 0.25,
+        "recovery": 0.45,
+        "cancelWindow": 0.75,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.5,
+            "key": "vfx_gungnir_line",
+            "socket": "spear_tip"
+          },
+          {
+            "time": 0.75,
+            "key": "vfx_pierce_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.25,
+            "key": "sfx_odin_charge",
+            "socket": "root"
+          },
+          {
+            "time": 0.5,
+            "key": "sfx_gungnir",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Rear the mount, level the spear, and hurl a long telegraphed line. Regal, terrifying poise."
+      },
+      "signatureB": {
+        "abilityId": "odin_sleipnir",
+        "displayName": "Sleipnir Charge",
+        "clipName": "odin_sleipnir",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.4,
+        "active": 0.4,
+        "recovery": 0.4,
+        "cancelWindow": 0.8,
+        "loop": false,
+        "motion": "RootMotion",
+        "targeting": "Directional",
+        "travelDistance": 10.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.4,
+            "key": "vfx_charge_trail",
+            "socket": "feet"
+          },
+          {
+            "time": 0.8,
+            "key": "vfx_trample",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_hooves",
+            "socket": "root"
+          },
+          {
+            "time": 0.4,
+            "key": "sfx_charge",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Sleipnir gallops across the arena trampling all in the lane; long root-motion charge."
+      },
+      "signatureUltimate": {
+        "abilityId": "odin_zantetsuken",
+        "displayName": "Zantetsuken",
+        "clipName": "odin_zantetsuken",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.9,
+        "active": 0.2,
+        "recovery": 0.7,
+        "cancelWindow": 1.1,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Self",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.3,
+            "key": "vfx_blade_gather",
+            "socket": "sword"
+          },
+          {
+            "time": 0.9,
+            "key": "vfx_execute_slash",
+            "socket": "root"
+          },
+          {
+            "time": 1.05,
+            "key": "vfx_edge_grant",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.1,
+            "key": "sfx_zan_charge",
+            "socket": "root"
+          },
+          {
+            "time": 0.9,
+            "key": "sfx_zan_slash",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "THE finisher. A long, dread-building unsheathe (0.90) with the whole arena darkening, then a single horizontal cut that executes low-HP heroes and slays neutral summons. The killing team receives Zantetsuken's Edge \u2014 grant flourish on recovery. Camera + hitstop moment."
+      },
+      "hitReactClip": "odin_hit_react",
+      "enrageClip": "odin_enrage",
+      "deathClip": "odin_death",
+      "deathVfxKey": "vfx_odin_dissolve",
+      "rewardGrantClip": "odin_reward_grant",
+      "rewardGrantVfxKey": "vfx_zantetsuken_edge",
+      "notes": "Elder objective boss. Mounted, three signatures, a low-HP enrage, and a screen-defining ultimate."
+    },
+    {
+      "neutralId": "materia",
+      "displayName": "Materia",
+      "kind": "DivineManifestation",
+      "spawnClip": "materia_spawn",
+      "idleClip": "materia_idle",
+      "moveClip": "materia_move",
+      "basicAttacks": [
+        "materia_attack_1"
+      ],
+      "basicHitFrame": 0.3,
+      "signatureA": {
+        "abilityId": "materia_smite",
+        "displayName": "Materia Smite",
+        "clipName": "materia_smite",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.2,
+        "recovery": 0.35,
+        "cancelWindow": 0.55,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_divine_bolt",
+            "socket": "hands"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.35,
+            "key": "sfx_divine",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "A slow, imperious ranged smite so the manifestation can defend its pit. Low mobility by design."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "materia_hit_react",
+      "enrageClip": "",
+      "deathClip": "materia_death",
+      "deathVfxKey": "vfx_divine_ascend",
+      "rewardGrantClip": "materia_reward_grant",
+      "rewardGrantVfxKey": "vfx_materia_blessing",
+      "notes": "Restoration avatar. Gentle floating idle, hands clasped; on defeat, radiate a healing bloom that grants the Materia blessing (team recovery + haste). Manifestation stays near the Rift; the reward flourish is the visual payoff of the objective."
+    },
+    {
+      "neutralId": "cosmos",
+      "displayName": "Cosmos",
+      "kind": "DivineManifestation",
+      "spawnClip": "cosmos_spawn",
+      "idleClip": "cosmos_idle",
+      "moveClip": "cosmos_move",
+      "basicAttacks": [
+        "cosmos_attack_1"
+      ],
+      "basicHitFrame": 0.3,
+      "signatureA": {
+        "abilityId": "cosmos_smite",
+        "displayName": "Cosmos Smite",
+        "clipName": "cosmos_smite",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.2,
+        "recovery": 0.35,
+        "cancelWindow": 0.55,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_divine_bolt",
+            "socket": "hands"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.35,
+            "key": "sfx_divine",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "A slow, imperious ranged smite so the manifestation can defend its pit. Low mobility by design."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "cosmos_hit_react",
+      "enrageClip": "",
+      "deathClip": "cosmos_death",
+      "deathVfxKey": "vfx_divine_ascend",
+      "rewardGrantClip": "cosmos_reward_grant",
+      "rewardGrantVfxKey": "vfx_cosmos_blessing",
+      "notes": "Protection avatar. Serene, regal; grants defenses + periodic shield. Warm, harmonious light on the grant flourish. Manifestation stays near the Rift; the reward flourish is the visual payoff of the objective."
+    },
+    {
+      "neutralId": "spiritus",
+      "displayName": "Spiritus",
+      "kind": "DivineManifestation",
+      "spawnClip": "spiritus_spawn",
+      "idleClip": "spiritus_idle",
+      "moveClip": "spiritus_move",
+      "basicAttacks": [
+        "spiritus_attack_1"
+      ],
+      "basicHitFrame": 0.3,
+      "signatureA": {
+        "abilityId": "spiritus_smite",
+        "displayName": "Spiritus Smite",
+        "clipName": "spiritus_smite",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.2,
+        "recovery": 0.35,
+        "cancelWindow": 0.55,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_divine_bolt",
+            "socket": "hands"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.35,
+            "key": "sfx_divine",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "A slow, imperious ranged smite so the manifestation can defend its pit. Low mobility by design."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "spiritus_hit_react",
+      "enrageClip": "",
+      "deathClip": "spiritus_death",
+      "deathVfxKey": "vfx_divine_ascend",
+      "rewardGrantClip": "spiritus_reward_grant",
+      "rewardGrantVfxKey": "vfx_spiritus_blessing",
+      "notes": "Arcane-aggression avatar. Imposing, arms crossed; grants magic power + penetration. Sharp violet burst on grant. Manifestation stays near the Rift; the reward flourish is the visual payoff of the objective."
+    },
+    {
+      "neutralId": "chaos",
+      "displayName": "Chaos",
+      "kind": "DivineManifestation",
+      "spawnClip": "chaos_spawn",
+      "idleClip": "chaos_idle",
+      "moveClip": "chaos_move",
+      "basicAttacks": [
+        "chaos_attack_1"
+      ],
+      "basicHitFrame": 0.3,
+      "signatureA": {
+        "abilityId": "chaos_smite",
+        "displayName": "Chaos Smite",
+        "clipName": "chaos_smite",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.2,
+        "recovery": 0.35,
+        "cancelWindow": 0.55,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_divine_bolt",
+            "socket": "hands"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.35,
+            "key": "sfx_divine",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "A slow, imperious ranged smite so the manifestation can defend its pit. Low mobility by design."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "chaos_hit_react",
+      "enrageClip": "",
+      "deathClip": "chaos_death",
+      "deathVfxKey": "vfx_divine_ascend",
+      "rewardGrantClip": "chaos_reward_grant",
+      "rewardGrantVfxKey": "vfx_chaos_blessing",
+      "notes": "Martial-execution avatar. Menacing, hunched; grants attack damage + penetration. Fiery red eruption on grant. Manifestation stays near the Rift; the reward flourish is the visual payoff of the objective."
+    },
+    {
+      "neutralId": "bomb",
+      "displayName": "Bomb",
+      "kind": "MonsterSmall",
+      "spawnClip": "bomb_spawn",
+      "idleClip": "bomb_idle",
+      "moveClip": "bomb_move",
+      "basicAttacks": [
+        "bomb_attack_1"
+      ],
+      "basicHitFrame": 0.22,
+      "signatureA": {
+        "abilityId": "bomb_self_destruct",
+        "displayName": "Self-Destruct",
+        "clipName": "bomb_boom",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.6,
+        "active": 0.15,
+        "recovery": 0.1,
+        "cancelWindow": 0.75,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Self",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.6,
+            "key": "vfx_bomb_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.75,
+            "key": "vfx_bomb_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.24,
+            "key": "sfx_bomb_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.6,
+            "key": "sfx_bomb_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Swell larger per Heat stack; at max, a telegraphed countdown then explode. INTERRUPTIBLE/avoidable \u2014 the swell is the tell."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "bomb_hit_react",
+      "enrageClip": "",
+      "deathClip": "bomb_death",
+      "deathVfxKey": "vfx_bomb_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterSmall jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "flan",
+      "displayName": "Flan",
+      "kind": "MonsterSmall",
+      "spawnClip": "flan_spawn",
+      "idleClip": "flan_idle",
+      "moveClip": "flan_move",
+      "basicAttacks": [
+        "flan_attack_1"
+      ],
+      "basicHitFrame": 0.28,
+      "signatureA": {
+        "abilityId": "flan_slow_spit",
+        "displayName": "Slow Spit",
+        "clipName": "flan_spit",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.3,
+        "active": 0.12,
+        "recovery": 0.24,
+        "cancelWindow": 0.42,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.3,
+            "key": "vfx_flan_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.42,
+            "key": "vfx_flan_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.12,
+            "key": "sfx_flan_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.3,
+            "key": "sfx_flan_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Gelatinous lob that briefly slows; wobbly, jiggly body sim on the additive layer."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "flan_hit_react",
+      "enrageClip": "",
+      "deathClip": "flan_death",
+      "deathVfxKey": "vfx_flan_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterSmall jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "mu",
+      "displayName": "Mu",
+      "kind": "MonsterSmall",
+      "spawnClip": "mu_spawn",
+      "idleClip": "mu_idle",
+      "moveClip": "mu_move",
+      "basicAttacks": [
+        "mu_attack_1"
+      ],
+      "basicHitFrame": 0.16,
+      "signatureA": {
+        "abilityId": "mu_swarm_bite",
+        "displayName": "Swarm Bite",
+        "clipName": "mu_bite",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.14,
+        "active": 0.1,
+        "recovery": 0.16,
+        "cancelWindow": 0.24,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Unit",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.14,
+            "key": "vfx_mu_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.24,
+            "key": "vfx_mu_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.056,
+            "key": "sfx_mu_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.14,
+            "key": "sfx_mu_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Quick darting bite; the pack tries to surround, then briefly flees at low HP before re-engaging."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "mu_hit_react",
+      "enrageClip": "",
+      "deathClip": "mu_death",
+      "deathVfxKey": "vfx_mu_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterSmall jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "floating_eye",
+      "displayName": "Floating Eye",
+      "kind": "MonsterSmall",
+      "spawnClip": "floating_eye_spawn",
+      "idleClip": "floating_eye_idle",
+      "moveClip": "floating_eye_move",
+      "basicAttacks": [
+        "floating_eye_attack_1"
+      ],
+      "basicHitFrame": 0.2,
+      "signatureA": {
+        "abilityId": "eye_reveal_pulse",
+        "displayName": "Reveal Pulse",
+        "clipName": "eye_pulse",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.3,
+        "active": 0.2,
+        "recovery": 0.24,
+        "cancelWindow": 0.5,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Self",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.3,
+            "key": "vfx_floating_eye_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.5,
+            "key": "vfx_floating_eye_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.12,
+            "key": "sfx_floating_eye_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.3,
+            "key": "sfx_floating_eye_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Hovering idle; periodic ranged magic + a reveal pulse. Kites away from melee."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "floating_eye_hit_react",
+      "enrageClip": "",
+      "deathClip": "floating_eye_death",
+      "deathVfxKey": "vfx_floating_eye_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterSmall jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "tonberry",
+      "displayName": "Tonberry",
+      "kind": "MonsterMedium",
+      "spawnClip": "tonberry_spawn",
+      "idleClip": "tonberry_idle",
+      "moveClip": "tonberry_move",
+      "basicAttacks": [
+        "tonberry_attack_1"
+      ],
+      "basicHitFrame": 0.35,
+      "signatureA": {
+        "abilityId": "tonberry_chefs_knife",
+        "displayName": "Chef's Knife",
+        "clipName": "tonberry_knife",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.55,
+        "active": 0.2,
+        "recovery": 0.4,
+        "cancelWindow": 0.75,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Unit",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.55,
+            "key": "vfx_tonberry_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.75,
+            "key": "vfx_tonberry_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.22,
+            "key": "sfx_tonberry_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.55,
+            "key": "sfx_tonberry_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Slow relentless walk; a HIGHLY telegraphed knife lunge that hits hard. Brief speed-up after a miss so it can't be perfectly kited."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "tonberry_hit_react",
+      "enrageClip": "",
+      "deathClip": "tonberry_death",
+      "deathVfxKey": "vfx_tonberry_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterMedium jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "coeurl",
+      "displayName": "Coeurl",
+      "kind": "MonsterMedium",
+      "spawnClip": "coeurl_spawn",
+      "idleClip": "coeurl_idle",
+      "moveClip": "coeurl_move",
+      "basicAttacks": [
+        "coeurl_attack_1"
+      ],
+      "basicHitFrame": 0.24,
+      "signatureA": {
+        "abilityId": "coeurl_blaster",
+        "displayName": "Blaster",
+        "clipName": "coeurl_blaster",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.35,
+        "active": 0.18,
+        "recovery": 0.3,
+        "cancelWindow": 0.53,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.35,
+            "key": "vfx_coeurl_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.53,
+            "key": "vfx_coeurl_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.14,
+            "key": "sfx_coeurl_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.35,
+            "key": "sfx_coeurl_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Dash behind the target, then a cone of lightning. Cubs apply small attack-speed slows."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "coeurl_hit_react",
+      "enrageClip": "",
+      "deathClip": "coeurl_death",
+      "deathVfxKey": "vfx_coeurl_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterMedium jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "ahriman",
+      "displayName": "Ahriman",
+      "kind": "MonsterMedium",
+      "spawnClip": "ahriman_spawn",
+      "idleClip": "ahriman_idle",
+      "moveClip": "ahriman_move",
+      "basicAttacks": [
+        "ahriman_attack_1"
+      ],
+      "basicHitFrame": 0.26,
+      "signatureA": {
+        "abilityId": "ahriman_gaze",
+        "displayName": "Vision Gaze",
+        "clipName": "ahriman_gaze",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.4,
+        "active": 0.25,
+        "recovery": 0.3,
+        "cancelWindow": 0.65,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.4,
+            "key": "vfx_ahriman_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.65,
+            "key": "vfx_ahriman_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.16,
+            "key": "sfx_ahriman_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.4,
+            "key": "sfx_ahriman_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Floating; a channelled circular gaze that must be avoided + a short vision reduction. Drifts from melee."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "ahriman_hit_react",
+      "enrageClip": "",
+      "deathClip": "ahriman_death",
+      "deathVfxKey": "vfx_ahriman_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterMedium jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "sahagin",
+      "displayName": "Sahagin",
+      "kind": "MonsterMedium",
+      "spawnClip": "sahagin_spawn",
+      "idleClip": "sahagin_idle",
+      "moveClip": "sahagin_move",
+      "basicAttacks": [
+        "sahagin_attack_1"
+      ],
+      "basicHitFrame": 0.24,
+      "signatureA": {
+        "abilityId": "sahagin_spear",
+        "displayName": "Spear Thrust",
+        "clipName": "sahagin_spear",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.28,
+        "active": 0.14,
+        "recovery": 0.26,
+        "cancelWindow": 0.42,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.28,
+            "key": "vfx_sahagin_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.42,
+            "key": "vfx_sahagin_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.112,
+            "key": "sfx_sahagin_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.28,
+            "key": "sfx_sahagin_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "River guardian; a forward spear thrust (captain) with water-shot escorts. Bonus damage in the river."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "sahagin_hit_react",
+      "enrageClip": "",
+      "deathClip": "sahagin_death",
+      "deathVfxKey": "vfx_sahagin_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterMedium jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "iron_giant",
+      "displayName": "Iron Giant",
+      "kind": "MonsterLarge",
+      "spawnClip": "iron_giant_spawn",
+      "idleClip": "iron_giant_idle",
+      "moveClip": "iron_giant_move",
+      "basicAttacks": [
+        "iron_giant_attack_1"
+      ],
+      "basicHitFrame": 0.4,
+      "signatureA": {
+        "abilityId": "iron_giant_slam",
+        "displayName": "Ground Slam",
+        "clipName": "iron_giant_slam",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.55,
+        "active": 0.25,
+        "recovery": 0.5,
+        "cancelWindow": 0.8,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.55,
+            "key": "vfx_iron_giant_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.8,
+            "key": "vfx_iron_giant_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.22,
+            "key": "sfx_iron_giant_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.55,
+            "key": "sfx_iron_giant_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Wide frontal sword swing + a slow ground-slam AoE. Gains armor after losing health \u2014 sell a stagger-and-harden beat."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "iron_giant_hit_react",
+      "enrageClip": "iron_giant_harden",
+      "deathClip": "iron_giant_death",
+      "deathVfxKey": "vfx_iron_giant_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterLarge jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "malboro",
+      "displayName": "Malboro",
+      "kind": "MonsterLarge",
+      "spawnClip": "malboro_spawn",
+      "idleClip": "malboro_idle",
+      "moveClip": "malboro_move",
+      "basicAttacks": [
+        "malboro_attack_1"
+      ],
+      "basicHitFrame": 0.42,
+      "signatureA": {
+        "abilityId": "malboro_bad_breath",
+        "displayName": "Bad Breath",
+        "clipName": "malboro_bad_breath",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.6,
+        "active": 0.3,
+        "recovery": 0.45,
+        "cancelWindow": 0.9,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Directional",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.6,
+            "key": "vfx_malboro_windup",
+            "socket": "root"
+          },
+          {
+            "time": 0.9,
+            "key": "vfx_malboro_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.24,
+            "key": "sfx_malboro_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.6,
+            "key": "sfx_malboro_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Rear back and belch a wide cone applying reduced slow/heal-cut/atk-down; sprouts leave poison zones. Grotesque, writhing."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "malboro_hit_react",
+      "enrageClip": "",
+      "deathClip": "malboro_death",
+      "deathVfxKey": "vfx_malboro_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterLarge jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "behemoth",
+      "displayName": "Behemoth",
+      "kind": "MonsterLarge",
+      "spawnClip": "behemoth_spawn",
+      "idleClip": "behemoth_idle",
+      "moveClip": "behemoth_move",
+      "basicAttacks": [
+        "behemoth_attack_1"
+      ],
+      "basicHitFrame": 0.38,
+      "signatureA": {
+        "abilityId": "behemoth_meteor",
+        "displayName": "Meteor",
+        "clipName": "behemoth_meteor",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.7,
+        "active": 0.3,
+        "recovery": 0.5,
+        "cancelWindow": 1.0,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.7,
+            "key": "vfx_behemoth_windup",
+            "socket": "root"
+          },
+          {
+            "time": 1.0,
+            "key": "vfx_behemoth_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.28,
+            "key": "sfx_behemoth_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.7,
+            "key": "sfx_behemoth_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Charge + tail sweep; at low HP casts a meteor marker. Add an enrage clip \u2014 more aggressive, not faster."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "behemoth_hit_react",
+      "enrageClip": "behemoth_enrage",
+      "deathClip": "behemoth_death",
+      "deathVfxKey": "vfx_behemoth_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterLarge jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "adamantoise",
+      "displayName": "Adamantoise",
+      "kind": "MonsterLarge",
+      "spawnClip": "adamantoise_spawn",
+      "idleClip": "adamantoise_idle",
+      "moveClip": "adamantoise_move",
+      "basicAttacks": [
+        "adamantoise_attack_1"
+      ],
+      "basicHitFrame": 0.45,
+      "signatureA": {
+        "abilityId": "adamantoise_shell",
+        "displayName": "Shell Guard",
+        "clipName": "adamantoise_shell",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.5,
+        "active": 0.6,
+        "recovery": 0.5,
+        "cancelWindow": 1.1,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Self",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.5,
+            "key": "vfx_adamantoise_windup",
+            "socket": "root"
+          },
+          {
+            "time": 1.1,
+            "key": "vfx_adamantoise_impact",
+            "socket": "root"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_adamantoise_tell",
+            "socket": "root"
+          },
+          {
+            "time": 0.5,
+            "key": "sfx_adamantoise_hit",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Withdraw into the shell (defensive phase) then a slow frontal knockback; exposes a vulnerable state right after."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "adamantoise_hit_react",
+      "enrageClip": "",
+      "deathClip": "adamantoise_death",
+      "deathVfxKey": "vfx_adamantoise_death",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "MonsterLarge jungle camp. Signature mechanic defines the fight; keep the wind-up readable (telegraph) so players can dodge."
+    },
+    {
+      "neutralId": "goblin_melee",
+      "displayName": "Melee Goblin",
+      "kind": "Minion",
+      "spawnClip": "goblin_melee_spawn",
+      "idleClip": "goblin_melee_idle",
+      "moveClip": "goblin_melee_move",
+      "basicAttacks": [
+        "goblin_melee_attack_1"
+      ],
+      "basicHitFrame": 0.22,
+      "signatureA": {
+        "abilityId": "goblin_melee_attack",
+        "displayName": "Melee Goblin Attack",
+        "clipName": "goblin_melee_swing",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.2,
+        "active": 0.12,
+        "recovery": 0.2,
+        "cancelWindow": 0.32,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Unit",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.2,
+            "key": "vfx_goblin_melee_hit",
+            "socket": "weapon"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_goblin_melee",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Short sword-and-shield chop; front line."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "goblin_melee_hit_react",
+      "enrageClip": "",
+      "deathClip": "goblin_melee_death",
+      "deathVfxKey": "vfx_goblin_poof",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "Lane minion. Keep clips SHORT and cheap; many are on-screen at once \u2014 reuse a shared rig and pool aggressively."
+    },
+    {
+      "neutralId": "goblin_ranged",
+      "displayName": "Ranged Goblin",
+      "kind": "Minion",
+      "spawnClip": "goblin_ranged_spawn",
+      "idleClip": "goblin_ranged_idle",
+      "moveClip": "goblin_ranged_move",
+      "basicAttacks": [
+        "goblin_ranged_attack_1"
+      ],
+      "basicHitFrame": 0.22,
+      "signatureA": {
+        "abilityId": "goblin_ranged_attack",
+        "displayName": "Ranged Goblin Attack",
+        "clipName": "goblin_ranged_shot",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.2,
+        "active": 0.12,
+        "recovery": 0.2,
+        "cancelWindow": 0.32,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Unit",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.2,
+            "key": "vfx_goblin_ranged_hit",
+            "socket": "weapon"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_goblin_ranged",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Sling/short-bow shot; back line, low HP."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "goblin_ranged_hit_react",
+      "enrageClip": "",
+      "deathClip": "goblin_ranged_death",
+      "deathVfxKey": "vfx_goblin_poof",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "Lane minion. Keep clips SHORT and cheap; many are on-screen at once \u2014 reuse a shared rig and pool aggressively."
+    },
+    {
+      "neutralId": "goblin_mage",
+      "displayName": "Goblin Mage",
+      "kind": "Minion",
+      "spawnClip": "goblin_mage_spawn",
+      "idleClip": "goblin_mage_idle",
+      "moveClip": "goblin_mage_move",
+      "basicAttacks": [
+        "goblin_mage_attack_1"
+      ],
+      "basicHitFrame": 0.22,
+      "signatureA": {
+        "abilityId": "goblin_mage_attack",
+        "displayName": "Goblin Mage Attack",
+        "clipName": "goblin_mage_cast",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.2,
+        "active": 0.12,
+        "recovery": 0.2,
+        "cancelWindow": 0.32,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Unit",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.2,
+            "key": "vfx_goblin_mage_hit",
+            "socket": "weapon"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_goblin_mage",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Slow magic bolt; periodic siege unit, extra structure damage."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "goblin_mage_hit_react",
+      "enrageClip": "",
+      "deathClip": "goblin_mage_death",
+      "deathVfxKey": "vfx_goblin_poof",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "Lane minion. Keep clips SHORT and cheap; many are on-screen at once \u2014 reuse a shared rig and pool aggressively."
+    },
+    {
+      "neutralId": "goblin_armored",
+      "displayName": "Armored Goblin",
+      "kind": "Minion",
+      "spawnClip": "goblin_armored_spawn",
+      "idleClip": "goblin_armored_idle",
+      "moveClip": "goblin_armored_move",
+      "basicAttacks": [
+        "goblin_armored_attack_1"
+      ],
+      "basicHitFrame": 0.22,
+      "signatureA": {
+        "abilityId": "goblin_armored_attack",
+        "displayName": "Armored Goblin Attack",
+        "clipName": "goblin_armored_ram",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.2,
+        "active": 0.12,
+        "recovery": 0.2,
+        "cancelWindow": 0.32,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Unit",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.2,
+            "key": "vfx_goblin_armored_hit",
+            "socket": "weapon"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_goblin_armored",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Crystal-ram shove; late-match siege upgrade, heavy."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "goblin_armored_hit_react",
+      "enrageClip": "",
+      "deathClip": "goblin_armored_death",
+      "deathVfxKey": "vfx_goblin_poof",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "Lane minion. Keep clips SHORT and cheap; many are on-screen at once \u2014 reuse a shared rig and pool aggressively."
+    },
+    {
+      "neutralId": "goblin_warlord",
+      "displayName": "Goblin Warlord",
+      "kind": "Minion",
+      "spawnClip": "goblin_warlord_spawn",
+      "idleClip": "goblin_warlord_idle",
+      "moveClip": "goblin_warlord_move",
+      "basicAttacks": [
+        "goblin_warlord_attack_1"
+      ],
+      "basicHitFrame": 0.22,
+      "signatureA": {
+        "abilityId": "goblin_warlord_attack",
+        "displayName": "Goblin Warlord Attack",
+        "clipName": "goblin_warlord_cleave",
+        "chargeLoopClip": "",
+        "recastClip": "",
+        "startup": 0.2,
+        "active": 0.12,
+        "recovery": 0.2,
+        "cancelWindow": 0.32,
+        "loop": false,
+        "motion": "InPlace",
+        "targeting": "Point",
+        "travelDistance": 0.0,
+        "animatesWeapon": false,
+        "weaponTrailKey": "",
+        "vfxCues": [
+          {
+            "time": 0.2,
+            "key": "vfx_goblin_warlord_hit",
+            "socket": "weapon"
+          }
+        ],
+        "sfxCues": [
+          {
+            "time": 0.2,
+            "key": "sfx_goblin_warlord",
+            "socket": "root"
+          }
+        ],
+        "animatorNotes": "Big axe cleave AoE; super-minion after a lane seal falls."
+      },
+      "signatureB": null,
+      "signatureUltimate": null,
+      "hitReactClip": "goblin_warlord_hit_react",
+      "enrageClip": "",
+      "deathClip": "goblin_warlord_death",
+      "deathVfxKey": "vfx_goblin_poof",
+      "rewardGrantClip": "",
+      "rewardGrantVfxKey": "",
+      "notes": "Lane minion. Keep clips SHORT and cheap; many are on-screen at once \u2014 reuse a shared rig and pool aggressively."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "_comment": "End-of-season reward config. Original design; cosmetic + honor only (no combat power). cumulativeUpToPeak grants every tier emblem up to the player's peak tier. Import via Tools > Project D > Import Season Rewards.",
+  "seasonId": 1,
+  "seasonName": "Season 1",
+  "cumulativeUpToPeak": true,
+  "tierRewards": [
+    {
+      "tier": "Bronze",
+      "minRankedGames": 5,
+      "bundle": {
+        "emblemId": "emblem_bronze_s1",
+        "bannerId": "banner_bronze_s1",
+        "honorPoints": 100,
+        "bonusCosmeticIds": [],
+        "displayName": "Bronze Season Emblem",
+        "nameKey": "reward.emblem.bronze"
+      }
+    },
+    {
+      "tier": "Silver",
+      "minRankedGames": 5,
+      "bundle": {
+        "emblemId": "emblem_silver_s1",
+        "bannerId": "banner_silver_s1",
+        "honorPoints": 200,
+        "bonusCosmeticIds": [],
+        "displayName": "Silver Season Emblem",
+        "nameKey": "reward.emblem.silver"
+      }
+    },
+    {
+      "tier": "Gold",
+      "minRankedGames": 5,
+      "bundle": {
+        "emblemId": "emblem_gold_s1",
+        "bannerId": "banner_gold_s1",
+        "honorPoints": 400,
+        "bonusCosmeticIds": [
+          "icon_gold_s1"
+        ],
+        "displayName": "Gold Season Emblem",
+        "nameKey": "reward.emblem.gold"
+      }
+    },
+    {
+      "tier": "Platinum",
+      "minRankedGames": 8,
+      "bundle": {
+        "emblemId": "emblem_platinum_s1",
+        "bannerId": "banner_platinum_s1",
+        "honorPoints": 700,
+        "bonusCosmeticIds": [
+          "icon_platinum_s1"
+        ],
+        "displayName": "Platinum Season Emblem",
+        "nameKey": "reward.emblem.platinum"
+      }
+    },
+    {
+      "tier": "Mythril",
+      "minRankedGames": 10,
+      "bundle": {
+        "emblemId": "emblem_mythril_s1",
+        "bannerId": "banner_mythril_s1",
+        "honorPoints": 1100,
+        "bonusCosmeticIds": [
+          "icon_mythril_s1",
+          "recall_mythril_s1"
+        ],
+        "displayName": "Mythril Season Emblem",
+        "nameKey": "reward.emblem.mythril"
+      }
+    },
+    {
+      "tier": "Adamantite",
+      "minRankedGames": 12,
+      "bundle": {
+        "emblemId": "emblem_adamantite_s1",
+        "bannerId": "banner_adamantite_s1",
+        "honorPoints": 1600,
+        "bonusCosmeticIds": [
+          "icon_adamantite_s1",
+          "recall_adamantite_s1"
+        ],
+        "displayName": "Adamantite Season Emblem",
+        "nameKey": "reward.emblem.adamantite"
+      }
+    },
+    {
+      "tier": "Crystal",
+      "minRankedGames": 15,
+      "bundle": {
+        "emblemId": "emblem_crystal_s1",
+        "bannerId": "banner_crystal_s1",
+        "honorPoints": 2200,
+        "bonusCosmeticIds": [
+          "icon_crystal_s1",
+          "recall_crystal_s1",
+          "frame_crystal_animated_s1",
+          "title_crystal_s1"
+        ],
+        "displayName": "Crystal Season Emblem",
+        "nameKey": "reward.emblem.crystal"
+      }
+    }
+  ],
+  "winMilestones": [
+    25,
+    50,
+    100
+  ],
+  "winMilestoneRewards": [
+    {
+      "emblemId": "",
+      "bannerId": "",
+      "honorPoints": 150,
+      "bonusCosmeticIds": [
+        "icon_wins_25_s1"
+      ],
+      "displayName": "25 Ranked Wins",
+      "nameKey": "reward.wins.25"
+    },
+    {
+      "emblemId": "",
+      "bannerId": "",
+      "honorPoints": 300,
+      "bonusCosmeticIds": [
+        "icon_wins_50_s1"
+      ],
+      "displayName": "50 Ranked Wins",
+      "nameKey": "reward.wins.50"
+    },
+    {
+      "emblemId": "",
+      "bannerId": "banner_wins_100_s1",
+      "honorPoints": 600,
+      "bonusCosmeticIds": [
+        "icon_wins_100_s1"
+      ],
+      "displayName": "100 Ranked Wins",
+      "nameKey": "reward.wins.100"
+    }
+  ]
+}

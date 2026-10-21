@@ -1,0 +1,210 @@
+{
+  "_comment": "Champion first-encounter voice lines. QUOTE TEXT is ORIGINAL placeholder copy (NOT the Dissidia dialogue, which is Square Enix IP). Replace text + audio at voiceClipKey with licensed content. Audio files go in Assets/GameData/Loading/Voice/<voiceClipKey>.mp3 (or .wav/.ogg). Import via Tools > Project D > Import Champion Interactions.",
+  "champions": [
+    {
+      "championId": "wol",
+      "displayName": "Warrior of Light",
+      "genericFirstEncounter": {
+        "line": "Order will prevail.",
+        "voiceClipKey": "vo_wol_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "garland",
+          "line": "The cycle ends with my blade.",
+          "voiceClipKey": "vo_wol_vs_garland"
+        },
+        {
+          "enemyChampionId": "cloud_of_darkness",
+          "line": "I will not yield to the void.",
+          "voiceClipKey": "vo_wol_vs_cod"
+        },
+        {
+          "enemyChampionId": "exdeath",
+          "line": "Nothingness has no place here.",
+          "voiceClipKey": "vo_wol_vs_exdeath"
+        }
+      ]
+    },
+    {
+      "championId": "garland",
+      "displayName": "Garland",
+      "genericFirstEncounter": {
+        "line": "I shall strike you down!",
+        "voiceClipKey": "vo_garland_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "wol",
+          "line": "Come then, warrior of light.",
+          "voiceClipKey": "vo_garland_vs_wol"
+        },
+        {
+          "enemyChampionId": "firion",
+          "line": "A rebel's hope dies today.",
+          "voiceClipKey": "vo_garland_vs_firion"
+        }
+      ]
+    },
+    {
+      "championId": "firion",
+      "displayName": "Firion",
+      "genericFirstEncounter": {
+        "line": "For the wild rose!",
+        "voiceClipKey": "vo_firion_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "emperor",
+          "line": "Your empire falls to me.",
+          "voiceClipKey": "vo_firion_vs_emperor"
+        },
+        {
+          "enemyChampionId": "garland",
+          "line": "I fight for those you'd crush.",
+          "voiceClipKey": "vo_firion_vs_garland"
+        }
+      ]
+    },
+    {
+      "championId": "emperor",
+      "displayName": "The Emperor",
+      "genericFirstEncounter": {
+        "line": "Kneel before your sovereign.",
+        "voiceClipKey": "vo_emperor_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "firion",
+          "line": "A rebel, and nothing more.",
+          "voiceClipKey": "vo_emperor_vs_firion"
+        },
+        {
+          "enemyChampionId": "onion_knight",
+          "line": "A child dares oppose me?",
+          "voiceClipKey": "vo_emperor_vs_onion"
+        }
+      ]
+    },
+    {
+      "championId": "onion_knight",
+      "displayName": "Onion Knight",
+      "genericFirstEncounter": {
+        "line": "Don't underestimate me!",
+        "voiceClipKey": "vo_onion_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "emperor",
+          "line": "I'll prove myself against a tyrant.",
+          "voiceClipKey": "vo_onion_vs_emperor"
+        },
+        {
+          "enemyChampionId": "cloud_of_darkness",
+          "line": "Even the void can be outwitted.",
+          "voiceClipKey": "vo_onion_vs_cod"
+        }
+      ]
+    },
+    {
+      "championId": "cloud_of_darkness",
+      "displayName": "Cloud of Darkness",
+      "genericFirstEncounter": {
+        "line": "All will return to nothing.",
+        "voiceClipKey": "vo_cod_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "wol",
+          "line": "Order is only a delay.",
+          "voiceClipKey": "vo_cod_vs_wol"
+        },
+        {
+          "enemyChampionId": "onion_knight",
+          "line": "Such a small light.",
+          "voiceClipKey": "vo_cod_vs_onion"
+        }
+      ]
+    },
+    {
+      "championId": "cecil",
+      "displayName": "Cecil Harvey",
+      "genericFirstEncounter": {
+        "line": "I fight for what is right.",
+        "voiceClipKey": "vo_cecil_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "kain",
+          "line": "Must we cross blades, my friend?",
+          "voiceClipKey": "vo_cecil_vs_kain"
+        },
+        {
+          "enemyChampionId": "exdeath",
+          "line": "The void will not claim this world.",
+          "voiceClipKey": "vo_cecil_vs_exdeath"
+        }
+      ]
+    },
+    {
+      "championId": "kain",
+      "displayName": "Kain Highwind",
+      "genericFirstEncounter": {
+        "line": "From above, I strike.",
+        "voiceClipKey": "vo_kain_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "cecil",
+          "line": "Our rivalry ends here, old friend.",
+          "voiceClipKey": "vo_kain_vs_cecil"
+        },
+        {
+          "enemyChampionId": "bartz",
+          "line": "Let's see your borrowed skills.",
+          "voiceClipKey": "vo_kain_vs_bartz"
+        }
+      ]
+    },
+    {
+      "championId": "bartz",
+      "displayName": "Bartz Klauser",
+      "genericFirstEncounter": {
+        "line": "Let's give this a shot!",
+        "voiceClipKey": "vo_bartz_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "kain",
+          "line": "A dragoon's leap? I can match that.",
+          "voiceClipKey": "vo_bartz_vs_kain"
+        },
+        {
+          "enemyChampionId": "exdeath",
+          "line": "Time to seal you away for good.",
+          "voiceClipKey": "vo_bartz_vs_exdeath"
+        }
+      ]
+    },
+    {
+      "championId": "exdeath",
+      "displayName": "Exdeath",
+      "genericFirstEncounter": {
+        "line": "All shall return to the void.",
+        "voiceClipKey": "vo_exdeath_generic"
+      },
+      "matchups": [
+        {
+          "enemyChampionId": "bartz",
+          "line": "You cannot stop the Void, wanderer.",
+          "voiceClipKey": "vo_exdeath_vs_bartz"
+        },
+        {
+          "enemyChampionId": "cecil",
+          "line": "Your light will gutter out.",
+          "voiceClipKey": "vo_exdeath_vs_cecil"
+        }
+      ]
+    }
+  ]
+}

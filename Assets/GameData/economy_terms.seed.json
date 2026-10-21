@@ -1,0 +1,18 @@
+{
+  "_comment": "Localization keys for the finalized economy terminology. FF placeholder terms (Kupo/Gil/Moogle) are swappable per-locale.",
+  "keys": {
+    "surface.store": "Store",
+    "surface.shop": "Shop",
+    "currency.kp": "KP",
+    "currency.kp.full": "Kupo",
+    "currency.gil": "Gil",
+    "merchant.moogle": "Moogle",
+    "store.buy.champion": "Unlock Champion",
+    "store.buy.border": "Profile Border",
+    "store.buy.icon": "Profile Icon",
+    "store.earn.kp": "Earn KP by leveling up your profile",
+    "shop.buy": "Buy",
+    "shop.sell": "Sell",
+    "shop.undo": "Undo"
+  }
+}

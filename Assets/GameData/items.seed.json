@@ -1,0 +1,2899 @@
+{
+  "items": [
+    {
+      "itemId": "start_bronze_shield",
+      "displayName": "Bronze Shield",
+      "flavor": "A recruit's shield.",
+      "category": "Starter",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 450,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 100
+        },
+        {
+          "stat": "Armor",
+          "value": 8
+        }
+      ],
+      "passiveName": "Guardian's Duty",
+      "passiveDescription": "Nearby dying enemy minions grant bonus gold.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "start_broadsword",
+      "displayName": "Broadsword",
+      "flavor": "Standard steel.",
+      "category": "Starter",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 450,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 12
+        },
+        {
+          "stat": "HealthRegen",
+          "value": 100
+        }
+      ],
+      "passiveName": "Warmonger",
+      "passiveDescription": "Damaging a champion grants gold periodically.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "start_mythril_dagger",
+      "displayName": "Mythril Dagger",
+      "flavor": "Light and unkind.",
+      "category": "Starter",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 450,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 10
+        },
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 15
+        }
+      ],
+      "passiveName": "Cutpurse",
+      "passiveDescription": "Stealth takedowns grant bonus gold.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "start_bronze_bow",
+      "displayName": "Bronze Bow",
+      "flavor": "A hunter's first bow.",
+      "category": "Starter",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 450,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 10
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 10
+        }
+      ],
+      "passiveName": "Bounty Hunter",
+      "passiveDescription": "Every third attack on a champion grants gold.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "start_mythril_rod",
+      "displayName": "Mythril Rod",
+      "flavor": "Focuses aether.",
+      "category": "Starter",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 450,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 18
+        },
+        {
+          "stat": "ManaRegen",
+          "value": 25
+        }
+      ],
+      "passiveName": "Arcane Tithe",
+      "passiveDescription": "Ability hits on champions grant gold periodically.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "start_healing_staff",
+      "displayName": "Healing Staff",
+      "flavor": "Carried by field clerics.",
+      "category": "Starter",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 450,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 8
+        },
+        {
+          "stat": "GoldPer10",
+          "value": 3
+        }
+      ],
+      "passiveName": "Benefactor",
+      "passiveDescription": "Gain gold over time; share with allies you heal.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_potion",
+      "displayName": "Potion",
+      "flavor": "The adventurer's staple.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 50,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Drink",
+      "activeDescription": "Restore health over a few seconds.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 5,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_hi_potion",
+      "displayName": "Hi-Potion",
+      "flavor": "Twice the vigor.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 120,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Drink",
+      "activeDescription": "Restore a large amount of health.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 5,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_ether",
+      "displayName": "Ether",
+      "flavor": "Distilled aether.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 90,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Drink",
+      "activeDescription": "Restore ability resource.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 5,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_phoenix_down",
+      "displayName": "Phoenix Down",
+      "flavor": "A feather, warm to the touch.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 180,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "Ember of Rebirth",
+      "passiveDescription": "On death, consume one for a small revive-assist.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 2,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_antidote",
+      "displayName": "Antidote",
+      "flavor": "Bitter but effective.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 60,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Cleanse",
+      "activeDescription": "Remove poison; reduce next slow.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 5,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_remedy",
+      "displayName": "Remedy",
+      "flavor": "A physician's cure-all.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 110,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Purify",
+      "activeDescription": "Cleanse most debuffs.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 3,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_echo_herbs",
+      "displayName": "Echo Herbs",
+      "flavor": "Loosens a sealed tongue.",
+      "category": "Consumable",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 60,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Clear Voice",
+      "activeDescription": "Remove silence; brief resist.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 3,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_tent",
+      "displayName": "Tent",
+      "flavor": "Rest is a weapon.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 140,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Pitch Camp",
+      "activeDescription": "Channel to restore health and resource.",
+      "activeCooldown": 0,
+      "isConsumable": true,
+      "maxStack": 2,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "con_elixir",
+      "displayName": "Elixir",
+      "flavor": "Legends are saved by these.",
+      "category": "Consumable",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 350,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Elixir",
+      "activeDescription": "Fully restore health and resource.",
+      "activeCooldown": 120,
+      "isConsumable": true,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "trk_gysahl_greens",
+      "displayName": "Gysahl Greens",
+      "flavor": "A tasty bribe.",
+      "category": "Trinket",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 0,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Chocobo Scout",
+      "activeDescription": "Place a stealthed vision totem.",
+      "activeCooldown": 90,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "trk_ahriman_eye",
+      "displayName": "Ahriman Eye",
+      "flavor": "It sees the hidden.",
+      "category": "Trinket",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 0,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Evil Eye",
+      "activeDescription": "Reveal and disable enemy vision.",
+      "activeCooldown": 75,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "trk_fat_chocobo_bell",
+      "displayName": "Fat Chocobo Bell",
+      "flavor": "Ring for a very large bird.",
+      "category": "Trinket",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 250,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "Summon Roost",
+      "activeDescription": "Place a longer-lasting totem.",
+      "activeCooldown": 240,
+      "isConsumable": false,
+      "maxStack": 3,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_leather",
+      "displayName": "Leather Boots",
+      "flavor": "Broken in on a thousand roads.",
+      "category": "Boots",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 300,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "boot_hermes",
+        "boot_winged",
+        "boot_sprint",
+        "boot_sorcerer",
+        "boot_assassin",
+        "boot_golden"
+      ],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 25
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_hermes",
+      "displayName": "Hermes Sandals",
+      "flavor": "The messenger god's tread.",
+      "category": "Boots",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Support",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 900,
+      "combineCost": 600,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "boot_leather"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 45
+        },
+        {
+          "stat": "TenacityPct",
+          "value": 15
+        }
+      ],
+      "passiveName": "Fleet",
+      "passiveDescription": "Reduced slow duration.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_winged",
+      "displayName": "Winged Boots",
+      "flavor": "Feathered at the heel.",
+      "category": "Boots",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 900,
+      "combineCost": 600,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "boot_leather"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 45
+        }
+      ],
+      "passiveName": "Tailwind",
+      "passiveDescription": "Bonus out-of-combat speed.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_sprint",
+      "displayName": "Sprint Shoes",
+      "flavor": "Never stop moving.",
+      "category": "Boots",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Fighter",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 900,
+      "combineCost": 600,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "boot_leather"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 45
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 15
+        }
+      ],
+      "passiveName": "Quickstep",
+      "passiveDescription": "Brief attack speed on hitting a champion.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_sorcerer",
+      "displayName": "Sorcerer's Slippers",
+      "flavor": "Woven with piercing runes.",
+      "category": "Boots",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 950,
+      "combineCost": 650,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "boot_leather"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 45
+        },
+        {
+          "stat": "MagicPenFlat",
+          "value": 10
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_assassin",
+      "displayName": "Assassin's Sandals",
+      "flavor": "Silent on any stone.",
+      "category": "Boots",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 950,
+      "combineCost": 650,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "boot_leather"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 45
+        },
+        {
+          "stat": "Lethality",
+          "value": 8
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "boot_golden",
+      "displayName": "Golden Boots",
+      "flavor": "Fortune favors the swift.",
+      "category": "Boots",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "BootsOnly",
+      "totalCost": 900,
+      "combineCost": 600,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "boot_leather"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 40
+        },
+        {
+          "stat": "GoldPer10",
+          "value": 4
+        }
+      ],
+      "passiveName": "Prosperity",
+      "passiveDescription": "Generate gold over time.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_power_wrist",
+      "displayName": "Power Wrist",
+      "flavor": "A brawler's bracer.",
+      "category": "Basic",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_genji_gauntlet",
+        "epi_hero_ring",
+        "leg_ultima_weapon"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 18
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_mythril_sword",
+      "displayName": "Mythril Sword",
+      "flavor": "Keen and light.",
+      "category": "Basic",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 800,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_thiefs_gloves",
+        "epi_sniper_eye",
+        "leg_zwill_crossblade",
+        "leg_sagittarius"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 22
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_coeurl_whisker",
+      "displayName": "Coeurl Whisker",
+      "flavor": "Twitch-fast.",
+      "category": "Basic",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_genji_gauntlet",
+        "leg_artemis_bow"
+      ],
+      "stats": [
+        {
+          "stat": "AttackSpeedPct",
+          "value": 22
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_gamblers_die",
+      "displayName": "Gambler's Die",
+      "flavor": "Setzer approves.",
+      "category": "Basic",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 800,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_sniper_eye",
+        "leg_genji_glove"
+      ],
+      "stats": [
+        {
+          "stat": "CritChancePct",
+          "value": 15
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_ravagers_fang",
+      "displayName": "Ravager's Fang",
+      "flavor": "It hungers.",
+      "category": "Basic",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 800,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_hero_ring"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 10
+        },
+        {
+          "stat": "OmnivampPct",
+          "value": 7
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_sneak_ring",
+      "displayName": "Sneak Ring",
+      "flavor": "A thief's edge.",
+      "category": "Basic",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_thiefs_gloves",
+        "leg_muramasa",
+        "leg_orichalcum",
+        "leg_death_penalty"
+      ],
+      "stats": [
+        {
+          "stat": "Lethality",
+          "value": 10
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_mythril_rod2",
+      "displayName": "Mythril Rod",
+      "flavor": "Amplifies the arcane.",
+      "category": "Basic",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 25
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_wizard_hat",
+      "displayName": "Wizard's Hat",
+      "flavor": "Pointed for a reason.",
+      "category": "Basic",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 850,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_wizards_robe"
+      ],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 35
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_gold_hairpin",
+      "displayName": "Gold Hairpin",
+      "flavor": "Halves a spell's effort.",
+      "category": "Basic",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_wizards_robe",
+        "epi_sages_surplice",
+        "leg_nirvana"
+      ],
+      "stats": [
+        {
+          "stat": "AbilityHaste",
+          "value": 15
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_sorcerer_glasses",
+      "displayName": "Sorcerer's Glasses",
+      "flavor": "See through the weave.",
+      "category": "Basic",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 750,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "leg_mace_of_zeus",
+        "leg_staff_of_magi"
+      ],
+      "stats": [
+        {
+          "stat": "MagicPenFlat",
+          "value": 12
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_ether_pendant",
+      "displayName": "Ether Pendant",
+      "flavor": "A spring of aether.",
+      "category": "Basic",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 600,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "leg_lilith_rod",
+        "leg_sages_staff"
+      ],
+      "stats": [
+        {
+          "stat": "Mana",
+          "value": 250
+        },
+        {
+          "stat": "ManaRegen",
+          "value": 25
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_bronze_bangle",
+      "displayName": "Bronze Bangle",
+      "flavor": "Simple, sturdy.",
+      "category": "Basic",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 600,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_champion_belt",
+        "epi_black_belt",
+        "epi_crystal_mail",
+        "epi_reflect_ring",
+        "leg_aegis",
+        "leg_safety_bit"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 200
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_iron_armor",
+      "displayName": "Iron Armor",
+      "flavor": "Turns aside the blade.",
+      "category": "Basic",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_crystal_mail",
+        "leg_ragnarok"
+      ],
+      "stats": [
+        {
+          "stat": "Armor",
+          "value": 25
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_gaia_gear",
+      "displayName": "Gaia Gear",
+      "flavor": "Earth-warded weave.",
+      "category": "Basic",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_reflect_ring",
+        "leg_ribbon"
+      ],
+      "stats": [
+        {
+          "stat": "MagicResist",
+          "value": 25
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_power_sash",
+      "displayName": "Power Sash",
+      "flavor": "Strength you wear.",
+      "category": "Basic",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 900,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_champion_belt",
+        "leg_adamant_vest",
+        "leg_excalibur"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 150
+        },
+        {
+          "stat": "AttackDamage",
+          "value": 10
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_white_cape",
+      "displayName": "White Cape",
+      "flavor": "Blessed thread.",
+      "category": "Basic",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 600,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_sages_surplice",
+        "leg_save_the_queen",
+        "leg_angel_ring",
+        "leg_clerics_robe"
+      ],
+      "stats": [
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 10
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_muscle_belt",
+      "displayName": "Muscle Belt",
+      "flavor": "Shrug it off.",
+      "category": "Basic",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 800,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "epi_black_belt",
+        "leg_ribbon"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 150
+        },
+        {
+          "stat": "TenacityPct",
+          "value": 8
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "bas_vampire_fang",
+      "displayName": "Vampire Fang",
+      "flavor": "Drink deep.",
+      "category": "Basic",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 700,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [
+        "leg_yoichi_bow"
+      ],
+      "stats": [
+        {
+          "stat": "LifestealPct",
+          "value": 8
+        }
+      ],
+      "passiveName": "",
+      "passiveDescription": "",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_champion_belt",
+      "displayName": "Champion Belt",
+      "flavor": "Worn by the last standing.",
+      "category": "Epic",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Vanguard",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1600,
+      "combineCost": 100,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_power_sash",
+        "bas_bronze_bangle"
+      ],
+      "buildsIntoIds": [
+        "leg_ultima_weapon"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 250
+        },
+        {
+          "stat": "AttackDamage",
+          "value": 20
+        }
+      ],
+      "passiveName": "Second Wind",
+      "passiveDescription": "Below half HP, bonus regen.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_black_belt",
+      "displayName": "Black Belt",
+      "flavor": "Discipline as armor.",
+      "category": "Epic",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Vanguard",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1500,
+      "combineCost": 100,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_muscle_belt",
+        "bas_bronze_bangle"
+      ],
+      "buildsIntoIds": [
+        "leg_adamant_vest"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 300
+        },
+        {
+          "stat": "TenacityPct",
+          "value": 15
+        }
+      ],
+      "passiveName": "Iron Will",
+      "passiveDescription": "Reduced damage briefly after hard CC.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_genji_gauntlet",
+      "displayName": "Genji Gauntlet",
+      "flavor": "Of the Genji set.",
+      "category": "Epic",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Fighter",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1700,
+      "combineCost": 300,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_power_wrist",
+        "bas_coeurl_whisker"
+      ],
+      "buildsIntoIds": [
+        "leg_yoichi_bow",
+        "leg_genji_glove"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 15
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 25
+        }
+      ],
+      "passiveName": "Bushido",
+      "passiveDescription": "On-hit bonus physical damage.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_thiefs_gloves",
+      "displayName": "Thief's Gloves",
+      "flavor": "Quicker than the eye.",
+      "category": "Epic",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1600,
+      "combineCost": 100,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_mythril_sword",
+        "bas_sneak_ring"
+      ],
+      "buildsIntoIds": [
+        "leg_muramasa",
+        "leg_zwill_crossblade"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 25
+        },
+        {
+          "stat": "Lethality",
+          "value": 10
+        }
+      ],
+      "passiveName": "Sleight",
+      "passiveDescription": "Speed toward low-HP enemies.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_sniper_eye",
+      "displayName": "Sniper's Eye",
+      "flavor": "One shot.",
+      "category": "Epic",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1800,
+      "combineCost": 200,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_mythril_sword",
+        "bas_gamblers_die"
+      ],
+      "buildsIntoIds": [
+        "leg_orichalcum",
+        "leg_artemis_bow",
+        "leg_sagittarius",
+        "leg_death_penalty"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 20
+        },
+        {
+          "stat": "CritChancePct",
+          "value": 20
+        }
+      ],
+      "passiveName": "Deadeye",
+      "passiveDescription": "Bonus attack range.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_wizards_robe",
+      "displayName": "Wizard's Robe",
+      "flavor": "Sewn with sigils.",
+      "category": "Epic",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1700,
+      "combineCost": 150,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_wizard_hat",
+        "bas_gold_hairpin"
+      ],
+      "buildsIntoIds": [
+        "leg_nirvana",
+        "leg_mace_of_zeus",
+        "leg_lilith_rod",
+        "leg_staff_of_magi"
+      ],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 55
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 15
+        }
+      ],
+      "passiveName": "Overflow",
+      "passiveDescription": "Mana bursts into magic damage.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_sages_surplice",
+      "displayName": "Sage's Surplice",
+      "flavor": "Healing vestments.",
+      "category": "Epic",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1600,
+      "combineCost": 300,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_gold_hairpin",
+        "bas_white_cape"
+      ],
+      "buildsIntoIds": [
+        "leg_angel_ring",
+        "leg_sages_staff"
+      ],
+      "stats": [
+        {
+          "stat": "AbilityHaste",
+          "value": 20
+        },
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 15
+        },
+        {
+          "stat": "Mana",
+          "value": 200
+        }
+      ],
+      "passiveName": "Grace",
+      "passiveDescription": "Heals grant a sliver of speed.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_crystal_mail",
+      "displayName": "Crystal Mail",
+      "flavor": "Faceted to scatter blows.",
+      "category": "Epic",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1700,
+      "combineCost": 400,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_bronze_bangle",
+        "bas_iron_armor"
+      ],
+      "buildsIntoIds": [
+        "leg_aegis"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 300
+        },
+        {
+          "stat": "Armor",
+          "value": 30
+        }
+      ],
+      "passiveName": "Facet",
+      "passiveDescription": "Reflect blocked physical damage.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_reflect_ring",
+      "displayName": "Reflect Ring",
+      "flavor": "Turns magic on its caster.",
+      "category": "Epic",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Mage",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1600,
+      "combineCost": 300,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_bronze_bangle",
+        "bas_gaia_gear"
+      ],
+      "buildsIntoIds": [
+        "leg_save_the_queen",
+        "leg_clerics_robe",
+        "leg_safety_bit"
+      ],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 250
+        },
+        {
+          "stat": "MagicResist",
+          "value": 35
+        }
+      ],
+      "passiveName": "Reflect",
+      "passiveDescription": "Periodic spell shield.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "epi_hero_ring",
+      "displayName": "Hero Ring",
+      "flavor": "Courage distilled.",
+      "category": "Epic",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Assassin",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 1800,
+      "combineCost": 300,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_power_wrist",
+        "bas_ravagers_fang"
+      ],
+      "buildsIntoIds": [
+        "leg_excalibur",
+        "leg_ragnarok"
+      ],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 30
+        },
+        {
+          "stat": "OmnivampPct",
+          "value": 8
+        }
+      ],
+      "passiveName": "Valor",
+      "passiveDescription": "More omnivamp while low.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_aegis",
+      "displayName": "Aegis",
+      "flavor": "The shield that guards the line.",
+      "category": "Legendary",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_crystal_mail",
+        "bas_bronze_bangle"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 500
+        },
+        {
+          "stat": "Armor",
+          "value": 50
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 15
+        }
+      ],
+      "passiveName": "Bulwark Aura",
+      "passiveDescription": "Nearby allies gain armor and MR.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_adamant_vest",
+      "displayName": "Adamant Vest",
+      "flavor": "Hewn from an adamantoise shell.",
+      "category": "Legendary",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_black_belt",
+        "bas_power_sash"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 800
+        },
+        {
+          "stat": "TenacityPct",
+          "value": 20
+        }
+      ],
+      "passiveName": "Adamantine",
+      "passiveDescription": "Max HP grows; less damage while shielded.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_save_the_queen",
+      "displayName": "Save the Queen",
+      "flavor": "A paladin's oath in steel.",
+      "category": "Legendary",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 1000,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_reflect_ring",
+        "bas_white_cape"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 400
+        },
+        {
+          "stat": "Armor",
+          "value": 30
+        },
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 20
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 15
+        }
+      ],
+      "passiveName": "Cover",
+      "passiveDescription": "Casting shields the lowest-HP ally.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_excalibur",
+      "displayName": "Excalibur",
+      "flavor": "The blade of legends.",
+      "category": "Legendary",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 600,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_hero_ring",
+        "bas_power_sash"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 55
+        },
+        {
+          "stat": "Health",
+          "value": 300
+        },
+        {
+          "stat": "OmnivampPct",
+          "value": 10
+        }
+      ],
+      "passiveName": "Holy Edge",
+      "passiveDescription": "Attacks deal true damage and heal.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_ragnarok",
+      "displayName": "Ragnarok",
+      "flavor": "Named for the end of all things.",
+      "category": "Legendary",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 800,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_hero_ring",
+        "bas_iron_armor"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 60
+        },
+        {
+          "stat": "Armor",
+          "value": 25
+        },
+        {
+          "stat": "Lethality",
+          "value": 8
+        }
+      ],
+      "passiveName": "World-Ender",
+      "passiveDescription": "Armor pen; abilities bleed.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_ultima_weapon",
+      "displayName": "Ultima Weapon",
+      "flavor": "Brighter the fuller your strength.",
+      "category": "Legendary",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3400,
+      "combineCost": 1100,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_champion_belt",
+        "bas_power_wrist"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 45
+        },
+        {
+          "stat": "Health",
+          "value": 400
+        }
+      ],
+      "passiveName": "Ultima",
+      "passiveDescription": "AD scales with current health.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_muramasa",
+      "displayName": "Muramasa",
+      "flavor": "The cursed blade that thirsts.",
+      "category": "Legendary",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_thiefs_gloves",
+        "bas_sneak_ring"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 55
+        },
+        {
+          "stat": "Lethality",
+          "value": 18
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 15
+        }
+      ],
+      "passiveName": "Bloodthirst",
+      "passiveDescription": "Takedowns refund cooldowns.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_orichalcum",
+      "displayName": "Orichalcum",
+      "flavor": "A metal older than kingdoms.",
+      "category": "Legendary",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 800,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_sniper_eye",
+        "bas_sneak_ring"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 45
+        },
+        {
+          "stat": "CritChancePct",
+          "value": 20
+        },
+        {
+          "stat": "Lethality",
+          "value": 12
+        }
+      ],
+      "passiveName": "Executioner",
+      "passiveDescription": "Crits on low-HP deal bonus.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_zwill_crossblade",
+      "displayName": "Zwill Crossblade",
+      "flavor": "Two edges, one heartbeat.",
+      "category": "Legendary",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 800,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_thiefs_gloves",
+        "bas_mythril_sword"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 50
+        },
+        {
+          "stat": "MoveSpeedPct",
+          "value": 5
+        },
+        {
+          "stat": "Lethality",
+          "value": 10
+        }
+      ],
+      "passiveName": "Twin Fang",
+      "passiveDescription": "Dashing empowers your next attack.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_artemis_bow",
+      "displayName": "Artemis Bow",
+      "flavor": "Never misses twice.",
+      "category": "Legendary",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3400,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_sniper_eye",
+        "bas_coeurl_whisker"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 55
+        },
+        {
+          "stat": "CritChancePct",
+          "value": 25
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 20
+        }
+      ],
+      "passiveName": "Hunter's Mark",
+      "passiveDescription": "Crits shred armor briefly.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_yoichi_bow",
+      "displayName": "Yoichi Bow",
+      "flavor": "Its arrows split the sky.",
+      "category": "Legendary",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_genji_gauntlet",
+        "bas_vampire_fang"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 40
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 35
+        },
+        {
+          "stat": "LifestealPct",
+          "value": 10
+        }
+      ],
+      "passiveName": "Piercing Volley",
+      "passiveDescription": "On-hit true damage ramps.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_sagittarius",
+      "displayName": "Sagittarius",
+      "flavor": "A constellation strung as a bow.",
+      "category": "Legendary",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 700,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_sniper_eye",
+        "bas_mythril_sword"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 50
+        },
+        {
+          "stat": "CritChancePct",
+          "value": 20
+        },
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 30
+        }
+      ],
+      "passiveName": "Long Shot",
+      "passiveDescription": "Range and bonus to far enemies.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_death_penalty",
+      "displayName": "Death Penalty",
+      "flavor": "Every life adds to the count.",
+      "category": "Legendary",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 800,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_sniper_eye",
+        "bas_sneak_ring"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 45
+        },
+        {
+          "stat": "Lethality",
+          "value": 15
+        }
+      ],
+      "passiveName": "Toll",
+      "passiveDescription": "Permanent AD per takedown (capped).",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_nirvana",
+      "displayName": "Nirvana",
+      "flavor": "Stillness at the storm's heart.",
+      "category": "Legendary",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_wizards_robe",
+        "bas_gold_hairpin"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 100
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 25
+        }
+      ],
+      "passiveName": "Serenity",
+      "passiveDescription": "Ability haste burst after ult.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_mace_of_zeus",
+      "displayName": "Mace of Zeus",
+      "flavor": "Thunder answers its swing.",
+      "category": "Legendary",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3400,
+      "combineCost": 950,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_wizards_robe",
+        "bas_sorcerer_glasses"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 90
+        },
+        {
+          "stat": "MagicPenFlat",
+          "value": 18
+        }
+      ],
+      "passiveName": "Judgment",
+      "passiveDescription": "Abilities call a delayed bolt.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_lilith_rod",
+      "displayName": "Lilith Rod",
+      "flavor": "Gives back only to its wielder.",
+      "category": "Legendary",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3300,
+      "combineCost": 1000,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_wizards_robe",
+        "bas_ether_pendant"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 85
+        },
+        {
+          "stat": "OmnivampPct",
+          "value": 12
+        },
+        {
+          "stat": "Mana",
+          "value": 300
+        }
+      ],
+      "passiveName": "Drain",
+      "passiveDescription": "Ability damage heals you.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_staff_of_magi",
+      "displayName": "Staff of Magi",
+      "flavor": "Of the archmages of old.",
+      "category": "Legendary",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 750,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_wizards_robe",
+        "bas_sorcerer_glasses"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 80
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 20
+        },
+        {
+          "stat": "MagicPenPct",
+          "value": 12
+        }
+      ],
+      "passiveName": "Arcane Mastery",
+      "passiveDescription": "Magic pen scales with AP.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_angel_ring",
+      "displayName": "Angel Ring",
+      "flavor": "A feather's mercy.",
+      "category": "Legendary",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3000,
+      "combineCost": 800,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_sages_surplice",
+        "bas_white_cape"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 30
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 20
+        },
+        {
+          "stat": "Health",
+          "value": 200
+        }
+      ],
+      "passiveName": "Guardian Angel",
+      "passiveDescription": "Shield an ally from fatal damage.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_sages_staff",
+      "displayName": "Sage's Staff",
+      "flavor": "Wisdom shared is strength doubled.",
+      "category": "Legendary",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3100,
+      "combineCost": 900,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_sages_surplice",
+        "bas_ether_pendant"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityHaste",
+          "value": 30
+        },
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 20
+        },
+        {
+          "stat": "Mana",
+          "value": 300
+        }
+      ],
+      "passiveName": "Benediction Aura",
+      "passiveDescription": "Nearby allies gain haste.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_clerics_robe",
+      "displayName": "Cleric's Robe",
+      "flavor": "Peace woven into cloth.",
+      "category": "Legendary",
+      "primaryRole": "Support",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3000,
+      "combineCost": 800,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_reflect_ring",
+        "bas_white_cape"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 300
+        },
+        {
+          "stat": "MagicResist",
+          "value": 30
+        },
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 20
+        }
+      ],
+      "passiveName": "Sanctuary",
+      "passiveDescription": "Standing still grants ally regen.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_ribbon",
+      "displayName": "Ribbon",
+      "flavor": "The rarest ribbon wards every ill.",
+      "category": "Legendary",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 2800,
+      "combineCost": 1300,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "bas_gaia_gear",
+        "bas_muscle_belt"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "TenacityPct",
+          "value": 30
+        },
+        {
+          "stat": "MagicResist",
+          "value": 20
+        },
+        {
+          "stat": "Armor",
+          "value": 20
+        }
+      ],
+      "passiveName": "Immunity",
+      "passiveDescription": "Greatly reduces CC duration.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_safety_bit",
+      "displayName": "Safety Bit",
+      "flavor": "Death, politely declined.",
+      "category": "Legendary",
+      "primaryRole": "Universal",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 2900,
+      "combineCost": 700,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_reflect_ring",
+        "bas_bronze_bangle"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 350
+        },
+        {
+          "stat": "Armor",
+          "value": 25
+        },
+        {
+          "stat": "MagicResist",
+          "value": 25
+        }
+      ],
+      "passiveName": "Reraise",
+      "passiveDescription": "Survive a lethal blow once per cooldown.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "leg_genji_glove",
+      "displayName": "Genji Glove",
+      "flavor": "Completes the Genji set.",
+      "category": "Legendary",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 700,
+      "sellRefund": 0.6,
+      "componentIds": [
+        "epi_genji_gauntlet",
+        "bas_gamblers_die"
+      ],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 40
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 25
+        },
+        {
+          "stat": "CritChancePct",
+          "value": 15
+        }
+      ],
+      "passiveName": "Dual Wield",
+      "passiveDescription": "Next attack strikes twice periodically.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": ""
+    },
+    {
+      "itemId": "exc_crystal_shield",
+      "displayName": "Crystal Shield",
+      "flavor": "A shard of the first crystal.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3000,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 400
+        },
+        {
+          "stat": "Armor",
+          "value": 40
+        },
+        {
+          "stat": "HealShieldPowerPct",
+          "value": 15
+        }
+      ],
+      "passiveName": "Radiant Guard",
+      "passiveDescription": "Shield of Light also reflects light damage.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "wol"
+    },
+    {
+      "itemId": "exc_chaos_blade",
+      "displayName": "Chaos Blade",
+      "flavor": "Forged in a loop that never ends.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 45
+        },
+        {
+          "stat": "Health",
+          "value": 300
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 15
+        }
+      ],
+      "passiveName": "Endless Strife",
+      "passiveDescription": "Cycle of Strife stacks higher, decays slower.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "garland"
+    },
+    {
+      "itemId": "exc_blood_sword",
+      "displayName": "Blood Sword",
+      "flavor": "It drinks as it cuts.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Marksman",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 45
+        },
+        {
+          "stat": "LifestealPct",
+          "value": 12
+        },
+        {
+          "stat": "OmnivampPct",
+          "value": 6
+        }
+      ],
+      "passiveName": "Sanguine Rose",
+      "passiveDescription": "Blood Blade heals more and grants attack speed.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "firion"
+    },
+    {
+      "itemId": "exc_imperial_sigil",
+      "displayName": "Imperial Sigil",
+      "flavor": "The seal of a would-be god-emperor.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 80
+        },
+        {
+          "stat": "AbilityHaste",
+          "value": 20
+        }
+      ],
+      "passiveName": "Dominion",
+      "passiveDescription": "Exposed enemies take more damage from all sources.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "emperor"
+    },
+    {
+      "itemId": "exc_onion_armor",
+      "displayName": "Onion Armor",
+      "flavor": "Humble in name, legendary in truth.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3100,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 30
+        },
+        {
+          "stat": "AbilityPower",
+          "value": 40
+        },
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 25
+        }
+      ],
+      "passiveName": "Job Mastery+",
+      "passiveDescription": "Job Shift cools faster and empowers the next ability.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "onion_knight"
+    },
+    {
+      "itemId": "exc_void_core",
+      "displayName": "Void Core",
+      "flavor": "A shard of the Void.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Mage",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AbilityPower",
+          "value": 90
+        },
+        {
+          "stat": "MagicPenFlat",
+          "value": 12
+        }
+      ],
+      "passiveName": "Particle Overflow",
+      "passiveDescription": "Max-Void enemies take bonus Zero Ray damage.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "cloud_of_darkness"
+    },
+    {
+      "itemId": "exc_deathbringer",
+      "displayName": "Deathbringer",
+      "flavor": "Left behind on Mount Ordeals.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 30
+        },
+        {
+          "stat": "Health",
+          "value": 350
+        },
+        {
+          "stat": "OmnivampPct",
+          "value": 8
+        }
+      ],
+      "passiveName": "Dark & Light",
+      "passiveDescription": "Dark costs less HP; Paladin shields more.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "cecil"
+    },
+    {
+      "itemId": "exc_abels_lance",
+      "displayName": "Abel's Lance",
+      "flavor": "Honed for the skies.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Assassin",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 45
+        },
+        {
+          "stat": "Lethality",
+          "value": 12
+        },
+        {
+          "stat": "MoveSpeedFlat",
+          "value": 25
+        }
+      ],
+      "passiveName": "Dragoon's Descent",
+      "passiveDescription": "High Jump radius grows; bonus to the primary target.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "kain"
+    },
+    {
+      "itemId": "exc_chicken_knife",
+      "displayName": "Chicken Knife",
+      "flavor": "The faster you run, the sharper it gets.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Fighter",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3100,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "AttackDamage",
+          "value": 50
+        },
+        {
+          "stat": "AttackSpeedPct",
+          "value": 20
+        }
+      ],
+      "passiveName": "Brave Gamble",
+      "passiveDescription": "Escalating AD the longer you avoid fleeing.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "bartz"
+    },
+    {
+      "itemId": "exc_cursed_shield",
+      "displayName": "Cursed Shield",
+      "flavor": "Bear its curse and it redeems you.",
+      "category": "ChampionExclusive",
+      "primaryRole": "Vanguard",
+      "secondaryRole": "Universal",
+      "slotRestriction": "GeneralOnly",
+      "totalCost": 3200,
+      "combineCost": 0,
+      "sellRefund": 0.6,
+      "componentIds": [],
+      "buildsIntoIds": [],
+      "stats": [
+        {
+          "stat": "Health",
+          "value": 500
+        },
+        {
+          "stat": "MagicResist",
+          "value": 40
+        }
+      ],
+      "passiveName": "Curse to Paladin",
+      "passiveDescription": "Standing your ground purges the curse into a Paladin aura.",
+      "activeName": "",
+      "activeDescription": "",
+      "activeCooldown": 0,
+      "isConsumable": false,
+      "maxStack": 1,
+      "exclusiveToChampionId": "exdeath"
+    }
+  ]
+}
