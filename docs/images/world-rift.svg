@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" width="1280" height="380" role="img" aria-label="Ranked versus World Rift">
+  <rect width="1280" height="380" fill="#0f1526"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" text-anchor="middle">
+    <rect x="40" y="40" width="570" height="300" rx="18" fill="#16233f" stroke="#4d7bd6" stroke-width="3"/>
+    <text x="325" y="90" font-size="28" font-weight="700" fill="#eef3ff">Ranked / Normal</text>
+    <text x="325" y="125" font-size="18" fill="#9fc2ff">ONE canonical map: Crystalline Rift</text>
+    <polygon points="325,160 425,230 325,300 225,230" fill="#2f5db8" stroke="#e8f4ff" stroke-width="3"/>
+    <text x="325" y="236" font-size="18" fill="#fff">same map</text>
+    <text x="325" y="326" font-size="16" fill="#c9d6f2">awards Ranked LP · enforced in GameModeRegistry</text>
+    <rect x="670" y="40" width="570" height="300" rx="18" fill="#2a1f3b" stroke="#c07cf0" stroke-width="3"/>
+    <text x="955" y="90" font-size="28" font-weight="700" fill="#f5eaff">World Rift</text>
+    <text x="955" y="125" font-size="18" fill="#e0b8ff">rotating realm + modifier + world boss</text>
+    <g stroke="#f5eaff" stroke-width="3">
+      <polygon points="800,230 850,185 900,230 850,275" fill="#7a3fb0"/>
+      <polygon points="910,230 960,185 1010,230 960,275" fill="#a24fd0"/>
+      <polygon points="1020,230 1070,185 1120,230 1070,275" fill="#c07cf0"/>
+    </g>
+    <text x="955" y="326" font-size="16" fill="#e8d6fa">casual rating only · never awards Ranked LP · last hit claims the boss</text>
+  </g>
+</svg>

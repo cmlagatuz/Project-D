@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="1280" height="360" role="img" aria-label="Project D banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1020"/><stop offset="1" stop-color="#1b2a4a"/></linearGradient>
+    <linearGradient id="gem" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#3a6fd8"/></linearGradient>
+  </defs>
+  <rect width="1280" height="360" fill="url(#bg)"/>
+  <g opacity="0.25" stroke="#6fa8ff" stroke-width="1">
+    <path d="M0 300 L320 220 L640 280 L960 200 L1280 260" fill="none"/>
+    <path d="M0 330 L400 260 L760 320 L1100 240 L1280 290" fill="none"/>
+  </g>
+  <g transform="translate(180 180)">
+    <polygon points="0,-110 70,-20 0,110 -70,-20" fill="url(#gem)" stroke="#e8f4ff" stroke-width="3"/>
+    <polygon points="0,-110 70,-20 0,-10 -70,-20" fill="#ffffff" opacity="0.25"/>
+    <line x1="0" y1="-110" x2="0" y2="110" stroke="#e8f4ff" stroke-width="2" opacity="0.6"/>
+  </g>
+  <text x="330" y="165" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="92" font-weight="700" fill="#f2f6ff" letter-spacing="4">PROJECT D</text>
+  <text x="334" y="215" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="32" fill="#9fc2ff" letter-spacing="10">ZANTETSUKEN</text>
+  <text x="334" y="262" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#c9d6f2">Touch-first 5v5 mobile MOBA  ·  Unity 6  ·  server-authoritative</text>
+  <rect x="334" y="290" width="360" height="34" rx="17" fill="#ffffff" opacity="0.08"/>
+  <text x="352" y="313" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" fill="#ffd27a">CONFIDENTIAL · original placeholder art</text>
+</svg>

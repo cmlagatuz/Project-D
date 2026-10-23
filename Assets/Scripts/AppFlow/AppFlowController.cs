@@ -25,6 +25,9 @@ namespace ProjectD.P15.App
         public bool OpenModeSelect()=>Fsm.Transition(GameState.ModeSelect);
         public bool ChooseMode(FlowMode mode,string worldRealmId=null)
         {
+            // World Rift is the only mode with a non-canonical map, so it must name a realm;
+            // otherwise EffectiveMap is "" and GameModeRegistry.IsValidMap would reject the match.
+            if(mode==FlowMode.WorldRift&&string.IsNullOrEmpty(worldRealmId)) return false;
             Session.mode=mode; Session.worldRiftRealmId=worldRealmId;
             Session.isCompetitive=mode==FlowMode.RankedSolo||mode==FlowMode.RankedFlex;
             Session.mapId=Session.EffectiveMap; Session.matchSeed=DateTime.UtcNow.Ticks;

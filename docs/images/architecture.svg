@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="Code layout">
+  <rect width="1280" height="420" fill="#0f1526"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="40" font-size="24" font-weight="600" fill="#eef3ff">How the code is layered</text>
+    <rect x="60" y="70" width="1160" height="80" rx="14" fill="#1d2b4d" stroke="#6fa0ff" stroke-width="2"/>
+    <text x="640" y="104" font-size="22" font-weight="600" fill="#eef3ff">Editor builders (Assets/Scripts/Editor)</text>
+    <text x="640" y="132" font-size="16" fill="#9fc2ff">Tools ▸ Project D ▸ Build … menus generate each demo scene</text>
+    <rect x="60" y="170" width="1160" height="80" rx="14" fill="#233a66" stroke="#6fa0ff" stroke-width="2"/>
+    <text x="640" y="204" font-size="22" font-weight="600" fill="#eef3ff">Unity views (Assets/Scripts/UI and *UI folders)</text>
+    <text x="640" y="232" font-size="16" fill="#9fc2ff">MonoBehaviours that render server-owned models, uGUI</text>
+    <rect x="60" y="270" width="1160" height="90" rx="14" fill="#2c4a84" stroke="#9fc2ff" stroke-width="2"/>
+    <text x="640" y="306" font-size="22" font-weight="600" fill="#ffffff">Engine-agnostic cores (P0 – P15, World Rift, Store, Match History)</text>
+    <text x="640" y="334" font-size="16" fill="#d6e4ff">deterministic, server-authoritative, unit-tested in Assets/Tests/EditMode</text>
+    <text x="640" y="395" font-size="16" fill="#8fa4cf">Runtime asmdef: ProjectD.Runtime (references UnityEngine.UI) · Tests asmdef: ProjectD.Tests.EditMode</text>
+  </g>
+</svg>

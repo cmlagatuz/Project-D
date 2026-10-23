@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 300" width="1280" height="300" role="img" aria-label="Game flow">
+  <rect width="1280" height="300" fill="#0f1526"/>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8fb4ff"/></marker></defs>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" text-anchor="middle">
+    <g fill="#1d2b4d" stroke="#6fa0ff" stroke-width="2">
+      <rect x="20" y="95" width="130" height="80" rx="12"/><rect x="190" y="95" width="130" height="80" rx="12"/>
+      <rect x="360" y="95" width="130" height="80" rx="12"/><rect x="530" y="95" width="130" height="80" rx="12"/>
+      <rect x="700" y="95" width="130" height="80" rx="12"/><rect x="870" y="95" width="130" height="80" rx="12"/>
+      <rect x="1040" y="95" width="130" height="80" rx="12"/>
+    </g>
+    <g fill="#eef3ff" font-size="20" font-weight="600">
+      <text x="85" y="142">Main Menu</text><text x="255" y="142">Mode Select</text><text x="425" y="142">Queue</text>
+      <text x="595" y="142">Champ Select</text><text x="765" y="142">Loading</text><text x="935" y="142">In Match</text><text x="1105" y="142">Post-Game</text>
+    </g>
+    <g stroke="#8fb4ff" stroke-width="3" marker-end="url(#a)">
+      <line x1="152" y1="135" x2="186" y2="135"/><line x1="322" y1="135" x2="356" y2="135"/><line x1="492" y1="135" x2="526" y2="135"/>
+      <line x1="662" y1="135" x2="696" y2="135"/><line x1="832" y1="135" x2="866" y2="135"/><line x1="1002" y1="135" x2="1036" y2="135"/>
+    </g>
+    <path d="M1105 177 C1105 250 85 250 85 177" fill="none" stroke="#ffd27a" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#a)"/>
+    <text x="640" y="262" fill="#ffd27a" font-size="18">rewards applied, profile saved, back to menu</text>
+    <text x="640" y="45" fill="#c9d6f2" font-size="24" font-weight="600">Vertical slice driven by AppFlowController (P15)</text>
+    <text x="640" y="72" fill="#8fa4cf" font-size="16">Ranked / Normal always use one canonical map · World Rift picks a realm</text>
+  </g>
+</svg>
