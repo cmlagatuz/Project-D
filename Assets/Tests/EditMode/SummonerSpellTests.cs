@@ -79,8 +79,8 @@ namespace ProjectD.Tests
             var heal = SummonerSpellCatalog.Get(SummonerSpellId.Cure).Effects
                 .First(e => e.Kind == SpellEffectKind.Heal);
 
-            Assert.AreEqual(90f, heal.Value(1), 0.0001f);
-            Assert.AreEqual(90f + 15f * 14f, heal.Value(SummonerSpellCatalog.MaxLevel), 0.0001f);
+            Assert.AreEqual(110f, heal.Value(1), 0.001f);
+            Assert.AreEqual(400f, heal.Value(SummonerSpellCatalog.MaxLevel), 0.001f);
             Assert.AreEqual(heal.Value(1), heal.Value(0), 0.0001f);
             Assert.AreEqual(heal.Value(SummonerSpellCatalog.MaxLevel), heal.Value(99), 0.0001f);
         }
@@ -102,11 +102,29 @@ namespace ProjectD.Tests
         }
 
         [Test]
-        public void OtherModes_OfferAllElevenSpells()
+        public void CoOpAndPractice_OfferAllElevenSpells()
+        {
+            foreach (var mode in new[] { GameMode.CoOpVsAI, GameMode.Practice })
+                Assert.AreEqual(11, SummonerSpellCatalog.AvailableFor(mode).Count, mode.ToString());
+        }
+
+        [Test]
+        public void WorldRift_OffersTheAdditionalSpells_ButNotTheMainMapOnesUltimaAndTeleport()
+        {
+            var offered = SummonerSpellCatalog.AvailableFor(GameMode.WorldRift).Select(s => s.Id).ToList();
+
+            Assert.AreEqual(9, offered.Count);
+            CollectionAssert.Contains(offered, SummonerSpellId.Pray);
+            CollectionAssert.Contains(offered, SummonerSpellId.Warpstrike);
+            CollectionAssert.DoesNotContain(offered, SummonerSpellId.Ultima);
+            CollectionAssert.DoesNotContain(offered, SummonerSpellId.Teleport);
+        }
+
+        [Test]
+        public void AdditionalSpells_AreAvailableInEveryOtherMode()
         {
             foreach (var mode in OtherModes)
             {
-                Assert.AreEqual(11, SummonerSpellCatalog.AvailableFor(mode).Count, mode.ToString());
                 Assert.IsTrue(SummonerSpellCatalog.IsAvailable(SummonerSpellId.Pray, mode), mode.ToString());
                 Assert.IsTrue(SummonerSpellCatalog.IsAvailable(SummonerSpellId.Warpstrike, mode), mode.ToString());
             }
