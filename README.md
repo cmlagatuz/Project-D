@@ -77,6 +77,9 @@ Details: [`docs/game-modes-and-world-rift.md`](docs/game-modes-and-world-rift.md
 Two slots per player. Normal and Ranked use the nine standard spells; Pray and Warpstrike are only for Co-Op,
 Practice and World Rift. Details and tuning: [`docs/summoner-spells.md`](docs/summoner-spells.md)
 
+**Try them:** the 1v1 duel demo (`Tools > Project D > Build Duel Demo Scene`, then Play; Android APK via
+`Build and Run Duel Demo on Phone`). Guide and roadmap: [`docs/duel-demo.md`](docs/duel-demo.md)
+
 ---
 
 ## Architecture
@@ -173,7 +176,7 @@ git push                    # publish your own work
 | Champion select & detail | [`champion-select.md`](docs/champion-select.md), [`champion-detail-and-announcer.md`](docs/champion-detail-and-announcer.md), [`champion-codex.md`](docs/champion-codex.md) |
 | Match HUD | [`match-hud.md`](docs/match-hud.md), [`hud-layout-editor.md`](docs/hud-layout-editor.md), [`loading-screen.md`](docs/loading-screen.md) |
 | Store & items | [`store-ui.md`](docs/store-ui.md), [`store-ui-sell-undo.md`](docs/store-ui-sell-undo.md), [`kp-store.md`](docs/kp-store.md), [`loadout-editor.md`](docs/loadout-editor.md) |
-| Summoner spells | [`summoner-spells.md`](docs/summoner-spells.md) |
+| Summoner spells & duel demo | [`summoner-spells.md`](docs/summoner-spells.md), [`duel-demo.md`](docs/duel-demo.md) |
 | Modes & ranked | [`game-modes-and-world-rift.md`](docs/game-modes-and-world-rift.md), [`ranked-system.md`](docs/ranked-system.md), [`rank-decay.md`](docs/rank-decay.md), [`season-rewards.md`](docs/season-rewards.md) |
 | Post-game | [`postgame-results-ui.md`](docs/postgame-results-ui.md), [`post-game-match-analytics.md`](docs/post-game-match-analytics.md), [`match-history.md`](docs/match-history.md) |
 | Networking & server | [`networking.md`](docs/networking.md), [`authoritative-server.md`](docs/authoritative-server.md) |

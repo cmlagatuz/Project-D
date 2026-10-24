@@ -1,0 +1,30 @@
+# OPTIONAL: build the duel demo APK in GitHub Actions (GameCI).
+# To enable: copy this file to .github/workflows/android-demo.yml and add repository secrets
+# UNITY_LICENSE (and UNITY_EMAIL / UNITY_PASSWORD for a Personal licence). See https://game.ci/docs/github/activation
+# NOT enabled by default so pushes do not fail without secrets. The repo is public: CONFIDENTIAL material
+# should not be built on public runners without review.
+name: Android duel demo
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-Android-${{ hashFiles('Packages/manifest.json', 'ProjectSettings/ProjectVersion.txt') }}
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 6000.5.10f1
+          targetPlatform: Android
+          androidExportType: androidPackage
+          buildMethod: ProjectD.EditorTools.DuelDemoBuild.BuildApkBatch
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ProjectD_DuelDemo-apk
+          path: build/Android

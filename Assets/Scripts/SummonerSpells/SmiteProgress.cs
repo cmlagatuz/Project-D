@@ -95,6 +95,12 @@ namespace ProjectD.SummonerSpells
             return _stacks;
         }
 
+        /// <summary>Demo/test hook: pretend this many camps were already cleared (unlocks the Ultima upgrade tiers).</summary>
+        public void GrantConsumed(int count)
+        {
+            if (count > 0) _consumed += count;
+        }
+
         /// <summary>Call when a monster camp is cleared. Spends one stack for bonus gold; returns the gold (0 if none).</summary>
         public float OnCampCleared(float now)
         {
