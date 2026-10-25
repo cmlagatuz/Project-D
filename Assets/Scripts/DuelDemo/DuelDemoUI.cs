@@ -100,7 +100,7 @@ namespace ProjectD.DuelDemo
             if (_font == null) _font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             _circle = MakeCircleSprite(128);
 
-            if (FindFirstObjectByType<EventSystem>() == null)
+            if (FindAnyObjectByType<EventSystem>() == null)
             {
                 var es = new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
                 es.transform.SetParent(transform, false);

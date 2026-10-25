@@ -22,3 +22,4 @@
 # The duel demo finds models under Assets/ by name on each machine (Tools > Project D > Link Duel Demo Models).
 /Assets/Models/
 /Assets/Models.meta
+/ModelsUnsupported/

@@ -56,6 +56,7 @@ namespace ProjectD.EditorTools
 
         public static string LinkAll()
         {
+            int moved = DuelModelCleanup.MoveUnsupported();   // .mesh files from game rips are not Unity assets and only cause import errors
             EnsureFolder("Assets/DuelDemo");
             var lib = AssetDatabase.LoadAssetAtPath<DuelModelLibrary>(LibraryPath);
             if (lib == null)
@@ -73,6 +74,7 @@ namespace ProjectD.EditorTools
             }
 
             var sb = new StringBuilder();
+            if (moved > 0) sb.AppendLine("Moved " + moved + " unsupported .mesh file(s) to <project>/ModelsUnsupported/ (not usable in Unity).\n");
             int found = 0;
             foreach (var id in Ids)
             {

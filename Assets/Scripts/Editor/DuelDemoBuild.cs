@@ -54,7 +54,6 @@ namespace ProjectD.EditorTools
             PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
             PlayerSettings.allowedAutorotateToLandscapeLeft = true;
             PlayerSettings.allowedAutorotateToLandscapeRight = true;
-            PlayerSettings.Android.startInFullscreen = true;
             EditorUserBuildSettings.buildAppBundle = false;   // .apk, not .aab
 
             string id = PlayerSettings.GetApplicationIdentifier(target);
