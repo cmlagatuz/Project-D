@@ -46,6 +46,13 @@ namespace ProjectD.EditorTools
 
             DuelSceneBuilder.BuildScene();   // always rebuild so the scene matches the code
 
+            if (!DuelAndroidGradleFix.Apply(out string gradleMessage))   // Kotlin duplicate-class fix (Unity IAP 5 / Play Billing)
+            {
+                Debug.LogError("[Project D] " + gradleMessage);
+                if (!Application.isBatchMode) EditorUtility.DisplayDialog("Project D", gradleMessage, "OK");
+                return BuildResult.Failed;
+            }
+
             var target = NamedBuildTarget.Android;
             PlayerSettings.SetScriptingBackend(target, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;

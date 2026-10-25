@@ -112,6 +112,11 @@ ignore rule does not apply to it; run `git rm -r --cached Assets/Models` first.
    landscape, builds `Builds/ProjectD_DuelDemo.apk` and installs it.
    Or use **Build Duel Demo APK (Android)**, copy the file to the phone and open it (allow "install unknown apps").
 
+If Gradle fails with `Duplicate class kotlin.collections.jdk8...` (Unity IAP 5 pulling mixed Kotlin versions), the build
+tool now fixes it itself by adding a block to `Assets/Plugins/Android/baseProjectTemplate.gradle`. You can also run
+**Tools > Project D > Fix Android Kotlin Duplicate-Class Build Error**. The many `Hidden/Sentis/...` shader warnings
+come from the Unity AI Inference package and are harmless.
+
 The first Android build is slow (several minutes: Gradle and IL2CPP). Later builds are faster.
 
 **iOS** needs a Mac with Xcode and an Apple developer account. Not set up here.
