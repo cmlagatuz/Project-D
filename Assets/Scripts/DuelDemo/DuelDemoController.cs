@@ -47,6 +47,11 @@ namespace ProjectD.DuelDemo
             public Animator Animator;
             public HashSet<string> Params;
             public bool HasModel;
+            public Transform Holder;      // parent of the model: gets the yaw offset and the procedural motion
+            public float BaseYaw;         // the library's Yaw Offset
+            public float ExtraYaw;        // temporary rotation from the TOOLS panel while finding the right yaw
+            public float PunchUntil;      // procedural attack cue for models without animations
+            public string ModelId;
         }
 
         private struct Flash
@@ -209,6 +214,9 @@ namespace ProjectD.DuelDemo
         {
             var holder = new GameObject("Model");
             holder.transform.SetParent(view.Root, false);
+            view.Holder = holder.transform;
+            view.BaseYaw = entry.yawOffset;
+            view.ModelId = u.ModelId;
             var instance = Instantiate(entry.prefab, holder.transform);
             instance.name = entry.prefab.name;
             instance.transform.localPosition = Vector3.zero;
@@ -336,9 +344,41 @@ namespace ProjectD.DuelDemo
                 if (u.Facing.Length > 0.01f) v.Root.rotation = Quaternion.LookRotation(ToWorld(u.Facing));
                 v.Shield.SetActive(u.ShieldAmount(now) > 0f);
                 v.Mark.SetActive(Player.MarkTargetId == u.Id && now < Player.MarkExpiresAt);
+                bool moving = u.MoveInput.Length > 0.1f && !u.IsStunned(now);
                 if (v.Animator != null && v.Params != null && v.Params.Contains("Speed"))
-                    v.Animator.SetFloat("Speed", u.MoveInput.Length > 0.1f && !u.IsStunned(now) ? 1f : 0f);
+                    v.Animator.SetFloat("Speed", moving ? 1f : 0f);
+                if (v.HasModel && v.Holder != null) ApplyProceduralMotion(v, moving);
             }
+        }
+
+        /// <summary>
+        /// Raw rips usually have no animation clips, so models would just slide. This adds a small walk bob and lean,
+        /// an attack lunge, and applies the yaw offset. Skipped for models whose Animator already has a controller.
+        /// </summary>
+        private void ApplyProceduralMotion(UnitView v, bool moving)
+        {
+            bool animated = v.Animator != null && v.Animator.runtimeAnimatorController != null && v.Params != null && v.Params.Count > 0;
+            float yaw = v.BaseYaw + v.ExtraYaw;
+            if (animated)
+            {
+                v.Holder.localRotation = Quaternion.Euler(0f, yaw, 0f);
+                return;
+            }
+            float bob = moving ? Mathf.Abs(Mathf.Sin(Time.time * 9f)) * 0.08f : 0f;
+            float lean = moving ? 8f : 0f;
+            float punch = Mathf.Clamp01((v.PunchUntil - Time.time) / 0.2f);
+            v.Holder.localPosition = new Vector3(0f, bob, 0f);
+            v.Holder.localRotation = Quaternion.Euler(lean + punch * 12f, yaw, 0f);
+            v.Holder.localScale = Vector3.one * (1f + punch * 0.06f);
+        }
+
+        /// <summary>Rotates a unit's model by 90 degrees (for finding the right Yaw Offset). Returns the total yaw now applied.</summary>
+        public float RotateModel(bool enemy)
+        {
+            var u = enemy ? Enemy : Player;
+            if (!_views.TryGetValue(u.Id, out var v) || !v.HasModel) return float.NaN;
+            v.ExtraYaw = Mathf.Repeat(v.ExtraYaw + 90f, 360f);
+            return Mathf.Repeat(v.BaseYaw + v.ExtraYaw, 360f);
         }
 
         private static readonly string[] AbilityTriggers = { "TrigQ", "TrigW", "TrigE", "TrigR" };
@@ -355,13 +395,13 @@ namespace ProjectD.DuelDemo
             {
                 var e = events[i];
                 if (!_views.TryGetValue(e.UnitId, out var v) || v.Animator == null) continue;
-                if (e.Kind == DuelEventKind.Attack) Trigger(v, "TrigAttack");
+                if (e.Kind == DuelEventKind.Attack) { Trigger(v, "TrigAttack"); v.PunchUntil = Time.time + 0.2f; }
                 else if (e.Kind == DuelEventKind.Damage && e.Text != "Bio") Trigger(v, "TrigHit");
                 else if (e.Kind == DuelEventKind.Text && v.Unit.Kind == UnitKind.Champion)
                 {
                     var abilities = v.Unit.Template.Abilities;
                     for (int k = 0; k < abilities.Length && k < AbilityTriggers.Length; k++)
-                        if (abilities[k] != null && abilities[k].Name == e.Text) Trigger(v, AbilityTriggers[k]);
+                        if (abilities[k] != null && abilities[k].Name == e.Text) { Trigger(v, AbilityTriggers[k]); v.PunchUntil = Time.time + 0.2f; }
                 }
             }
         }
@@ -508,6 +548,14 @@ namespace ProjectD.DuelDemo
         }
 
         public void ToolResetEnemy() { World.ForceRespawn(Enemy.Id); Ui.Toast("Enemy reset"); }
+
+        public void ToolRotateModel(bool enemy)
+        {
+            float yaw = RotateModel(enemy);
+            if (float.IsNaN(yaw)) { Ui.Toast("That fighter has no 3D model (placeholder shape)"); return; }
+            string id = enemy ? EnemyChampionId : PlayerChampionId;
+            Ui.Toast(id + ": facing looks right? Set Yaw Offset to " + Mathf.RoundToInt(yaw) + " in DuelModelLibrary");
+        }
 
         public void ToolRestoreSummons()
         {

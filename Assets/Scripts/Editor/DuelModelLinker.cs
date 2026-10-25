@@ -119,28 +119,39 @@ namespace ProjectD.EditorTools
                 foreach (var bad in Ignore) if (lower.Contains(bad)) { skip = true; break; }
                 if (skip) continue;
 
+                // Folder names along the path, e.g. Assets/Models/Cecil/Weapon/Holy Fang.fbx -> models, cecil, weapon.
+                var segments = new List<string>();
+                foreach (var seg in (Path.GetDirectoryName(path) ?? "").Replace('\\', '/').Split('/')) segments.Add(Normalize(seg));
+                bool inWeaponFolder = false;
+                foreach (var seg in segments) if (seg.Contains("weapon")) inWeaponFolder = true;
+                if (inWeaponFolder) continue;   // weapons are separate FBX files and are not attached in the demo yet
+
                 string name = Normalize(rawName);
                 if (name.StartsWith("prefab")) name = name.Substring(6);
                 if (name.EndsWith("prefab")) name = name.Substring(0, name.Length - 6);
 
-                int score = 0;
+                int nameScore = 0;
                 foreach (var a in aliases)
                 {
-                    if (name == a) score = System.Math.Max(score, 100);
-                    else if (a.Length > 3 && name.Contains(a)) score = System.Math.Max(score, 50);   // short aliases ("wol") must match exactly
+                    if (name == a) nameScore = System.Math.Max(nameScore, 100);
+                    else if (a.Length > 3 && name.Contains(a)) nameScore = System.Math.Max(nameScore, 50);   // short aliases ("wol") must match exactly
                 }
-                string folder = Normalize(Path.GetDirectoryName(path) ?? "");
-                if (score == 0)
+
+                bool inUnitFolder = false;   // a folder called Cecil / Cecil Harvey / Shiva XVI, or the older Champions/<id>/ layout
+                string joined = string.Join("", segments.ToArray());
+                foreach (var a in aliases)
                 {
-                    bool inUnitFolder = false;
-                    foreach (var a in aliases) if (folder.Contains("champions" + a) || folder.Contains("summons" + a)) inUnitFolder = true;
-                    if (!inUnitFolder) continue;
-                    score = 20;   // some file inside the unit's own folder
+                    foreach (var seg in segments)
+                    {
+                        if (seg == a || (a.Length > 3 && seg.Contains(a))) inUnitFolder = true;
+                    }
+                    if (joined.Contains("champions" + a) || joined.Contains("summons" + a)) inUnitFolder = true;
                 }
-                else
-                {
-                    foreach (var a in aliases) if (folder.Contains("champions" + a) || folder.Contains("summons" + a)) { score += 30; break; }
-                }
+
+                int score;
+                if (nameScore > 0) score = nameScore + (inUnitFolder ? 30 : 0);
+                else if (inUnitFolder) score = 20;   // some model file inside the unit's own folder
+                else continue;
 
                 if (ext == ".prefab") score += 20;
                 else if (ext == ".fbx") score += 10;

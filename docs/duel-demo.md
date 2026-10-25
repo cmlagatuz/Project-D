@@ -40,17 +40,33 @@ Six fighters are playable on either side (pick them with **FIGHTERS**, then **FI
 
 Shiva and Garuda stand in the arena as neutral training targets for Ultima. They do not fight back yet.
 
-**Using your own models**
+**Using your own models (drop-in folders)**
 
-1. Put them anywhere under `Assets/` (the project convention is `Assets/Models/Champions/<id>/Prefabs/Prefab_<id>.prefab`
-   and `Assets/Models/Summons/<id>/...`). Ids: `wol`, `firion`, `cecil`, `garland`, `emperor`, `golbez`, `shiva`, `garuda`.
-2. Run **Tools > Project D > Link Duel Demo Models** (building the scene does this too). It finds them by file name,
-   prefers prefabs over raw `.fbx`, ignores animation-only files, and reports what it found and what is missing.
-3. Rebuild the scene (**Build Duel Demo Scene**) and press Play. Missing models fall back to placeholder shapes.
+Unity creates these folders by itself when the project loads (or run **Tools > Project D > Create Model Folders**):
+
+```
+Assets/Models/WarriorOfLight   Firion   Cecil   Garland   Emperor   Golbez   Shiva   Garuda
+```
+
+1. Copy a character's **Raw Files** contents into that character's folder, e.g. Cecil's `Model` folder
+   (`Cecil Harvey.fbx` plus `0.tga` ... `29.tga`) and, if you want, his `Weapon` folder, into `Assets/Models/Cecil`.
+   Shiva's `Shiva XVI.fbx` and all its `t_..._*.tga` files go into `Assets/Models/Shiva`.
+   Copy them in Windows Explorer (`D:\Project D\Assets\Models\Cecil`) or drag them into the Project window.
+2. Wait for Unity to import. Imports are tidied automatically for phones (textures capped at 1024 px and compressed,
+   meshes compressed, cameras/lights ignored) and the materials are switched to URP Lit, with base / normal /
+   emission textures matched by file name when the FBX did not link them.
+   If a model looks grey or pink, run **Tools > Project D > Fix Model Materials (reimport models)**.
+3. Run **Tools > Project D > Link Duel Demo Models**. It matches by folder and file name, ignores `Weapon` folders and
+   animation-only files, and reports what it found and what is missing.
+4. Run **Build Duel Demo Scene** and press Play. Missing models fall back to placeholder shapes.
+
+Weapons (e.g. Holy Fang) are separate FBX files; they are imported but not attached to a hand yet.
+Raw rips have no animations, so the demo adds a walk bob/lean and an attack lunge to models without an Animator controller.
 
 Each model is automatically scaled to a fixed height (champions 1.9, summons 3.6 units) and stood on the ground.
-If one faces the wrong way or is the wrong size, select `Assets/DuelDemo/DuelModelLibrary.asset` and edit its
-**Yaw Offset** or **Height**.
+If one faces the wrong way, use TOOLS > **Turn my model 90** / **Turn enemy model 90** until it faces forward; the toast
+shows the number to type into **Yaw Offset** of that entry in `Assets/DuelDemo/DuelModelLibrary.asset` (then rebuild
+the scene). The same file has **Height** if a model is the wrong size.
 
 Animation is best effort: if a prefab's Animator has the project's parameters (`Speed`, `TrigAttack`, `TrigQ/W/E/R`,
 `TrigHit`) they are driven; otherwise the model just slides around. Pink models mean the materials are not URP

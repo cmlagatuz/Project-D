@@ -520,7 +520,7 @@ namespace ProjectD.DuelDemo
             _toolsPanel = panel.gameObject;
             var rt = panel.rectTransform;
             rt.anchorMin = new Vector2(1f, 1f); rt.anchorMax = new Vector2(1f, 1f); rt.pivot = new Vector2(1f, 1f);
-            rt.anchoredPosition = new Vector2(-30f, -100f); rt.sizeDelta = new Vector2(720f, 530f);
+            rt.anchoredPosition = new Vector2(-30f, -100f); rt.sizeDelta = new Vector2(720f, 640f);
 
             var title = NewText(rt, "Title", "Test tools", 32, TextAnchor.MiddleLeft, Color.white);
             PlaceTL(title.rectTransform, 20f, -8f, 680f, 44f);
@@ -537,6 +537,8 @@ namespace ProjectD.DuelDemo
                 new KeyValuePair<string, System.Action>("Unlock champion Ultima", () => _ctrl.ToolUnlockChampionUltima()),
                 new KeyValuePair<string, System.Action>("Level +1", () => _ctrl.ToolLevel(1)),
                 new KeyValuePair<string, System.Action>("Level -1", () => _ctrl.ToolLevel(-1)),
+                new KeyValuePair<string, System.Action>("Turn my model 90", () => _ctrl.ToolRotateModel(false)),
+                new KeyValuePair<string, System.Action>("Turn enemy model 90", () => _ctrl.ToolRotateModel(true)),
                 new KeyValuePair<string, System.Action>("Enemy bot: ON", null),
                 new KeyValuePair<string, System.Action>("Close", () => _toolsPanel.SetActive(false)),
             };
