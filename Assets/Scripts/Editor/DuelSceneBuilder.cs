@@ -24,19 +24,22 @@ namespace ProjectD.EditorTools
         [MenuItem("Tools/Project D/Build Duel Demo Scene", priority = 41)]
         public static void Build()
         {
-            BuildScene();
+            string models = BuildScene();
             if (!Application.isBatchMode)
             {
                 EditorUtility.DisplayDialog("Project D",
-                    "Duel demo scene built:\n" + ScenePath +
+                    "Duel demo scene built:\n" + ScenePath + "\n\n" + models +
                     "\n\nPress Play.\nWASD move, Space attack, 1-4 = Q/W/E/R, 5/6 (or Z/X) = summoner spells.\n" +
                     "Use SPELLS to pick any of the 11 spells and TOOLS for test helpers.", "OK");
             }
         }
 
         /// <summary>Builds and saves the scene. Safe to call from other editor tools and from batch mode.</summary>
-        public static void BuildScene()
+        public static string BuildScene()
         {
+            string modelReport = DuelModelLinker.LinkAll();   // finds Shiva, Garuda, Firion, ... and fills the model library
+            var library = AssetDatabase.LoadAssetAtPath<DuelModelLibrary>(DuelModelLinker.LibraryPath);
+
             var ground = MakeMaterial("DuelGround", new Color(0.20f, 0.23f, 0.28f), false);
             var blue = MakeMaterial("DuelBlue", new Color(0.25f, 0.5f, 0.95f), false);
             var red = MakeMaterial("DuelRed", new Color(0.9f, 0.3f, 0.3f), false);
@@ -79,6 +82,7 @@ namespace ProjectD.EditorTools
             Assign(so, "wardMat", ward);
             Assign(so, "flashMat", flash);
             Assign(so, "markMat", mark);
+            Assign(so, "models", library);
             Assign(so, "cameraRig", camGo.GetComponent<ArenaCameraRig>());
             Assign(so, "viewCamera", cam);
             so.ApplyModifiedPropertiesWithoutUndo();
@@ -87,7 +91,8 @@ namespace ProjectD.EditorTools
             EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log("[Project D] Duel demo scene created at " + ScenePath);
+            Debug.Log("[Project D] Duel demo scene created at " + ScenePath + "\n" + modelReport);
+            return modelReport;
         }
 
         private static void Assign(SerializedObject so, string field, Object value)

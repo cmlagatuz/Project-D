@@ -37,7 +37,7 @@ namespace ProjectD.Duel
             var u = new DuelUnit
             {
                 Id = _nextId++, Name = template.Name, Kind = UnitKind.Champion, Team = team,
-                Template = template, Pos = pos, SpawnPos = pos, Level = Math.Max(1, level)
+                Template = template, ModelId = template.Id, Pos = pos, SpawnPos = pos, Level = Math.Max(1, level)
             };
             u.Loadout = loadout ?? SummonerLoadout.Default();
             ApplyLevelStats(u, true);
@@ -394,6 +394,7 @@ namespace ProjectD.Duel
             a.NextAttackAt = Time + 1f / Math.Max(0.1f, a.AttackSpeed);
             a.Facing = (t.Pos - a.Pos).Normalized;
             if (a.Channeling) { a.Channeling = false; Emit(DuelEventKind.Text, a, null, 0f, "Teleport cancelled"); }
+            Emit(DuelEventKind.Attack, a, t, 0f, null);   // visual cue only (attack animation)
             DealDamage(a, t, a.Ad, DuelDamage.Physical);
             return CastOutcome.Ok;
         }
@@ -432,6 +433,7 @@ namespace ProjectD.Duel
                 case AbilityShape.Cone: CastCone(u, ab, dir, dmg); break;
                 case AbilityShape.Line: CastLine(u, ab, dir, dmg); break;
                 case AbilityShape.Circle: CastCircle(u, ab, u.Pos, dmg); break;
+                case AbilityShape.GroundCircle: CastGroundCircle(u, ab, dir, dmg); break;
                 case AbilityShape.Shield: CastShield(u, ab, dmg); break;
                 case AbilityShape.Dash: CastDash(u, ab, dir, dmg); break;
             }
@@ -441,7 +443,8 @@ namespace ProjectD.Duel
 
         private void HitTarget(DuelUnit caster, DuelUnit t, DuelAbility ab, float dmg)
         {
-            DealDamage(caster, t, dmg, ab.Type);
+            float dealt = DealDamage(caster, t, dmg, ab.Type);
+            if (ab.LifestealPct > 0f && dealt > 0f) Heal(caster, dealt * ab.LifestealPct, ab.Name);
             if (!t.Alive) return;
             if (ab.SlowPct > 0f)
                 AddStatus(t, MakeStatus(StatusKind.MoveSpeedSlow, ab.SlowPct, ab.SlowPct, 0f, ab.SlowSeconds, caster.Id));
@@ -498,8 +501,29 @@ namespace ProjectD.Duel
             }
         }
 
+        private void CastGroundCircle(DuelUnit u, DuelAbility ab, DVec2 dir, float dmg)
+        {
+            var center = ClampToArena(u.Pos + dir * ab.Range);
+            DuelUnit snap = null;
+            float best = float.MaxValue;
+            for (int i = 0; i < Units.Count; i++)
+            {
+                var t = Units[i];
+                if (!IsHittableBy(u, t)) continue;
+                var to = t.Pos - u.Pos;
+                float d = to.Length;
+                if (d > ab.Range) continue;
+                if (d > 0.05f && DVec2.Dot(dir, to.Normalized) < 0.8f) continue;
+                if (d < best) { best = d; snap = t; }
+            }
+            if (snap != null) center = snap.Pos;
+            CastCircle(u, ab, center, dmg);
+        }
+
         private void CastShield(DuelUnit u, DuelAbility ab, float dmg)
         {
+            if (ab.Cleanse)
+                u.Statuses.RemoveAll(s => s.Kind == StatusKind.Stun || s.Kind == StatusKind.MoveSpeedSlow || s.Kind == StatusKind.DamageDealtReduction);
             if (ab.ShieldAmount > 0f)
             {
                 AddStatus(u, MakeStatus(StatusKind.Shield, 0f, 0f, 0f, ab.ShieldSeconds, u.Id, ab.ShieldAmount));

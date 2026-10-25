@@ -4,7 +4,7 @@
 > placeholder art. Licensed assets need a documented chain of title, or must be replaced with original IP,
 > before any public build or test.
 
-A small arena with two champions, a training golem and an ally ward. It exists to answer one question:
+A small arena with two champions, two summons (Shiva and Garuda) as neutral training targets, and an ally ward. It exists to answer one question:
 **do the 11 summoner spells feel right to use?** The rules live in `Assets/Scripts/Duel/` (engine-agnostic,
 deterministic, unit-tested); the Unity view and touch HUD live in `Assets/Scripts/DuelDemo/`.
 
@@ -25,14 +25,48 @@ deterministic, unit-tested); the Unity view and touch HUD live in `Assets/Script
 | Q W E R | keys 1 2 3 4 (aimed at the mouse) | tap = auto-aim, drag = aim |
 | Summoner D / F | keys 5 6, or Z X | the two round buttons under the arc |
 | Pick spells | SPELLS button | SPELLS button |
+| Pick fighters | FIGHTERS button | FIGHTERS button |
 | Test helpers | TOOLS button | TOOLS button |
+
+## Fighters and 3D models
+
+Six fighters are playable on either side (pick them with **FIGHTERS**, then **FIGHT**; your spells and level are kept):
+
+| Warriors of Light | Warriors of Dark |
+|---|---|
+| Warrior of Light (melee tank) | Garland (melee bruiser) |
+| Firion (ranged marksman, Blood Blade heals) | The Emperor (ranged mage, ground-targeted sigils) |
+| Cecil Harvey (melee, Redemption cleanses + shields) | Golbez (hybrid mage-bruiser, **placeholder kit**: he is not in `champions.seed.json` yet) |
+
+Shiva and Garuda stand in the arena as neutral training targets for Ultima. They do not fight back yet.
+
+**Using your own models**
+
+1. Put them anywhere under `Assets/` (the project convention is `Assets/Models/Champions/<id>/Prefabs/Prefab_<id>.prefab`
+   and `Assets/Models/Summons/<id>/...`). Ids: `wol`, `firion`, `cecil`, `garland`, `emperor`, `golbez`, `shiva`, `garuda`.
+2. Run **Tools > Project D > Link Duel Demo Models** (building the scene does this too). It finds them by file name,
+   prefers prefabs over raw `.fbx`, ignores animation-only files, and reports what it found and what is missing.
+3. Rebuild the scene (**Build Duel Demo Scene**) and press Play. Missing models fall back to placeholder shapes.
+
+Each model is automatically scaled to a fixed height (champions 1.9, summons 3.6 units) and stood on the ground.
+If one faces the wrong way or is the wrong size, select `Assets/DuelDemo/DuelModelLibrary.asset` and edit its
+**Yaw Offset** or **Height**.
+
+Animation is best effort: if a prefab's Animator has the project's parameters (`Speed`, `TrigAttack`, `TrigQ/W/E/R`,
+`TrigHit`) they are driven; otherwise the model just slides around. Pink models mean the materials are not URP
+materials (Edit > Rendering > Materials > Convert Selected Built-in Materials to URP).
+
+`Assets/Models/` is in `.gitignore` on purpose: the repo is public and licensed art needs a documented chain of title
+before it is shared (or must be replaced with original IP). Phone builds made on your PC still include the models,
+so do not hand those APKs to anyone outside the team. If `Assets/Models` is already tracked in your local repo, the
+ignore rule does not apply to it; run `git rm -r --cached Assets/Models` first.
 
 ## What you can test
 
 - **SPELLS** opens a picker with all 11 spells. Choose slot D or F, then tap a spell. The duel pauses while it is open.
   Changing a spell restarts its cooldown. Choosing the spell already in the other slot swaps the two.
 - **TOOLS** has: reset cooldowns, heal me, hurt me 50% (for Cure), stun me 2 s and slow me 3 s (for Esuna and Warp),
-  reset enemy, restore golem, unlock champion Ultima, level +/-1, and the enemy bot ON/OFF (OFF makes it a dummy).
+  reset enemy, restore summons, unlock champion Ultima, level +/-1, and the enemy bot ON/OFF (OFF makes it a dummy).
 - Status tags show above each unit panel as text (`[STUN]`, `[SLOW -35%]`, `[SHIELD 120]`, `[BIO]`, `[WOUNDS]`,
   `[IMMUNE]`, `[HASTE 4.2s]`, `[TELEPORT 2.1s]`, `[MARK 3.0s]`), so no state depends on colour alone.
 
@@ -45,7 +79,7 @@ deterministic, unit-tested); the Unity view and touch HUD live in `Assets/Script
 | Esuna | TOOLS > Stun me, then cast: the stun clears and `[IMMUNE]` appears. |
 | Warp | Cast while holding the stick to blink that way. Stunned = refused. |
 | Bio | Cast near the enemy: damage ticks every second and the enemy's healing is reduced. |
-| Ultima | Cast near the golem (monster). Two charges. TOOLS > Unlock champion Ultima lets it hit the enemy too. |
+| Ultima | Cast near Shiva or Garuda (monsters). Two charges. TOOLS > Unlock champion Ultima lets it hit the enemy too. |
 | Teleport | Stand still for the channel to the ward at the far corner. Moving, attacking or Warp cancels it. |
 | Pray | Spend mana on abilities first, then cast to see the restore. |
 | Warpstrike | Cast toward the enemy to mark it; press again (button shows AGAIN) to dash to it. |

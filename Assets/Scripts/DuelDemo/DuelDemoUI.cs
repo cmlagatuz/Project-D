@@ -78,13 +78,18 @@ namespace ProjectD.DuelDemo
         private Text _log;
         private GameObject _spellPanel;
         private GameObject _toolsPanel;
+        private GameObject _fighterPanel;
+        private string _pendingPlayer;
+        private string _pendingEnemy;
+        private readonly Dictionary<string, Text> _youTags = new Dictionary<string, Text>();
+        private readonly Dictionary<string, Text> _foeTags = new Dictionary<string, Text>();
         private int _pickSlot;
         private readonly Text[] _pickSlotLabels = new Text[2];
         private readonly Dictionary<SummonerSpellId, Text> _cardTags = new Dictionary<SummonerSpellId, Text>();
         private Text _botLabel;
 
         /// <summary>True while the (modal) spell picker is open. The world is paused meanwhile.</summary>
-        public bool PanelOpen => _spellPanel != null && _spellPanel.activeSelf;
+        public bool PanelOpen => (_spellPanel != null && _spellPanel.activeSelf) || (_fighterPanel != null && _fighterPanel.activeSelf);
 
         // ------------------------------------------------------------------ build
 
@@ -125,6 +130,7 @@ namespace ProjectD.DuelDemo
             BuildLogAndToast(_safe);
             BuildTopButtons(_safe);
             BuildSpellPanel(_safe);
+            BuildFighterPanel(_safe);
             BuildToolsPanel(_safe);
             BuildWorldBars();
 
@@ -316,6 +322,10 @@ namespace ProjectD.DuelDemo
                 () => { _toolsPanel.SetActive(false); OpenSpellPanel(); });
             spells.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
 
+            var fighters = NewButton(parent, "FIGHTERS", new Vector2(1f, 1f), new Vector2(-450f, -20f), new Vector2(210f, 70f), 30,
+                () => { _toolsPanel.SetActive(false); OpenFighterPanel(); });
+            fighters.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
+
             var tools = NewButton(parent, "TOOLS", new Vector2(1f, 1f), new Vector2(-240f, -20f), new Vector2(190f, 70f), 30,
                 () => _toolsPanel.SetActive(!_toolsPanel.activeSelf));
             tools.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
@@ -413,6 +423,95 @@ namespace ProjectD.DuelDemo
             }
         }
 
+        // ------------------------------------------------------------------ fighter picker (modal)
+
+        private void BuildFighterPanel(Transform parent)
+        {
+            var dim = NewImage(parent, "FighterPanel", null, new Color(0f, 0f, 0f, 0.65f), true);
+            _fighterPanel = dim.gameObject;
+            Stretch(dim.rectTransform);
+
+            var box = NewImage(dim.transform, "Box", null, new Color(0.08f, 0.1f, 0.15f, 0.98f), true);
+            PlaceCenter(box.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1200f, 720f));
+
+            var title = NewText(box.transform, "Title", "Choose fighters (summons Shiva and Garuda are always in the arena)", 32,
+                TextAnchor.MiddleLeft, Color.white);
+            PlaceTL(title.rectTransform, 30f, -14f, 1140f, 50f);
+
+            BuildFighterRow(box.transform, "YOU", -80f, _youTags, id => { _pendingPlayer = id; RefreshFighterPanel(); });
+            BuildFighterRow(box.transform, "ENEMY", -330f, _foeTags, id => { _pendingEnemy = id; RefreshFighterPanel(); });
+
+            var go = NewButton(box.transform, "FIGHT", new Vector2(0f, 1f), new Vector2(330f, -620f), new Vector2(240f, 70f), 32,
+                () =>
+                {
+                    _fighterPanel.SetActive(false);
+                    _ctrl.ToolPickFighters(_pendingPlayer, _pendingEnemy);
+                });
+            go.GetComponent<RectTransform>().pivot = new Vector2(0f, 1f);
+            var cancel = NewButton(box.transform, "CANCEL", new Vector2(0f, 1f), new Vector2(630f, -620f), new Vector2(240f, 70f), 32,
+                () => _fighterPanel.SetActive(false));
+            cancel.GetComponent<RectTransform>().pivot = new Vector2(0f, 1f);
+
+            _fighterPanel.SetActive(false);
+        }
+
+        private void BuildFighterRow(Transform box, string label, float y, Dictionary<string, Text> tags, System.Action<string> onPick)
+        {
+            var rowLabel = NewText(box, label + "Label", label, 28, TextAnchor.MiddleLeft, new Color(1f, 0.9f, 0.5f));
+            PlaceTL(rowLabel.rectTransform, 30f, y, 400f, 40f);
+
+            int i = 0;
+            foreach (var id in DuelRoster.AllIds)
+            {
+                string captured = id;
+                var t = DuelRoster.ById(id);
+                var card = NewButton(box, "", new Vector2(0f, 1f), new Vector2(30f + i * 185f, y - 46f), new Vector2(170f, 170f), 20,
+                    () => onPick(captured));
+                var crt = card.GetComponent<RectTransform>();
+                crt.pivot = new Vector2(0f, 1f);
+                card.GetComponentInChildren<Text>().text = "";
+
+                var nm = NewText(crt, "Name", t.Name, 22, TextAnchor.UpperLeft, Color.white);
+                PlaceTL(nm.rectTransform, 10f, -10f, 150f, 56f);
+                string side = DuelRoster.IsLight(id) ? "LIGHT" : "DARK";
+                string look = _ctrl.HasModelFor(id) ? "3D model" : "placeholder shape";
+                var info = NewText(crt, "Info", side + "\n" + look, 20, TextAnchor.UpperLeft, new Color(0.8f, 0.9f, 1f));
+                PlaceTL(info.rectTransform, 10f, -70f, 150f, 56f);
+                var tag = NewText(crt, "Tag", "", 20, TextAnchor.LowerLeft, new Color(1f, 0.9f, 0.4f));
+                PlaceTL(tag.rectTransform, 10f, -134f, 150f, 30f);
+                tags[id] = tag;
+                i++;
+            }
+        }
+
+        private void OpenFighterPanel()
+        {
+            _pendingPlayer = _ctrl.PlayerChampionId;
+            _pendingEnemy = _ctrl.EnemyChampionId;
+            RefreshFighterPanel();
+            _fighterPanel.SetActive(true);
+        }
+
+        private void RefreshFighterPanel()
+        {
+            foreach (var kv in _youTags) kv.Value.text = kv.Key == _pendingPlayer ? ">> YOU <<" : "";
+            foreach (var kv in _foeTags) kv.Value.text = kv.Key == _pendingEnemy ? ">> ENEMY <<" : "";
+        }
+
+        /// <summary>The controller rebuilt the duel: drop the old over-head bars and floating text and make new ones.</summary>
+        public void OnDuelRestarted()
+        {
+            for (int i = 0; i < _bars.Count; i++) if (_bars[i].Root != null) Destroy(_bars[i].Root.gameObject);
+            _bars.Clear();
+            for (int i = 0; i < _floaters.Count; i++) if (_floaters[i].Text != null) Destroy(_floaters[i].Text.gameObject);
+            _floaters.Clear();
+            _logLines.Clear();
+            if (_log != null) _log.text = "";
+            BuildWorldBars();
+            if (_botLabel != null) _botLabel.text = "Enemy bot: ON";
+            if (_spellPanel != null && _spellPanel.activeSelf) RefreshSpellPanel();
+        }
+
         // ------------------------------------------------------------------ tools panel (non-modal)
 
         private void BuildToolsPanel(Transform parent)
@@ -434,7 +533,7 @@ namespace ProjectD.DuelDemo
                 new KeyValuePair<string, System.Action>("Stun me 2s (Esuna)", () => _ctrl.ToolStunMe()),
                 new KeyValuePair<string, System.Action>("Slow me 3s (Esuna)", () => _ctrl.ToolSlowMe()),
                 new KeyValuePair<string, System.Action>("Reset enemy", () => _ctrl.ToolResetEnemy()),
-                new KeyValuePair<string, System.Action>("Restore golem", () => _ctrl.ToolReviveGolem()),
+                new KeyValuePair<string, System.Action>("Restore summons", () => _ctrl.ToolRestoreSummons()),
                 new KeyValuePair<string, System.Action>("Unlock champion Ultima", () => _ctrl.ToolUnlockChampionUltima()),
                 new KeyValuePair<string, System.Action>("Level +1", () => _ctrl.ToolLevel(1)),
                 new KeyValuePair<string, System.Action>("Level -1", () => _ctrl.ToolLevel(-1)),

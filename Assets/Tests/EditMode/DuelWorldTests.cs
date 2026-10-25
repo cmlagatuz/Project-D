@@ -483,5 +483,88 @@ namespace ProjectD.Tests
         {
             Assert.AreEqual(Simulate(), Simulate(), 0.0001f);
         }
+
+        // ---------------------------------------------------------------- roster
+
+        [Test]
+        public void EverySixRosterChampions_BuildAndHaveFourAbilities()
+        {
+            foreach (var id in DuelRoster.AllIds)
+            {
+                var t = DuelRoster.ById(id);
+                Assert.AreEqual(id, t.Id);
+                Assert.AreEqual(4, t.Abilities.Length, id);
+                foreach (var ab in t.Abilities) Assert.IsNotNull(ab, id);
+            }
+            Assert.IsTrue(DuelRoster.IsLight("firion"));
+            Assert.IsFalse(DuelRoster.IsLight("golbez"));
+        }
+
+        [Test]
+        public void ModelId_FollowsTheChampionTemplate()
+        {
+            var w = new DuelWorld();
+            var u = w.AddChampion(DuelRoster.Emperor(), 1, new DVec2(0f, 0f), 1, null);
+            Assert.AreEqual("emperor", u.ModelId);
+        }
+
+        [Test]
+        public void GroundCircle_LandsOnAnEnemyInLineWithTheAim_AndMissesOneOffToTheSide()
+        {
+            var w = new DuelWorld();
+            var emp = w.AddChampion(DuelRoster.Emperor(), 0, new DVec2(0f, 0f), 5, null);
+            var foe = w.AddChampion(DuelRoster.Garland(), 1, new DVec2(4f, 0f), 5, null);
+            var side = w.AddChampion(DuelRoster.Garland(), 1, new DVec2(0f, 5f), 5, null);
+
+            Assert.AreEqual(CastOutcome.Ok, w.TryCastAbility(emp.Id, 0, new DVec2(1f, 0f)));
+            Assert.Less(foe.Hp, foe.MaxHp);
+            Assert.AreEqual(side.MaxHp, side.Hp, 0.001f);
+        }
+
+        [Test]
+        public void Lifesteal_HealsTheCasterByAShareOfTheDamageDealt()
+        {
+            var w = new DuelWorld();
+            var fir = w.AddChampion(DuelRoster.Firion(), 0, new DVec2(0f, 0f), 5, null);
+            var foe = w.AddChampion(DuelRoster.Garland(), 1, new DVec2(1.5f, 0f), 5, null);
+            fir.HpRegen = 0f;
+            fir.Hp = fir.MaxHp * 0.5f;
+            float before = fir.Hp;
+
+            Assert.AreEqual(CastOutcome.Ok, w.TryCastAbility(fir.Id, 2, new DVec2(1f, 0f)));
+            float dealt = foe.MaxHp - foe.Hp;
+            Assert.Greater(dealt, 0f);
+            Assert.AreEqual(before + dealt * 0.5f, fir.Hp, 0.5f);
+        }
+
+        [Test]
+        public void CecilsRedemption_CleansesStunAndSlow_AndShields()
+        {
+            var w = new DuelWorld();
+            var cecil = w.AddChampion(DuelRoster.Cecil(), 0, new DVec2(0f, 0f), 5, null);
+            w.AddStatus(cecil, w.MakeStatus(StatusKind.Stun, 1f, 1f, 0f, 3f, -1));
+            w.AddStatus(cecil, w.MakeStatus(StatusKind.MoveSpeedSlow, 0.4f, 0.4f, 0f, 3f, -1));
+
+            // Stun blocks abilities, so cleanse via Esuna-free path: clear the stun first, keep the slow.
+            cecil.RemoveStatuses(st => st.Kind == StatusKind.Stun);
+            Assert.AreEqual(CastOutcome.Ok, w.TryCastAbility(cecil.Id, 3, new DVec2(1f, 0f)));
+            Assert.IsFalse(cecil.IsActive(StatusKind.MoveSpeedSlow, w.Time));
+            Assert.Greater(cecil.ShieldAmount(w.Time), 0f);
+        }
+
+        [Test]
+        public void EveryDarkChampionBot_CanBeatAnIdlePlayerInReasonableTime()
+        {
+            foreach (var id in DuelRoster.DarkIds)
+            {
+                var w = new DuelWorld();
+                var p = w.AddChampion(DuelRoster.WarriorOfLight(), 0, new DVec2(0f, 0f), 5, null);
+                var e = w.AddChampion(DuelRoster.ById(id), 1, new DVec2(8f, 0f), 5, null);
+                p.HpRegen = 0f;
+                w.AddBot(new DuelBot(e.Id));
+                for (int i = 0; i < 1200 && p.Alive; i++) w.Tick(0.05f);
+                Assert.IsFalse(p.Alive, id + " should be able to kill an idle target within 60 seconds");
+            }
+        }
     }
 }

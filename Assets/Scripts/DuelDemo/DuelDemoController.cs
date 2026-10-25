@@ -22,15 +22,20 @@ namespace ProjectD.DuelDemo
         [SerializeField] private Material wardMat;
         [SerializeField] private Material flashMat;
         [SerializeField] private Material markMat;
+        [SerializeField] private DuelModelLibrary models;
         [SerializeField] private ArenaCameraRig cameraRig;
         [SerializeField] private Camera viewCamera;
 
         public DuelWorld World { get; private set; }
         public DuelUnit Player { get; private set; }
         public DuelUnit Enemy { get; private set; }
-        public DuelUnit Golem { get; private set; }
+        public DuelUnit Shiva { get; private set; }
+        public DuelUnit Garuda { get; private set; }
+        public string PlayerChampionId { get; private set; } = "wol";
+        public string EnemyChampionId { get; private set; } = "garland";
         public DuelBot EnemyBot { get; private set; }
         public DuelDemoUI Ui { get; private set; }
+        public bool HasModelFor(string id) => models != null && models.Find(id) != null;
         public Camera ViewCamera => viewCamera != null ? viewCamera : Camera.main;
 
         private sealed class UnitView
@@ -39,6 +44,9 @@ namespace ProjectD.DuelDemo
             public Transform Root;
             public GameObject Shield;
             public GameObject Mark;
+            public Animator Animator;
+            public HashSet<string> Params;
+            public bool HasModel;
         }
 
         private struct Flash
@@ -53,34 +61,63 @@ namespace ProjectD.DuelDemo
         private Vector2 _stick;
         private bool _attackHeld;
         private bool _warnedMaterial;
+        private SummonerLoadout _playerLoadout;
+        private int _level = 5;
 
         // ------------------------------------------------------------------ setup
 
         private void Start()
         {
+            BuildArena();
+            StartDuel(PlayerChampionId, EnemyChampionId);
+
+            Ui = gameObject.AddComponent<DuelDemoUI>();
+            Ui.Init(this);
+        }
+
+        /// <summary>(Re)builds the whole duel with the chosen champions. Keeps your summoner spells and level.</summary>
+        public void StartDuel(string playerChampionId, string enemyChampionId)
+        {
+            if (Player != null)
+            {
+                _playerLoadout = Player.Loadout;
+                _level = Player.Level;
+            }
+
+            foreach (var kv in _views) if (kv.Value.Root != null) Destroy(kv.Value.Root.gameObject);
+            _views.Clear();
+            for (int i = 0; i < _flashes.Count; i++) if (_flashes[i].Go != null) Destroy(_flashes[i].Go);
+            _flashes.Clear();
+            _accumulator = 0f;
+            _stick = Vector2.zero;
+            _attackHeld = false;
+
+            PlayerChampionId = playerChampionId;
+            EnemyChampionId = enemyChampionId;
             World = new DuelWorld { Mode = GameMode.Practice };
 
-            var mine = SummonerLoadout.Default();                                    // Cure + Warp
-            Player = World.AddChampion(DuelRoster.WarriorOfLight(), 0, new DVec2(-6f, -6f), 5, mine);
+            var mine = _playerLoadout != null ? _playerLoadout.Clone() : SummonerLoadout.Default();   // Cure + Warp by default
+            Player = World.AddChampion(DuelRoster.ById(playerChampionId), 0, new DVec2(-6f, -6f), _level, mine);
 
             var theirs = SummonerLoadout.Default();
             theirs.TrySet(0, SummonerSpellId.Esuna, GameMode.Practice);
             theirs.TrySet(1, SummonerSpellId.Cure, GameMode.Practice);
-            Enemy = World.AddChampion(DuelRoster.Garland(), 1, new DVec2(6f, 6f), 5, theirs);
+            Enemy = World.AddChampion(DuelRoster.ById(enemyChampionId), 1, new DVec2(6f, 6f), _level, theirs);
 
-            Golem = World.AddMonster("Training Golem", new DVec2(-6f, 8f), 1500f);
+            // The two summons stand in as neutral training targets (Ultima, Hunter's Resource). They do not fight back yet.
+            Shiva = World.AddMonster("Shiva", new DVec2(-6f, 8f), 1800f);
+            Shiva.ModelId = "shiva";
+            Garuda = World.AddMonster("Garuda", new DVec2(8f, -7f), 1800f);
+            Garuda.ModelId = "garuda";
             World.AddWard(0, new DVec2(11f, -11f));
 
             EnemyBot = new DuelBot(Enemy.Id);
             World.AddBot(EnemyBot);
 
-            BuildArena();
             for (int i = 0; i < World.Units.Count; i++) CreateView(World.Units[i]);
-
             if (cameraRig != null && _views.TryGetValue(Player.Id, out var pv)) cameraRig.SetTarget(pv.Root);
 
-            Ui = gameObject.AddComponent<DuelDemoUI>();
-            Ui.Init(this);
+            if (Ui != null) Ui.OnDuelRestarted();
         }
 
         private Material Pick(Material assigned, Color fallbackColor)
@@ -135,16 +172,89 @@ namespace ProjectD.DuelDemo
 
         private void CreateView(DuelUnit u)
         {
-            PrimitiveType prim = u.Kind == UnitKind.Champion ? PrimitiveType.Capsule
-                : u.Kind == UnitKind.Monster ? PrimitiveType.Cube : PrimitiveType.Cylinder;
-
             var root = new GameObject("View_" + u.Name);
             root.transform.SetParent(transform, false);
+            var view = new UnitView { Unit = u, Root = root.transform };
+
+            var entry = models != null ? models.Find(u.ModelId) : null;
+            if (entry != null) view.HasModel = AttachModel(view, entry, u);
+            if (!view.HasModel) AttachPlaceholder(view, u);
+
+            float shieldHeight = view.HasModel ? 1.9f : 0.9f;
+            var shield = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            shield.name = "ShieldBubble";
+            RemoveCollider(shield);
+            shield.transform.SetParent(root.transform, false);
+            shield.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+            shield.transform.localPosition = new Vector3(0f, shieldHeight, 0f);
+            shield.GetComponent<Renderer>().sharedMaterial = Pick(flashMat, new Color(0.6f, 0.9f, 1f, 0.4f));
+            shield.SetActive(false);
+
+            var mark = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            mark.name = "WarpstrikeMark";
+            RemoveCollider(mark);
+            mark.transform.SetParent(root.transform, false);
+            mark.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
+            mark.transform.localPosition = new Vector3(0f, 2.6f, 0f);
+            mark.GetComponent<Renderer>().sharedMaterial = Pick(markMat, new Color(1f, 0.85f, 0.2f));
+            mark.SetActive(false);
+
+            view.Shield = shield;
+            view.Mark = mark;
+            _views[u.Id] = view;
+        }
+
+        /// <summary>Instantiates the artist's prefab, strips colliders, scales it to the target height and stands it on the ground.</summary>
+        private bool AttachModel(UnitView view, DuelModelLibrary.Entry entry, DuelUnit u)
+        {
+            var holder = new GameObject("Model");
+            holder.transform.SetParent(view.Root, false);
+            var instance = Instantiate(entry.prefab, holder.transform);
+            instance.name = entry.prefab.name;
+            instance.transform.localPosition = Vector3.zero;
+            instance.transform.localRotation = Quaternion.identity;
+
+            var colliders = instance.GetComponentsInChildren<Collider>(true);
+            for (int i = 0; i < colliders.Length; i++) Destroy(colliders[i]);
+
+            var renderers = instance.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0)
+            {
+                Debug.LogWarning("[Project D] Model for '" + u.ModelId + "' has no renderers; using a placeholder shape.");
+                Destroy(holder);
+                return false;
+            }
+
+            var bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++) bounds.Encapsulate(renderers[i].bounds);
+            float height = entry.height > 0.1f ? entry.height : DuelModelLibrary.DefaultHeight(u.ModelId);
+            if (bounds.size.y > 0.0001f) instance.transform.localScale *= height / bounds.size.y;
+
+            bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++) bounds.Encapsulate(renderers[i].bounds);
+            instance.transform.position += new Vector3(-bounds.center.x, -bounds.min.y, -bounds.center.z);
+            holder.transform.localRotation = Quaternion.Euler(0f, entry.yawOffset, 0f);
+
+            view.Animator = instance.GetComponentInChildren<Animator>();
+            if (view.Animator != null)
+            {
+                view.Animator.applyRootMotion = false;
+                view.Params = new HashSet<string>();
+                var ps = view.Animator.parameters;   // empty if the prefab has no controller
+                for (int i = 0; i < ps.Length; i++) view.Params.Add(ps[i].name);
+            }
+            return true;
+        }
+
+        private void AttachPlaceholder(UnitView view, DuelUnit u)
+        {
+            PrimitiveType prim = u.Kind == UnitKind.Champion ? PrimitiveType.Capsule
+                : u.Kind == UnitKind.Monster ? PrimitiveType.Cube : PrimitiveType.Cylinder;
 
             var body = GameObject.CreatePrimitive(prim);
             body.name = "Body";
             RemoveCollider(body);
-            body.transform.SetParent(root.transform, false);
+            body.transform.SetParent(view.Root, false);
 
             Material mat;
             if (u.Kind == UnitKind.Ward) mat = Pick(wardMat, new Color(0.9f, 0.85f, 0.4f));
@@ -160,7 +270,7 @@ namespace ProjectD.DuelDemo
                 var nose = GameObject.CreatePrimitive(PrimitiveType.Cube);   // facing marker
                 nose.name = "Facing";
                 RemoveCollider(nose);
-                nose.transform.SetParent(root.transform, false);
+                nose.transform.SetParent(view.Root, false);
                 nose.transform.localScale = new Vector3(0.25f, 0.25f, 0.6f);
                 nose.transform.localPosition = new Vector3(0f, 1.2f, 0.55f);
                 nose.GetComponent<Renderer>().sharedMaterial = Pick(wardMat, Color.white);
@@ -175,26 +285,6 @@ namespace ProjectD.DuelDemo
                 body.transform.localScale = new Vector3(0.5f, 0.25f, 0.5f);
                 body.transform.localPosition = new Vector3(0f, 0.25f, 0f);
             }
-
-            var shield = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            shield.name = "ShieldBubble";
-            RemoveCollider(shield);
-            shield.transform.SetParent(root.transform, false);
-            shield.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
-            shield.transform.localPosition = new Vector3(0f, 0.9f, 0f);
-            shield.GetComponent<Renderer>().sharedMaterial = Pick(flashMat, new Color(0.6f, 0.9f, 1f, 0.4f));
-            shield.SetActive(false);
-
-            var mark = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            mark.name = "WarpstrikeMark";
-            RemoveCollider(mark);
-            mark.transform.SetParent(root.transform, false);
-            mark.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
-            mark.transform.localPosition = new Vector3(0f, 2.6f, 0f);
-            mark.GetComponent<Renderer>().sharedMaterial = Pick(markMat, new Color(1f, 0.85f, 0.2f));
-            mark.SetActive(false);
-
-            _views[u.Id] = new UnitView { Unit = u, Root = root.transform, Shield = shield, Mark = mark };
         }
 
         // ------------------------------------------------------------------ frame loop
@@ -225,6 +315,7 @@ namespace ProjectD.DuelDemo
             var events = World.DrainEvents();
             for (int i = 0; i < events.Count; i++)
                 if (events[i].Kind == DuelEventKind.Area) SpawnFlash(events[i]);
+            AnimateFromEvents(events);
             if (Ui != null) Ui.OnEvents(events);
 
             UpdateFlashes();
@@ -245,6 +336,33 @@ namespace ProjectD.DuelDemo
                 if (u.Facing.Length > 0.01f) v.Root.rotation = Quaternion.LookRotation(ToWorld(u.Facing));
                 v.Shield.SetActive(u.ShieldAmount(now) > 0f);
                 v.Mark.SetActive(Player.MarkTargetId == u.Id && now < Player.MarkExpiresAt);
+                if (v.Animator != null && v.Params != null && v.Params.Contains("Speed"))
+                    v.Animator.SetFloat("Speed", u.MoveInput.Length > 0.1f && !u.IsStunned(now) ? 1f : 0f);
+            }
+        }
+
+        private static readonly string[] AbilityTriggers = { "TrigQ", "TrigW", "TrigE", "TrigR" };
+
+        private static void Trigger(UnitView v, string name)
+        {
+            if (v.Animator != null && v.Params != null && v.Params.Contains(name)) v.Animator.SetTrigger(name);
+        }
+
+        /// <summary>Best-effort: fires TrigAttack / TrigQ..R / TrigHit if the prefab's Animator has those parameters.</summary>
+        private void AnimateFromEvents(List<DuelEvent> events)
+        {
+            for (int i = 0; i < events.Count; i++)
+            {
+                var e = events[i];
+                if (!_views.TryGetValue(e.UnitId, out var v) || v.Animator == null) continue;
+                if (e.Kind == DuelEventKind.Attack) Trigger(v, "TrigAttack");
+                else if (e.Kind == DuelEventKind.Damage && e.Text != "Bio") Trigger(v, "TrigHit");
+                else if (e.Kind == DuelEventKind.Text && v.Unit.Kind == UnitKind.Champion)
+                {
+                    var abilities = v.Unit.Template.Abilities;
+                    for (int k = 0; k < abilities.Length && k < AbilityTriggers.Length; k++)
+                        if (abilities[k] != null && abilities[k].Name == e.Text) Trigger(v, AbilityTriggers[k]);
+                }
             }
         }
 
@@ -391,7 +509,18 @@ namespace ProjectD.DuelDemo
 
         public void ToolResetEnemy() { World.ForceRespawn(Enemy.Id); Ui.Toast("Enemy reset"); }
 
-        public void ToolReviveGolem() { World.ForceRespawn(Golem.Id); Ui.Toast("Golem restored"); }
+        public void ToolRestoreSummons()
+        {
+            World.ForceRespawn(Shiva.Id);
+            World.ForceRespawn(Garuda.Id);
+            Ui.Toast("Shiva and Garuda restored");
+        }
+
+        public void ToolPickFighters(string playerId, string enemyId)
+        {
+            StartDuel(playerId, enemyId);
+            Ui.Toast(DuelRoster.ById(playerId).Name + " vs " + DuelRoster.ById(enemyId).Name);
+        }
 
         public void ToolHealMe()
         {

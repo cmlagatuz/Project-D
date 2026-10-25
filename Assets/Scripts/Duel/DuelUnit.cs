@@ -13,6 +13,8 @@ namespace ProjectD.Duel
 
         public int Id;
         public string Name;
+        /// <summary>Key into the model library (champion id, or a summon id such as "shiva"). Null = placeholder shape.</summary>
+        public string ModelId;
         public UnitKind Kind;
         public int Team;                 // 0 blue, 1 red, 2 neutral
         public DuelChampionTemplate Template;

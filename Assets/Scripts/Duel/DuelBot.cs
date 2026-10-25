@@ -36,17 +36,35 @@ namespace ProjectD.Duel
 
             me.MoveInput = dist > me.AttackRange * 0.9f ? toFoe : DVec2.Zero;
 
-            var q = me.Template.Abilities[0];
-            var dash = me.Template.Abilities[1];
-            var chain = me.Template.Abilities[2];
-            var ult = me.Template.Abilities[3];
-
-            if (dist <= ult.Radius - 0.3f && w.AbilityCooldownRemaining(me, 3) <= 0f) w.TryCastAbility(me.Id, 3, toFoe);
-            else if (dist <= q.Range && w.AbilityCooldownRemaining(me, 0) <= 0f) w.TryCastAbility(me.Id, 0, toFoe);
-            else if (dist <= chain.Range && dist > q.Range && w.AbilityCooldownRemaining(me, 2) <= 0f) w.TryCastAbility(me.Id, 2, toFoe);
-            else if (dist > 3f && dist <= dash.Range && w.AbilityCooldownRemaining(me, 1) <= 0f) w.TryCastAbility(me.Id, 1, toFoe);
+            // One ability per think, biggest first. "In reach" depends on the ability's shape.
+            for (int slot = me.Template.Abilities.Length - 1; slot >= 0; slot--)
+            {
+                var ab = me.Template.Abilities[slot];
+                if (ab == null || w.AbilityCooldownRemaining(me, slot) > 0f || me.Mana < ab.Cost) continue;
+                if (!InReach(ab, dist, hpFrac)) continue;
+                if (w.TryCastAbility(me.Id, slot, toFoe) == CastOutcome.Ok) break;
+            }
 
             w.TryBasicAttack(me.Id, foe.Id);
+        }
+
+        private static bool InReach(DuelAbility ab, float dist, float hpFrac)
+        {
+            switch (ab.Shape)
+            {
+                case AbilityShape.Cone:
+                case AbilityShape.Line:
+                case AbilityShape.GroundCircle:
+                    return dist <= ab.Range - 0.2f;
+                case AbilityShape.Circle:
+                    return dist <= ab.Radius - 0.3f;
+                case AbilityShape.Shield:
+                    return ab.Radius > 0f ? dist <= ab.Radius - 0.3f : hpFrac < 0.7f && dist < 5f;
+                case AbilityShape.Dash:
+                    return dist > 3f && dist <= ab.Range;
+                default:
+                    return false;
+            }
         }
 
         private void DecideSummoners(DuelWorld w, DuelUnit me, DuelUnit foe, float dist, DVec2 toFoe, float hpFrac, bool stunned)

@@ -17,3 +17,8 @@
 *.suo
 *.user
 *.userprefs
+
+# 3D art: keep out of source control until chain of title is documented (see docs/models-import.md, LICENSE-NOTICE.md).
+# The duel demo finds models under Assets/ by name on each machine (Tools > Project D > Link Duel Demo Models).
+/Assets/Models/
+/Assets/Models.meta
