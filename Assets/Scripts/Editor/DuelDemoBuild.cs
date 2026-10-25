@@ -88,6 +88,8 @@ namespace ProjectD.EditorTools
             else
             {
                 Debug.LogError("[Project D] APK build " + summary.result + " with " + summary.totalErrors + " error(s). See the Console.");
+                string reportPath = DuelBuildErrorReport.Save();
+                if (reportPath != null) Debug.LogError("[Project D] The real Gradle error was saved to " + reportPath + " - open it and send it over.");
             }
             return summary.result;
         }
