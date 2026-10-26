@@ -45,6 +45,7 @@ namespace ProjectD.DuelDemo
             public GameObject Shield;
             public GameObject Mark;
             public Animator Animator;
+            public DuelHumanoidPose Pose;   // procedural arms-down / walk / attack for T-pose rips
             public HashSet<string> Params;
             public bool HasModel;
             public Transform Holder;      // parent of the model: gets the yaw offset and the procedural motion
@@ -253,6 +254,7 @@ namespace ProjectD.DuelDemo
             if (view.Animator != null)
             {
                 view.Animator.applyRootMotion = false;
+                view.Pose = DuelHumanoidPose.TryAttach(view.Animator);
                 view.Params = new HashSet<string>();
                 var ps = view.Animator.parameters;   // empty if the prefab has no controller
                 for (int i = 0; i < ps.Length; i++) view.Params.Add(ps[i].name);
@@ -370,9 +372,10 @@ namespace ProjectD.DuelDemo
                 v.Holder.localRotation = Quaternion.Euler(0f, yaw, 0f);
                 return;
             }
-            float bob = moving ? Mathf.Abs(Mathf.Sin(Time.time * 9f)) * 0.08f : 0f;
+            float bob = moving && v.Pose == null ? Mathf.Abs(Mathf.Sin(Time.time * 9f)) * 0.08f : 0f;
             float lean = moving ? 8f : 0f;
             float punch = Mathf.Clamp01((v.PunchUntil - Time.time) / 0.2f);
+            if (v.Pose != null) { v.Pose.Speed01 = moving ? 1f : 0f; v.Pose.Punch01 = Mathf.Clamp01((v.PunchUntil - Time.time) / 0.2f); }
             v.Holder.localPosition = new Vector3(0f, bob, 0f);
             v.Holder.localRotation = Quaternion.Euler(lean + punch * 12f, yaw, 0f);
             v.Holder.localScale = Vector3.one * (1f + punch * 0.06f);

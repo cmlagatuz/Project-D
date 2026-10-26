@@ -50,6 +50,30 @@ namespace ProjectD.EditorTools
             importer.optimizeMeshPolygons = true;
             importer.optimizeMeshVertices = true;
             importer.skinWeights = ModelImporterSkinWeights.Standard;
+
+            // Champion bodies get a Humanoid avatar so the demo can pose them (arms down, walk, attack) even though rips
+            // have no clips, and so real humanoid clips (e.g. Mixamo) can be retargeted onto them later.
+            if (UseHumanoidRigs && IsChampionBody(assetPath))
+            {
+                importer.animationType = ModelImporterAnimationType.Human;
+                importer.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
+            }
+        }
+
+        /// <summary>Set to false if a model's Humanoid avatar fails to build and you would rather keep it Generic.</summary>
+        private const bool UseHumanoidRigs = true;
+
+        private static readonly string[] ChampionFolders = { "warrioroflight", "firion", "cecil", "garland", "emperor", "golbez" };
+
+        private static bool IsChampionBody(string path)
+        {
+            string rest = path.Substring(Root.Length);
+            int slash = rest.IndexOf('/');
+            if (slash < 0) return false;
+            string folder = Normalize(rest.Substring(0, slash));
+            if (System.Array.IndexOf(ChampionFolders, folder) < 0) return false;
+            string lower = path.ToLowerInvariant();
+            return !lower.Contains("weapon") && !lower.Contains("@");
         }
 
         // ------------------------------------------------------------------ textures
@@ -115,6 +139,7 @@ namespace ProjectD.EditorTools
             string key = Normalize(m.name);
 
             if (baseTex == null) baseTex = FindTexture(unitFolder, key, new[] { "base", "basecolor", "albedo", "diffuse", "color" });
+            if (baseTex == null) baseTex = FindTextureLoose(unitFolder, m.name);
             if (bumpTex == null) bumpTex = FindTexture(unitFolder, key, new[] { "norm", "normal", "nrm" });
             var emisTex = FindTexture(unitFolder, key, new[] { "emis", "emissive", "emission" });
 
@@ -158,6 +183,44 @@ namespace ProjectD.EditorTools
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Fallback for rips whose textures are numbered (0.tga ... 29.tga) or named exactly like the material:
+        /// exact name match, then the material's trailing number against a numbered texture.
+        /// </summary>
+        private static Texture FindTextureLoose(string folder, string materialName)
+        {
+            if (!AssetDatabase.IsValidFolder(folder)) return null;
+            string key = Normalize(materialName);
+            string digits = TrailingDigits(materialName);
+            Texture numbered = null;
+            foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { folder }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                string tex = Normalize(Path.GetFileNameWithoutExtension(path));
+                if (tex.EndsWith("norm") || tex.EndsWith("nrm") || tex.EndsWith("normal") || tex.EndsWith("emis")) continue;
+                if (tex == key) return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+                if (numbered == null && digits.Length > 0 && IsAllDigits(tex) && int.Parse(tex) == int.Parse(digits))
+                    numbered = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+            }
+            return numbered;
+        }
+
+        private static string TrailingDigits(string s)
+        {
+            int end = s.Length;
+            while (end > 0 && !char.IsDigit(s[end - 1])) end--;   // "mat_12 (Instance)" style endings are rare; skip trailing text
+            int start = end;
+            while (start > 0 && char.IsDigit(s[start - 1])) start--;
+            return end > start && end - start < 9 ? s.Substring(start, end - start) : "";
+        }
+
+        private static bool IsAllDigits(string s)
+        {
+            if (string.IsNullOrEmpty(s) || s.Length > 8) return false;
+            foreach (char c in s) if (!char.IsDigit(c)) return false;
+            return true;
         }
 
         private static string Normalize(string s)

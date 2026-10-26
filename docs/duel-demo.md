@@ -60,6 +60,14 @@ Assets/Models/WarriorOfLight   Firion   Cecil   Garland   Emperor   Golbez   Shi
    animation-only files, and reports what it found and what is missing.
 4. Run **Build Duel Demo Scene** and press Play. Missing models fall back to placeholder shapes.
 
+**White models / T-pose.** Rips usually come without clips. Champion bodies are imported with a Humanoid rig, and the demo
+then lowers the arms and adds a walk and attack swing by bending the avatar's muscles (`DuelHumanoidPose`). That only works if
+Unity could build a Humanoid avatar for the FBX. White models mean the materials have no texture: numbered or
+material-named textures are now matched automatically (run **Fix Model Materials (reimport models)** once). To see exactly
+what each model got, run **Tools > Project D > Save Model Material Report** and read `Builds/ModelMaterialReport.txt`.
+Real animation: the Humanoid rig lets you retarget free humanoid clips (for example from Mixamo) with an Animator Controller
+that has the parameters `Speed`, `TrigAttack`, `TrigQ/W/E/R`, `TrigHit`; the demo drives them automatically.
+
 Weapons (e.g. Holy Fang) are separate FBX files; they are imported but not attached to a hand yet.
 Raw rips have no animations, so the demo adds a walk bob/lean and an attack lunge to models without an Animator controller.
 
