@@ -7,6 +7,7 @@
 // avatar, each material and which texture it ended up with, and the texture files in the folder. Use it to see why a
 // model is white (materials with no texture) or still in a T-pose (no valid Humanoid avatar).
 #if UNITY_EDITOR
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEditor;
@@ -60,6 +61,14 @@ namespace ProjectD.EditorTools
                     {
                         sb.AppendLine("FBX file contents: " + fbx.Materials + " materials, " + fbx.Textures + " textures, " + fbx.Videos +
                                       " video/image entries, " + fbx.Links + " material->texture links. " + fbx.Note);
+                        int shown = 0;
+                        foreach (var kv in fbx.ByMaterial)
+                        {
+                            if (shown++ >= 4) break;
+                            var parts = new List<string>();
+                            foreach (var slot in kv.Value) parts.Add(slot.Key + "=" + slot.Value);
+                            sb.AppendLine("  FBX material '" + kv.Key + "': " + string.Join(", ", parts.ToArray()));
+                        }
                         if (fbx.SampleTextureFiles.Count > 0) sb.AppendLine("  textures the FBX refers to: " + string.Join(", ", fbx.SampleTextureFiles.ToArray()));
                     }
 
@@ -69,12 +78,21 @@ namespace ProjectD.EditorTools
                         var rs = root.GetComponentsInChildren<Renderer>(true);
                         sb.AppendLine("renderers: " + rs.Length);
                         for (int i = 0; i < rs.Length && i < 12; i++)
-                            sb.AppendLine("  " + rs[i].name + "  (" + rs[i].sharedMaterials.Length + " materials)");
+                            {
+                            var ms = rs[i].sharedMaterials;
+                            sb.AppendLine("  " + rs[i].name + "  (" + ms.Length + " materials: " + (ms.Length > 0 && ms[0] != null ? ms[0].name : "none") + ")");
+                        }
                         if (!humanAvatar)
                         {
                             var ts = root.GetComponentsInChildren<Transform>(true);
-                            sb.Append("bones/objects (" + ts.Length + ", first 100): ");
-                            for (int i = 0; i < ts.Length && i < 100; i++) sb.Append(ts[i].name).Append(" | ");
+                            sb.Append("bones/objects (" + ts.Length + ", first 130, depth:name@x,y,z): ");
+for (int i = 0; i < ts.Length && i < 130; i++)
+                            {
+                                int depth = 0;
+                                for (var t = ts[i]; t != null && t != root.transform; t = t.parent) depth++;
+                                var p = ts[i].position;
+                                sb.Append(depth).Append(':').Append(ts[i].name).Append(string.Format("@{0:0.0},{1:0.0},{2:0.0}", p.x, p.y, p.z)).Append(" | ");
+                            }
                             sb.AppendLine();
                         }
                     }

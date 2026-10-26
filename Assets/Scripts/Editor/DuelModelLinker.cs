@@ -58,6 +58,7 @@ namespace ProjectD.EditorTools
         public static string LinkAll()
         {
             int moved = DuelModelCleanup.MoveUnsupported();   // .mesh files from game rips are not Unity assets and only cause import errors
+            string materialSummary = DuelModelMaterials.ApplyAll(false);   // textures from the FBX files onto external materials
             EnsureFolder("Assets/Resources");
             if (AssetDatabase.LoadAssetAtPath<DuelModelLibrary>(LibraryPath) == null && File.Exists(OldLibraryPath))
                 AssetDatabase.MoveAsset(OldLibraryPath, LibraryPath);   // keep earlier Yaw Offset / Height tweaks
@@ -78,6 +79,7 @@ namespace ProjectD.EditorTools
 
             var sb = new StringBuilder();
             if (moved > 0) sb.AppendLine("Moved " + moved + " unsupported .mesh file(s) to <project>/ModelsUnsupported/ (not usable in Unity).\n");
+            if (!string.IsNullOrEmpty(materialSummary)) sb.AppendLine(materialSummary + "\n");
             int found = 0;
             foreach (var id in Ids)
             {

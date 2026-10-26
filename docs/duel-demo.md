@@ -60,6 +60,11 @@ Assets/Models/WarriorOfLight   Firion   Cecil   Garland   Emperor   Golbez   Shi
    animation-only files, and reports what it found and what is missing.
 4. Run **Build Duel Demo Scene** and press Play. Missing models fall back to placeholder shapes.
 
+**Textures.** The rip FBX files list a texture for each material (as `.dds` names; your files are `.tga`, matched by number).
+**Tools > Project D > Apply Model Textures (from FBX)** reads those links, creates one URP Lit material per FBX material in
+`Assets/Models/<unit>/Materials/` and remaps the model to them. Link Duel Demo Models, Build Duel Demo Scene and Fix Model
+Materials run it automatically.
+
 **White models / T-pose.** Rips usually come without clips. Champion bodies are imported with a Humanoid rig, and the demo
 then lowers the arms and adds a walk and attack swing by bending the avatar's muscles (`DuelHumanoidPose`). That only works if
 Unity could build a Humanoid avatar for the FBX. White models mean the materials have no texture: numbered or

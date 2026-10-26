@@ -34,6 +34,7 @@ namespace ProjectD.EditorTools
             }
             AssetDatabase.ImportAsset("Assets/Models", ImportAssetOptions.ImportRecursive | ImportAssetOptions.ForceUpdate);
             Debug.Log("[Project D] Reimported Assets/Models with the phone/URP preparation.");
+            Debug.Log("[Project D] " + DuelModelMaterials.ApplyAll(true));
         }
 
         // ------------------------------------------------------------------ models
@@ -158,7 +159,6 @@ namespace ProjectD.EditorTools
             string shortKey = ShortKey(m.name);
             if (baseTex == null) baseTex = FindTexture(unitFolder, key, new[] { "base", "basecolor", "albedo", "diffuse", "color" });
             if (baseTex == null && shortKey.Length >= 3) baseTex = FindTexture(unitFolder, shortKey, new[] { "base", "basecolor", "albedo", "diffuse", "color" });
-            if (baseTex == null) baseTex = FindTextureLoose(unitFolder, m.name);
             if (bumpTex == null) bumpTex = FindTexture(unitFolder, key, new[] { "norm", "normal", "nrm" });
             if (bumpTex == null && shortKey.Length >= 3) bumpTex = FindTexture(unitFolder, shortKey, new[] { "norm", "normal", "nrm" });
             var emisTex = emisFromFbx != null ? emisFromFbx : FindTexture(unitFolder, key, new[] { "emis", "emissive", "emission" });
@@ -183,7 +183,7 @@ namespace ProjectD.EditorTools
         }
 
         /// <summary>"sm_5_m_body_a" -> "bodya"; "model_1_mat_3" -> "" (no readable part).</summary>
-        private static string ShortKey(string materialName)
+        internal static string ShortKey(string materialName)
         {
             string n = materialName.ToLowerInvariant();
             int m = n.IndexOf("_m_", System.StringComparison.Ordinal);
@@ -193,7 +193,7 @@ namespace ProjectD.EditorTools
             return Normalize(n);
         }
 
-        private static string PickSlot(Dictionary<string, string> slots, bool allowOnlyEntry, params string[] words)
+        internal static string PickSlot(Dictionary<string, string> slots, bool allowOnlyEntry, params string[] words)
         {
             foreach (var kv in slots)
             {
@@ -205,7 +205,7 @@ namespace ProjectD.EditorTools
         }
 
         /// <summary>Finds the texture asset for a file name written in the FBX; prefers the one next to the FBX.</summary>
-        private static Texture ResolveFile(string modelPath, string unitFolder, string fileName)
+        internal static Texture ResolveFile(string modelPath, string unitFolder, string fileName)
         {
             if (string.IsNullOrEmpty(fileName) || !AssetDatabase.IsValidFolder(unitFolder)) return null;
             string dir = Path.GetDirectoryName(modelPath).Replace('\\', '/');
@@ -227,14 +227,14 @@ namespace ProjectD.EditorTools
         }
 
         /// <summary>"Assets/Models/Cecil/Model/Cecil Harvey.fbx" -> "Assets/Models/Cecil" (textures are searched in here).</summary>
-        private static string UnitFolder(string modelPath)
+        internal static string UnitFolder(string modelPath)
         {
             string rest = modelPath.Substring(Root.Length);
             int slash = rest.IndexOf('/');
             return slash < 0 ? "Assets/Models" : Root + rest.Substring(0, slash);
         }
 
-        private static Texture FindTexture(string folder, string materialKey, string[] suffixes)
+        internal static Texture FindTexture(string folder, string materialKey, string[] suffixes)
         {
             if (string.IsNullOrEmpty(materialKey) || !AssetDatabase.IsValidFolder(folder)) return null;
             foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { folder }))
@@ -288,7 +288,7 @@ namespace ProjectD.EditorTools
             return true;
         }
 
-        private static string Normalize(string s)
+        internal static string Normalize(string s)
         {
             var sb = new StringBuilder();
             foreach (char c in s.ToLowerInvariant()) if (char.IsLetterOrDigit(c)) sb.Append(c);
