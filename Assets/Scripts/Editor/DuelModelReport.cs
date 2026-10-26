@@ -55,6 +55,29 @@ namespace ProjectD.EditorTools
                         sb.AppendLine("  material '" + m.name + "'  shader=" + (m.shader != null ? m.shader.name : "null") +
                                       "  base=" + (t != null ? t.name : "NONE"));
                     }
+                    var fbx = DuelFbxTextureMap.Load(path);
+                    if (fbx != null)
+                    {
+                        sb.AppendLine("FBX file contents: " + fbx.Materials + " materials, " + fbx.Textures + " textures, " + fbx.Videos +
+                                      " video/image entries, " + fbx.Links + " material->texture links. " + fbx.Note);
+                        if (fbx.SampleTextureFiles.Count > 0) sb.AppendLine("  textures the FBX refers to: " + string.Join(", ", fbx.SampleTextureFiles.ToArray()));
+                    }
+
+                    var root = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                    if (root != null)
+                    {
+                        var rs = root.GetComponentsInChildren<Renderer>(true);
+                        sb.AppendLine("renderers: " + rs.Length);
+                        for (int i = 0; i < rs.Length && i < 12; i++)
+                            sb.AppendLine("  " + rs[i].name + "  (" + rs[i].sharedMaterials.Length + " materials)");
+                        if (!humanAvatar)
+                        {
+                            var ts = root.GetComponentsInChildren<Transform>(true);
+                            sb.Append("bones/objects (" + ts.Length + ", first 100): ");
+                            for (int i = 0; i < ts.Length && i < 100; i++) sb.Append(ts[i].name).Append(" | ");
+                            sb.AppendLine();
+                        }
+                    }
                     sb.AppendLine("summary: " + mats + " materials, " + untextured + " without a base texture; humanoid avatar: " + humanAvatar);
 
                     string folder = Path.GetDirectoryName(path).Replace('\\', '/');

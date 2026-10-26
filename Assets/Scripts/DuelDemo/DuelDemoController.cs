@@ -240,6 +240,8 @@ namespace ProjectD.DuelDemo
                 return false;
             }
 
+            if (u.Kind == UnitKind.Champion) TintUntextured(renderers, u.Team == 0 ? new Color(0.72f, 0.84f, 1f) : new Color(1f, 0.74f, 0.72f));
+
             var bounds = renderers[0].bounds;
             for (int i = 1; i < renderers.Length; i++) bounds.Encapsulate(renderers[i].bounds);
             float height = entry.height > 0.1f ? entry.height : DuelModelLibrary.DefaultHeight(u.ModelId);
@@ -260,6 +262,26 @@ namespace ProjectD.DuelDemo
                 for (int i = 0; i < ps.Length; i++) view.Params.Add(ps[i].name);
             }
             return true;
+        }
+
+        /// <summary>Materials with no texture would be plain white; give them a light team tint so the two sides can still be told apart.</summary>
+        private static void TintUntextured(Renderer[] renderers, Color tint)
+        {
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                var mats = renderers[i].materials;   // instances: the shared assets stay untouched
+                for (int k = 0; k < mats.Length; k++)
+                {
+                    var m = mats[k];
+                    if (m == null) continue;
+                    bool hasTex = (m.HasProperty("_BaseMap") && m.GetTexture("_BaseMap") != null)
+                                  || (m.HasProperty("_MainTex") && m.GetTexture("_MainTex") != null);
+                    if (hasTex) continue;
+                    if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", tint);
+                    else if (m.HasProperty("_Color")) m.SetColor("_Color", tint);
+                }
+                renderers[i].materials = mats;
+            }
         }
 
         private void AttachPlaceholder(UnitView view, DuelUnit u)

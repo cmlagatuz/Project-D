@@ -137,11 +137,32 @@ namespace ProjectD.EditorTools
 
             string unitFolder = UnitFolder(modelPath);
             string key = Normalize(m.name);
+            Texture emisFromFbx = null;
 
+            // 1) the material -> texture links written inside the FBX file itself (Unity's importer often ignores them in rips)
+            var fbx = DuelFbxTextureMap.Load(modelPath);
+            if (fbx != null && fbx.ByMaterial.Count > 0)
+            {
+                Dictionary<string, string> slots = null;
+                if (!fbx.ByMaterial.TryGetValue(m.name, out slots))
+                    foreach (var kv in fbx.ByMaterial) if (Normalize(kv.Key) == key) { slots = kv.Value; break; }
+                if (slots != null)
+                {
+                    if (baseTex == null) baseTex = ResolveFile(modelPath, unitFolder, PickSlot(slots, true, "diffuse", "base", "color", "albedo"));
+                    if (bumpTex == null) bumpTex = ResolveFile(modelPath, unitFolder, PickSlot(slots, false, "normal", "bump"));
+                    emisFromFbx = ResolveFile(modelPath, unitFolder, PickSlot(slots, false, "emissive", "emission"));
+                }
+            }
+
+            // 2) names: "sm_5_m_body_a" -> "body_a" ... "t_c6005b0001_body_a_base.tga"
+            string shortKey = ShortKey(m.name);
             if (baseTex == null) baseTex = FindTexture(unitFolder, key, new[] { "base", "basecolor", "albedo", "diffuse", "color" });
+            if (baseTex == null && shortKey.Length >= 3) baseTex = FindTexture(unitFolder, shortKey, new[] { "base", "basecolor", "albedo", "diffuse", "color" });
             if (baseTex == null) baseTex = FindTextureLoose(unitFolder, m.name);
             if (bumpTex == null) bumpTex = FindTexture(unitFolder, key, new[] { "norm", "normal", "nrm" });
-            var emisTex = FindTexture(unitFolder, key, new[] { "emis", "emissive", "emission" });
+            if (bumpTex == null && shortKey.Length >= 3) bumpTex = FindTexture(unitFolder, shortKey, new[] { "norm", "normal", "nrm" });
+            var emisTex = emisFromFbx != null ? emisFromFbx : FindTexture(unitFolder, key, new[] { "emis", "emissive", "emission" });
+            if (emisTex == null && shortKey.Length >= 3) emisTex = FindTexture(unitFolder, shortKey, new[] { "emis", "emissive", "emission" });
 
             if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", baseTex);
             if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", color);
@@ -159,6 +180,50 @@ namespace ProjectD.EditorTools
                 m.SetColor("_EmissionColor", Color.white);
                 m.EnableKeyword("_EMISSION");
             }
+        }
+
+        /// <summary>"sm_5_m_body_a" -> "bodya"; "model_1_mat_3" -> "" (no readable part).</summary>
+        private static string ShortKey(string materialName)
+        {
+            string n = materialName.ToLowerInvariant();
+            int m = n.IndexOf("_m_", System.StringComparison.Ordinal);
+            if (m >= 0) n = n.Substring(m + 3);
+            else if (n.StartsWith("m_")) n = n.Substring(2);
+            else return "";
+            return Normalize(n);
+        }
+
+        private static string PickSlot(Dictionary<string, string> slots, bool allowOnlyEntry, params string[] words)
+        {
+            foreach (var kv in slots)
+            {
+                string k = kv.Key.ToLowerInvariant();
+                foreach (var w in words) if (k.Contains(w)) return kv.Value;
+            }
+            if (allowOnlyEntry && slots.Count == 1) foreach (var kv in slots) return kv.Value;
+            return null;
+        }
+
+        /// <summary>Finds the texture asset for a file name written in the FBX; prefers the one next to the FBX.</summary>
+        private static Texture ResolveFile(string modelPath, string unitFolder, string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName) || !AssetDatabase.IsValidFolder(unitFolder)) return null;
+            string dir = Path.GetDirectoryName(modelPath).Replace('\\', '/');
+            string stem = Path.GetFileNameWithoutExtension(fileName);
+            string bestPath = null;
+            int bestScore = 0;
+            foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { unitFolder }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                string pathStem = Path.GetFileNameWithoutExtension(path);
+                int score = 0;
+                if (string.Equals(Path.GetFileName(path), fileName, System.StringComparison.OrdinalIgnoreCase)) score = 2;
+                else if (string.Equals(pathStem, stem, System.StringComparison.OrdinalIgnoreCase)) score = 1;
+                if (score == 0) continue;
+                if (Path.GetDirectoryName(path).Replace('\\', '/') == dir) score += 10;
+                if (score > bestScore) { bestScore = score; bestPath = path; }
+            }
+            return bestPath == null ? null : AssetDatabase.LoadAssetAtPath<Texture2D>(bestPath);
         }
 
         /// <summary>"Assets/Models/Cecil/Model/Cecil Harvey.fbx" -> "Assets/Models/Cecil" (textures are searched in here).</summary>
