@@ -39,6 +39,8 @@ namespace ProjectD.EditorTools
         {
             string modelReport = DuelModelLinker.LinkAll();   // finds Shiva, Garuda, Firion, ... and fills the model library
             var library = AssetDatabase.LoadAssetAtPath<DuelModelLibrary>(DuelModelLinker.LibraryPath);
+            if (library == null) Debug.LogError("[Project D] Could not load " + DuelModelLinker.LibraryPath + " - 3D models will not show.");
+            else Debug.Log("[Project D] Model library has " + library.entries.Count + " entries; assigning it to the scene.");
 
             var ground = MakeMaterial("DuelGround", new Color(0.20f, 0.23f, 0.28f), false);
             var blue = MakeMaterial("DuelBlue", new Color(0.25f, 0.5f, 0.95f), false);

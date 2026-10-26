@@ -65,7 +65,7 @@ Raw rips have no animations, so the demo adds a walk bob/lean and an attack lung
 
 Each model is automatically scaled to a fixed height (champions 1.9, summons 3.6 units) and stood on the ground.
 If one faces the wrong way, use TOOLS > **Turn my model 90** / **Turn enemy model 90** until it faces forward; the toast
-shows the number to type into **Yaw Offset** of that entry in `Assets/DuelDemo/DuelModelLibrary.asset` (then rebuild
+shows the number to type into **Yaw Offset** of that entry in `Assets/Resources/DuelModelLibrary.asset` (then rebuild
 the scene). The same file has **Height** if a model is the wrong size.
 
 Animation is best effort: if a prefab's Animator has the project's parameters (`Speed`, `TrigAttack`, `TrigQ/W/E/R`,

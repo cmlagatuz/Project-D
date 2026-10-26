@@ -3,7 +3,7 @@
 //
 //   Tools > Project D > Link Duel Demo Models
 //
-// Finds your 3D models anywhere under Assets/ by name and records them in Assets/DuelDemo/DuelModelLibrary.asset,
+// Finds your 3D models anywhere under Assets/ by name and records them in Assets/Resources/DuelModelLibrary.asset,
 // which the duel scene references (so the prefabs are included in phone builds).
 // Looks for: Warrior of Light, Firion, Cecil, Garland, The Emperor, Golbez, Shiva, Garuda.
 // Best match wins: an exact file name beats a partial one, a prefab beats a raw .fbx, and files in the project's
@@ -21,7 +21,8 @@ namespace ProjectD.EditorTools
 {
     public static class DuelModelLinker
     {
-        public const string LibraryPath = "Assets/DuelDemo/DuelModelLibrary.asset";
+        public const string LibraryPath = "Assets/Resources/DuelModelLibrary.asset";   // in Resources so the game can always find it, in the editor and in phone builds
+        private const string OldLibraryPath = "Assets/DuelDemo/DuelModelLibrary.asset";
 
         private static readonly string[] Ids = { "wol", "firion", "cecil", "garland", "emperor", "golbez", "shiva", "garuda" };
 
@@ -57,7 +58,9 @@ namespace ProjectD.EditorTools
         public static string LinkAll()
         {
             int moved = DuelModelCleanup.MoveUnsupported();   // .mesh files from game rips are not Unity assets and only cause import errors
-            EnsureFolder("Assets/DuelDemo");
+            EnsureFolder("Assets/Resources");
+            if (AssetDatabase.LoadAssetAtPath<DuelModelLibrary>(LibraryPath) == null && File.Exists(OldLibraryPath))
+                AssetDatabase.MoveAsset(OldLibraryPath, LibraryPath);   // keep earlier Yaw Offset / Height tweaks
             var lib = AssetDatabase.LoadAssetAtPath<DuelModelLibrary>(LibraryPath);
             if (lib == null)
             {

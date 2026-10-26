@@ -73,6 +73,7 @@ namespace ProjectD.DuelDemo
 
         private void Start()
         {
+            if (models == null) models = Resources.Load<DuelModelLibrary>("DuelModelLibrary");   // scene field is optional; the library also lives in Resources
             BuildArena();
             StartDuel(PlayerChampionId, EnemyChampionId);
 
@@ -184,10 +185,11 @@ namespace ProjectD.DuelDemo
             var entry = models != null ? models.Find(u.ModelId) : null;
             if (entry != null) view.HasModel = AttachModel(view, entry, u);
             if (!view.HasModel) AttachPlaceholder(view, u);
-            Debug.Log("[Project D] Model for '" + u.ModelId + "': " + (view.HasModel ? "using " + entry.prefab.name :
-                models == null ? "placeholder - the scene has NO model library assigned (run Tools > Project D > Build Duel Demo Scene)" :
-                entry == null ? "placeholder - no prefab linked for this id in DuelModelLibrary (run Tools > Project D > Link Duel Demo Models)" :
-                "placeholder - the prefab has no renderers"));
+            if (!string.IsNullOrEmpty(u.ModelId))
+                Debug.Log("[Project D] Model for '" + u.ModelId + "': " + (view.HasModel ? "using " + entry.prefab.name :
+                    models == null ? "placeholder - no DuelModelLibrary found (run Tools > Project D > Link Duel Demo Models)" :
+                    entry == null ? "placeholder - no prefab linked for this id (library has " + models.entries.Count + " entries; run Link Duel Demo Models)" :
+                    "placeholder - the prefab has no renderers"));
 
             float shieldHeight = view.HasModel ? 1.9f : 0.9f;
             var shield = GameObject.CreatePrimitive(PrimitiveType.Sphere);
