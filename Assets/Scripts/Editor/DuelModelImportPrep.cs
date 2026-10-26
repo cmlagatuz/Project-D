@@ -52,19 +52,32 @@ namespace ProjectD.EditorTools
             importer.optimizeMeshVertices = true;
             importer.skinWeights = ModelImporterSkinWeights.Standard;
 
-            // Champion bodies get a Humanoid avatar so the demo can pose them (arms down, walk, attack) even though rips
-            // have no clips, and so real humanoid clips (e.g. Mixamo) can be retargeted onto them later.
-            if (UseHumanoidRigs && IsChampionBody(assetPath))
-            {
-                importer.animationType = ModelImporterAnimationType.Human;
-                importer.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
-            }
+            ApplyRig(importer, assetPath);
         }
 
         /// <summary>Set to false if a model's Humanoid avatar fails to build and you would rather keep it Generic.</summary>
         private const bool UseHumanoidRigs = true;
 
         private static readonly string[] ChampionFolders = { "warrioroflight", "firion", "cecil", "garland", "emperor", "golbez" };
+
+        // Skeletons with numbered bones (bone_26 ...) make Unity's Humanoid setup fail with red "Rig Error" messages.
+        private static readonly string[] GenericOnlyFolders = { "warrioroflight", "golbez" };
+
+        /// <summary>
+        /// Champion bodies get a Humanoid avatar (so the demo can pose them and humanoid clips can be retargeted later),
+        /// except the two whose skeleton cannot be mapped, which stay Generic. Returns true if the importer was changed.
+        /// </summary>
+        internal static bool ApplyRig(ModelImporter importer, string path)
+        {
+            if (importer == null || !UseHumanoidRigs || !IsChampionBody(path)) return false;
+            string rest = path.Substring(Root.Length);
+            string folder = Normalize(rest.Substring(0, rest.IndexOf('/')));
+            var want = System.Array.IndexOf(GenericOnlyFolders, folder) >= 0 ? ModelImporterAnimationType.Generic : ModelImporterAnimationType.Human;
+            if (importer.animationType == want) return false;
+            importer.animationType = want;
+            importer.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
+            return true;
+        }
 
         private static bool IsChampionBody(string path)
         {

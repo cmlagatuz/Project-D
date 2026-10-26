@@ -40,6 +40,13 @@ namespace ProjectD.EditorTools
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 if (path.ToLowerInvariant().Contains("weapon")) continue;   // weapons are not attached in the demo yet
+                var rigImporter = AssetImporter.GetAtPath(path) as ModelImporter;
+                if (DuelModelImportPrep.ApplyRig(rigImporter, path))
+                {
+                    rigImporter.SaveAndReimport();
+                    sb.AppendLine(Path.GetFileName(path) + ": rig set to " + rigImporter.animationType);
+                    changed++;
+                }
                 string line = ApplyFor(path, force);
                 if (line != null) { sb.AppendLine(line); changed++; }
             }

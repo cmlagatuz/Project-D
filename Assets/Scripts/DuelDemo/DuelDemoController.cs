@@ -240,6 +240,15 @@ namespace ProjectD.DuelDemo
                 return false;
             }
 
+            if (u.Kind == UnitKind.Champion)
+            {
+                // Skeletons Unity could not make Humanoid stay in a T-pose; swing their arms down by geometry instead.
+                var anim = instance.GetComponentInChildren<Animator>();
+                bool humanRig = anim != null && anim.avatar != null && anim.avatar.isValid && anim.avatar.isHuman;
+                bool hasController = anim != null && anim.runtimeAnimatorController != null;
+                if (!humanRig && !hasController)
+                    Debug.Log("[Project D] " + u.ModelId + ": generic skeleton, arms " + (DuelGenericPose.LowerArms(instance) ? "lowered" : "left as imported (skeleton did not look like a T-posed biped)"));
+            }
             if (u.Kind == UnitKind.Champion) TintUntextured(renderers, u.Team == 0 ? new Color(0.72f, 0.84f, 1f) : new Color(1f, 0.74f, 0.72f));
 
             var bounds = renderers[0].bounds;
