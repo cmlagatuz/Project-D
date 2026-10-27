@@ -23,8 +23,8 @@ namespace ProjectD.DuelDemo
             switch (id)
             {
                 case "garuda":   // a hovering wind spirit: bobs on the air, rolls with the wingbeat, stoops to dive when alert
-                    _hover = 0.9f; _bob = 0.22f; _bobHz = 0.55f; _breath = 0.01f; _sway = 6f;
-                    _alertLean = 14f; _alertRise = 0.7f; _alertScale = 0.03f; _flap = 0.035f;
+                    _hover = 0.9f; _bob = 0.2f; _bobHz = 1.15f; _breath = 0.01f; _sway = 3f;
+                    _alertLean = 14f; _alertRise = 0.7f; _alertScale = 0.03f; _flap = 0f;
                     break;
                 case "bahamut":   // the dragon king: heavy, planted, slow breathing, rears back and spreads wide to roar
                     _hover = 0f; _bob = 0f; _bobHz = 0.3f; _breath = 0.014f; _sway = 1.2f;
@@ -36,6 +36,8 @@ namespace ProjectD.DuelDemo
                     break;
             }
         }
+
+        public float Alert01 { get { return _alert; } }   // 0..1, eased; the wing and cloth motion read it
 
         public void Flinch() { _flinchAt = Time.time; }
 

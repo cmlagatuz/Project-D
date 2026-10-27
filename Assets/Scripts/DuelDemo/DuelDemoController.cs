@@ -15,6 +15,7 @@ namespace ProjectD.DuelDemo
     public sealed class DuelDemoController : MonoBehaviour
     {
         public const float Step = 1f / 30f;
+        private const float DefaultZoom = 0.72f;
 
         [SerializeField] private Material groundMat;
         [SerializeField] private Material blueMat;
@@ -23,6 +24,7 @@ namespace ProjectD.DuelDemo
         [SerializeField] private Material wardMat;
         [SerializeField] private Material flashMat;
         [SerializeField] private Material markMat;
+        [SerializeField] private Material fxMat;   // additive particle material for the summon effects (optional; falls back to Sprites/Default)
         [SerializeField] private DuelModelLibrary models;
         [SerializeField] private ArenaCameraRig cameraRig;
         [SerializeField] private Camera viewCamera;
@@ -80,6 +82,7 @@ namespace ProjectD.DuelDemo
         private void Start()
         {
             if (models == null) models = Resources.Load<DuelModelLibrary>("DuelModelLibrary");   // scene field is optional; the library also lives in Resources
+            if (cameraRig != null) cameraRig.SetZoom(PlayerPrefs.GetFloat("pd_zoom", DefaultZoom));   // the demo camera sits closer than the old greybox one
             BuildArena();
             StartDuel(PlayerChampionId, EnemyChampionId);
 
@@ -203,12 +206,13 @@ namespace ProjectD.DuelDemo
                     entry == null ? "placeholder - no prefab linked for this id (library has " + models.entries.Count + " entries; run Link Duel Demo Models)" :
                     "placeholder - the prefab has no renderers"));
 
-            float shieldHeight = view.HasModel ? 1.9f : 0.9f;
+            float shieldHeight = view.HasModel ? 2.4f : 0.9f;
             var shield = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             shield.name = "ShieldBubble";
             RemoveCollider(shield);
             shield.transform.SetParent(root.transform, false);
-            shield.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+            float shieldSize = view.HasModel ? 2.8f : 2.0f;
+            shield.transform.localScale = new Vector3(shieldSize, shieldSize, shieldSize);
             shield.transform.localPosition = new Vector3(0f, shieldHeight, 0f);
             shield.GetComponent<Renderer>().sharedMaterial = Pick(flashMat, new Color(0.6f, 0.9f, 1f, 0.4f));
             shield.SetActive(false);
@@ -218,7 +222,7 @@ namespace ProjectD.DuelDemo
             RemoveCollider(mark);
             mark.transform.SetParent(root.transform, false);
             mark.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
-            mark.transform.localPosition = new Vector3(0f, 2.6f, 0f);
+            mark.transform.localPosition = new Vector3(0f, view.HasModel ? 3.4f : 2.6f, 0f);
             mark.GetComponent<Renderer>().sharedMaterial = Pick(markMat, new Color(1f, 0.85f, 0.2f));
             mark.SetActive(false);
 
@@ -279,8 +283,21 @@ namespace ProjectD.DuelDemo
                 view.Guard = holder.AddComponent<DuelSummonGuard>();
                 view.Guard.Init(u.ModelId);
                 view.Guard.Yaw = view.BaseYaw;
+                AttachSummonEffects(view, instance, holder.transform, u, height);
             }
             return true;
+        }
+
+        /// <summary>Gown and hair in the wind (Shiva), wing beats (Garuda, Bahamut) and the particle effects around each summon.</summary>
+        private void AttachSummonEffects(UnitView view, GameObject instance, Transform holder, DuelUnit u, float height)
+        {
+            var smrs = instance.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            for (int i = 0; i < smrs.Length; i++) smrs[i].updateWhenOffscreen = true;   // posed bones leave the imported bounds
+
+            var kind = u.ModelId == "shiva" ? SecondaryKind.Cloth : SecondaryKind.Wings;
+            var motion = DuelSecondaryMotion.Attach(instance, holder, kind, view.Guard, out string report);
+            Debug.Log("[Project D] " + u.ModelId + ": " + (kind == SecondaryKind.Cloth ? "cloth" : "wing") + " motion " + (motion != null ? "on (" + report + ")" : "off (" + report + ")"));
+            DuelSummonFx.Attach(view.Root, u.ModelId, height, fxMat);
         }
 
         /// <summary>Finds the bones and attaches the procedural animator. Without it the model just stands in its imported pose.</summary>
@@ -714,6 +731,15 @@ namespace ProjectD.DuelDemo
             _views.Remove(u.Id);
             CreateView(u);
             if (u == Player && cameraRig != null && _views.TryGetValue(u.Id, out var nv)) cameraRig.SetTarget(nv.Root);
+        }
+
+        /// <summary>Moves the camera closer (factor under 1) or farther (over 1) and remembers it.</summary>
+        public void ToolZoom(float factor)
+        {
+            if (cameraRig == null) { Ui.Toast("No camera rig"); return; }
+            cameraRig.SetZoom(cameraRig.Zoom * factor);
+            PlayerPrefs.SetFloat("pd_zoom", cameraRig.Zoom);
+            Ui.Toast(factor < 1f ? "Camera closer" : "Camera farther");
         }
 
         public void ToolKillMe()

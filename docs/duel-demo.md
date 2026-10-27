@@ -89,6 +89,15 @@ All the numbers are first guesses; tune them in `DuelCharacterAnimator.cs` (the 
 nearest champion in view, breathe and sway (Garuda hovers), rear up and roar when a champion comes within 9 units, and recoil
 when hit. They do not attack yet: that needs a combat change in the duel rules, which is a separate step.
 
+**Summon effects.** Built from code (`DuelSummonFx`, `DuelSecondaryMotion`), no art files needed. Shiva: her gown, skirt and hair
+bones (`j_skirt*`, hair) stream back and ripple in an icy wind, with frost motes, wind streaks, orbiting ice shards, sparkles and a
+frost ring on the ground. Garuda: the wing bones beat up and down (faster when a champion is near), with a ground cyclone, wind
+spiralling up around her, gusts off the wings and drifting feathers. Bahamut: a rune ring, rising embers, sparkles, and wing beats if
+his model has wing bones. The console says "cloth/wing motion on (N bones)" or why it is off.
+
+**Size on screen.** The demo camera now sits closer (zoom 0.72) and models are bigger (champions 2.5, Shiva and Garuda 5, Bahamut 7).
+TOOLS > Camera closer / Camera farther adjusts the zoom and remembers it. Heights you already tuned in the library are kept.
+
 **Bahamut (.glb).** Needs the glTFast package once: Window > Package Manager > + > **Add package by name** >
 `com.unity.cloud.gltfast`. Then put `Bahamut.glb` (and its textures) in `Assets/Models/Bahamut/`, run Link Duel Demo Models
 and Build Duel Demo Scene. He appears at the top of the arena only when his model is linked. The GLB is large (about 80 MB);
@@ -96,7 +105,7 @@ if the phone build is slow or too big, reduce his textures.
 
 Weapons (e.g. Holy Fang) are separate FBX files; they are imported but not attached to a hand yet.
 
-Each model is automatically scaled to a fixed height (champions 1.9, summons 3.6 units) and stood on the ground.
+Each model is automatically scaled to a fixed height (champions 2.5, Shiva and Garuda 5, Bahamut 7 units) and stood on the ground.
 If one faces the wrong way, use TOOLS > **Turn my model 90**, **Turn enemy model 90**, **Turn Shiva 90**, **Turn Garuda 90** or
 **Turn Bahamut 90** until it faces forward. In the editor the answer is saved into `Assets/Resources/DuelModelLibrary.asset`
 (Yaw Offset) automatically, so you only do it once. First guesses: Shiva 180, Garuda 90 (a wing-on-edge model looks flat).

@@ -37,7 +37,13 @@ namespace ProjectD.DuelDemo
         /// <summary>Default fitted height for an id: champions are human sized, summons are big, Bahamut is huge.</summary>
         public static float DefaultHeight(string id)
         {
-            if (id == "bahamut") return 4.6f;
+            if (id == "bahamut") return 7f;
+            return id == "shiva" || id == "garuda" ? 5f : 2.5f;
+        }
+
+        /// <summary>The height earlier versions used. A library entry still at this value was never tuned, so it gets the new default.</summary>
+        public static float OldDefaultHeight(string id)
+        {
             return id == "shiva" || id == "garuda" ? 3.6f : 1.9f;
         }
 

@@ -49,6 +49,7 @@ namespace ProjectD.EditorTools
             var ward = MakeMaterial("DuelWard", new Color(0.95f, 0.88f, 0.4f), false);
             var flash = MakeMaterial("DuelFlash", new Color(0.6f, 0.9f, 1f, 0.40f), true);
             var mark = MakeMaterial("DuelMark", new Color(1f, 0.85f, 0.2f), false);
+            var fx = MakeFxMaterial("DuelFx");
 
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -84,6 +85,7 @@ namespace ProjectD.EditorTools
             Assign(so, "wardMat", ward);
             Assign(so, "flashMat", flash);
             Assign(so, "markMat", mark);
+            Assign(so, "fxMat", fx);
             Assign(so, "models", library);
             Assign(so, "cameraRig", camGo.GetComponent<ArenaCameraRig>());
             Assign(so, "viewCamera", cam);
@@ -135,6 +137,34 @@ namespace ProjectD.EditorTools
                 m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
                 m.renderQueue = 3000;
             }
+            EditorUtility.SetDirty(m);
+            return m;
+        }
+
+        /// <summary>Additive URP particle material for the summon effects. Returns null if the shader is missing (the game then falls back).</summary>
+        private static Material MakeFxMaterial(string name)
+        {
+            var shader = Shader.Find("Universal Render Pipeline/Particles/Unlit");
+            if (shader == null) return null;
+            EnsureFolder("Assets/Materials");
+            EnsureFolder(MaterialFolder);
+            string path = MaterialFolder + "/" + name + ".mat";
+            var m = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (m == null)
+            {
+                m = new Material(shader);
+                AssetDatabase.CreateAsset(m, path);
+            }
+            m.shader = shader;
+            if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", Color.white);
+            if (m.HasProperty("_Surface")) m.SetFloat("_Surface", 1f);
+            if (m.HasProperty("_Blend")) m.SetFloat("_Blend", 2f);   // additive
+            if (m.HasProperty("_SrcBlend")) m.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            if (m.HasProperty("_DstBlend")) m.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.One);
+            if (m.HasProperty("_ZWrite")) m.SetFloat("_ZWrite", 0f);
+            m.SetOverrideTag("RenderType", "Transparent");
+            m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            m.renderQueue = 3000;
             EditorUtility.SetDirty(m);
             return m;
         }

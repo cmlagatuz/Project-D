@@ -89,7 +89,7 @@ namespace ProjectD.EditorTools
                 if (best == null)
                 {
                     if (existing != null && existing.prefab != null) { found++; sb.AppendLine(id + ": kept " + AssetDatabase.GetAssetPath(existing.prefab)); }
-                    else sb.AppendLine(id + ": NOT FOUND (placeholder shape will be used)");
+                    else sb.AppendLine(id + ": NOT FOUND - " + Diagnose(id) + " (placeholder / nothing will be shown for it)");
                     continue;
                 }
 
@@ -99,6 +99,7 @@ namespace ProjectD.EditorTools
                     existing = new DuelModelLibrary.Entry { id = id, height = DuelModelLibrary.DefaultHeight(id) };
                     lib.entries.Add(existing);
                 }
+                if (Mathf.Abs(existing.height - DuelModelLibrary.OldDefaultHeight(id)) < 0.01f) existing.height = DuelModelLibrary.DefaultHeight(id);   // bigger on screen; tuned heights are kept
                 if (!existing.yawTuned && Mathf.Abs(existing.yawOffset) < 0.01f) existing.yawOffset = DuelModelLibrary.DefaultYaw(id);
                 existing.prefab = prefab;
                 found++;
@@ -112,6 +113,34 @@ namespace ProjectD.EditorTools
             sb.AppendLine("If a model faces the wrong way or is the wrong size, select " + LibraryPath +
                           " and change that entry's Yaw Offset or Height. Then rebuild the duel scene.");
             return sb.ToString();
+        }
+
+        /// <summary>Says why a model was not found: no file at all, or a .glb/.gltf that Unity cannot import without glTFast.</summary>
+        private static string Diagnose(string id)
+        {
+            var found = new List<string>();
+            foreach (var alias in Aliases[id])
+            {
+                if (alias.Length < 4) continue;
+                foreach (var f in Directory.GetFiles("Assets", "*" + alias + "*", SearchOption.AllDirectories))
+                {
+                    if (f.EndsWith(".meta")) continue;
+                    string p = f.Replace('\\', '/');
+                    if (!found.Contains(p)) found.Add(p);
+                }
+            }
+            if (found.Count == 0) return "no file with '" + id + "' in its name anywhere under Assets/. Copy the model into Assets/Models/" + char.ToUpperInvariant(id[0]) + id.Substring(1) + "/";
+            foreach (var p in found)
+            {
+                string ext = Path.GetExtension(p).ToLowerInvariant();
+                if (ext != ".glb" && ext != ".gltf") continue;
+                var importer = AssetImporter.GetAtPath(p);
+                string typeName = importer != null ? importer.GetType().Name : "none";
+                if (importer == null || typeName == "DefaultImporter" || typeName == "NativeFormatImporter")
+                    return p + " is there but Unity cannot import .glb yet: install glTFast (Window > Package Manager > + > Add package by name > com.unity.cloud.gltfast), then run this again";
+                return p + " imported with " + typeName + " but has no usable model object; select it in the Project window and tell me what the Inspector shows";
+            }
+            return "found " + string.Join(", ", found.ToArray()) + " but none is a model file";
         }
 
         private static string Best(string id, List<string> candidates)
