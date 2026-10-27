@@ -371,6 +371,8 @@ namespace ProjectD.DuelDemo
         private float _channelStart, _channelDuration = 1f;
 
         public bool IsDead { get { return _dead; } }
+        /// <summary>0 standing, 1 running: lets capes and skirts trail back.</summary>
+        public float Walk01 { get { return _walk; } }
         /// <summary>True while a dead unit's body should still be drawn (falling, lying, shrinking away).</summary>
         public bool DeathVisible { get { return !_dead || Time.time - _deathAt < DeathFall + DeathHold + DeathShrink; } }
 

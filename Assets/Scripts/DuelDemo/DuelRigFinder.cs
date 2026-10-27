@@ -39,6 +39,8 @@ namespace ProjectD.DuelDemo
         public static DuelRig Find(GameObject instance, Transform holder, out string why)
         {
             why = "";
+            var named = FromStandardNames(instance, holder);   // the game's own bone_N skeleton: exact, and immune to Unity's auto-mapping
+            if (named != null && named.Complete) return named;
             var anim = instance.GetComponentInChildren<Animator>();
             if (anim != null && anim.avatar != null && anim.avatar.isValid && anim.avatar.isHuman)
             {
@@ -50,6 +52,61 @@ namespace ProjectD.DuelDemo
             if (geo != null) return geo;
             why += geoWhy;
             return null;
+        }
+
+        // ------------------------------------------------------------------ standard bone names
+
+        /// <summary>
+        /// The champion rips share one skeleton: bone_2 hips, bone_3/4 thighs, 5/6 knees, 7/8 ankles, 9 spine, 10 chest, 12 head,
+        /// 15/16 upper arms, 17/18 forearms, 19/20 wrists (Garland's has no separate clavicle, so his arms start one bone later).
+        /// Unity's Humanoid auto-mapping got Garland's head and left arm wrong, so names win over the avatar.
+        /// </summary>
+        private static DuelRig FromStandardNames(GameObject instance, Transform holder)
+        {
+            var map = new Dictionary<string, Transform>();
+            var all = instance.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < all.Length; i++) if (!map.ContainsKey(all[i].name)) map[all[i].name] = all[i];
+
+            Transform hips = Bone(map, 2), t3 = Bone(map, 3), t4 = Bone(map, 4);
+            Transform b15 = Bone(map, 15);
+            if (hips == null || t3 == null || t4 == null || b15 == null) return null;
+
+            bool garlandStyle = b15.parent != null && b15.parent == Bone(map, 11);   // arms hang straight off the neck bone
+            int up = garlandStyle ? 17 : 15;
+
+            var rig = new DuelRig { Source = garlandStyle ? "standard bone names (no-clavicle variant)" : "standard bone names", Hips = hips };
+            rig.Spine = Bone(map, 9);
+            rig.Chest = Bone(map, 10);
+            rig.Head = Bone(map, 12);
+
+            // index 0 = the -lateral side: bone_3 is the character's left unless the model is mirrored
+            bool threeIsNegative = Vector3.Dot(t3.position - t4.position, holder.right) < 0f;
+            for (int k = 0; k < 2; k++)
+            {
+                bool first = (k == 0) == threeIsNegative;   // does this index use the odd (bone_3 / bone_15 ...) side?
+                int d = first ? 0 : 1;
+                rig.UpperLeg[k] = Bone(map, 3 + d);
+                rig.LowerLeg[k] = Bone(map, 5 + d);
+                rig.Foot[k] = Bone(map, 7 + d);
+                rig.UpperArm[k] = Bone(map, up + d);
+                rig.LowerArm[k] = Bone(map, up + 2 + d);
+                rig.Hand[k] = Bone(map, up + 4 + d);
+            }
+            if (!rig.Complete) return null;
+
+            // sanity: the legs must hang below the hips and the feet below the knees
+            for (int k = 0; k < 2; k++)
+            {
+                if (rig.Foot[k].position.y >= rig.LowerLeg[k].position.y || rig.LowerLeg[k].position.y >= rig.UpperLeg[k].position.y) return null;
+                if (rig.UpperLeg[k].position.y > hips.position.y + 0.01f * Mathf.Abs(hips.position.y)) return null;
+            }
+            return rig;
+        }
+
+        private static Transform Bone(Dictionary<string, Transform> map, int n)
+        {
+            map.TryGetValue("bone_" + n, out var t);
+            return t;
         }
 
         // ------------------------------------------------------------------ humanoid

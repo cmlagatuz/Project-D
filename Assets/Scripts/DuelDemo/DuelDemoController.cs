@@ -50,6 +50,7 @@ namespace ProjectD.DuelDemo
             public GameObject Mark;
             public Animator Animator;
             public DuelCharacterAnimator Anim;   // procedural champion animation (idle, run, attacks, spells, death, teleport)
+            public DuelSecondaryMotion Cloth;    // champions: capes, skirts and tabards (the rips' "nuno" bone chains) trailing as they run
             public DuelSummonGuard Guard;        // summons: stand guard, face the nearest champion, rear up, recoil
             public bool WasAlive = true;
             public bool WasChanneling;
@@ -325,6 +326,8 @@ namespace ProjectD.DuelDemo
             }
             view.Anim = anim;
             Debug.Log("[Project D] " + u.ModelId + ": procedural animation on (rig via " + rig.Source + ", style " + DuelStyles.ForModel(u.ModelId) + ")");
+            view.Cloth = DuelSecondaryMotion.Attach(instance, holder, SecondaryKind.Cloth, null, out string clothReport);
+            Debug.Log("[Project D] " + u.ModelId + ": cloth motion " + (view.Cloth != null ? "on (" + clothReport + ")" : "off (" + clothReport + ")"));
         }
 
         /// <summary>Materials with no texture would be plain white; give them a light team tint so the two sides can still be told apart.</summary>
@@ -455,6 +458,7 @@ namespace ProjectD.DuelDemo
                         else if (!u.Channeling && v.WasChanneling) v.Anim.EndChannel(DVec2.Distance(u.Pos, v.LastPos) > 1.5f);
                     }
                     v.Anim.Yaw = v.BaseYaw;
+                    if (v.Cloth != null) v.Cloth.Drive = v.Anim.Walk01;
                 }
                 v.WasAlive = alive;
                 v.WasChanneling = alive && u.Channeling;

@@ -93,7 +93,14 @@ when hit. They do not attack yet: that needs a combat change in the duel rules, 
 bones (`j_skirt*`, hair) stream back and ripple in an icy wind, with frost motes, wind streaks, orbiting ice shards, sparkles and a
 frost ring on the ground. Garuda: the wing bones beat up and down (faster when a champion is near), with a ground cyclone, wind
 spiralling up around her, gusts off the wings and drifting feathers. Bahamut: a rune ring, rising embers, sparkles, and wing beats if
-his model has wing bones. The console says "cloth/wing motion on (N bones)" or why it is off.
+his model has wing bones. The console says "cloth/wing motion on (N bones)" or why it is off. The champions' capes and skirts (the rips' `nuno` bone
+chains) trail back when they run. Garuda and Bahamut are modelled with the wings folded up and back in a vertical plane, so the
+wing motion opens them outward first and then beats them.
+
+**Rigs.** The champion rips share one skeleton (`bone_2` hips, `bone_3/4` thighs, `bone_7/8` ankles, `bone_15..20` arms,
+`bone_12` head); the animator finds bones by those names first, then the Humanoid avatar, then geometry. This fixed Garland
+(Unity's Humanoid auto-mapping put his head on an elbow and his left arm on cloth bones), Warrior of Light (geometry could not
+find his A-pose arms) and Golbez (geometry picked cloth bones as legs).
 
 **Size on screen.** The demo camera now sits closer (zoom 0.72) and models are bigger (champions 2.5, Shiva and Garuda 5, Bahamut 7).
 TOOLS > Camera closer / Camera farther adjusts the zoom and remembers it. Heights you already tuned in the library are kept.
@@ -114,6 +121,13 @@ The same file has **Height** if a model is the wrong size.
 Animation is best effort: if a prefab's Animator has the project's parameters (`Speed`, `TrigAttack`, `TrigQ/W/E/R`,
 `TrigHit`) they are driven; otherwise the model just slides around. Pink models mean the materials are not URP
 materials (Edit > Rendering > Materials > Convert Selected Built-in Materials to URP).
+
+**Tracking the models in git (optional).** Only do this in a PRIVATE repository: a public repo would redistribute the art, whatever
+the intent. `.gitattributes` already stores `Assets/Models/**` with Git LFS. To start tracking: make the repo private
+(GitHub > Settings > Danger Zone), delete the `/Assets/Models/` and `/Assets/Models.meta` lines from `.gitignore`, run
+`git lfs install`, then `git add Assets/Models .gitattributes` and commit and push from your PC. Expect hundreds of MB
+(Bahamut alone is about 80 MB); GitHub's free LFS quota is 1 GB of storage and 1 GB of bandwidth per month. Until then, the
+**Save Model Rig Report** tool gives the skeleton data needed to tune the animation.
 
 `Assets/Models/` is in `.gitignore` on purpose: the repo is public and licensed art needs a documented chain of title
 before it is shared (or must be replaced with original IP). Phone builds made on your PC still include the models,

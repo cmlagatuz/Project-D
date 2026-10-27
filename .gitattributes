@@ -1,0 +1,4 @@
+
+# Licensed model rips (kept out of git by default, see .gitignore and docs/duel-demo.md).
+# If you choose to track them in a PRIVATE repository, these rules store them with Git LFS. Only this folder is affected.
+/Assets/Models/** filter=lfs diff=lfs merge=lfs -text
