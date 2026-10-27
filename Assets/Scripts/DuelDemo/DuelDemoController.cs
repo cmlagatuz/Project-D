@@ -1,7 +1,8 @@
 // Project D | Codename: Zantetsuken — DuelDemoController.cs
 // Unity view for the 1v1 duel demo. Owns the engine-agnostic DuelWorld, ticks it at a fixed step, mirrors units into
-// the scene (primitive placeholder shapes — original art only), flashes ability areas, and exposes the commands the
-// touch UI and the editor keyboard call. All rules live in ProjectD.Duel; this file only draws and forwards input.
+// the scene (the artist's 3D models, or primitive placeholder shapes), animates them (DuelCharacterAnimator for the
+// champions, DuelSummonGuard for the summons), flashes ability areas, and exposes the commands the touch UI and the
+// editor keyboard call. All rules live in ProjectD.Duel; this file only draws and forwards input.
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectD.Duel;
@@ -31,6 +32,7 @@ namespace ProjectD.DuelDemo
         public DuelUnit Enemy { get; private set; }
         public DuelUnit Shiva { get; private set; }
         public DuelUnit Garuda { get; private set; }
+        public DuelUnit Bahamut { get; private set; }   // only present when a Bahamut model is linked
         public string PlayerChampionId { get; private set; } = "wol";
         public string EnemyChampionId { get; private set; } = "garland";
         public DuelBot EnemyBot { get; private set; }
@@ -45,12 +47,15 @@ namespace ProjectD.DuelDemo
             public GameObject Shield;
             public GameObject Mark;
             public Animator Animator;
-            public DuelHumanoidPose Pose;   // procedural arms-down / walk / attack for T-pose rips
+            public DuelCharacterAnimator Anim;   // procedural champion animation (idle, run, attacks, spells, death, teleport)
+            public DuelSummonGuard Guard;        // summons: stand guard, face the nearest champion, rear up, recoil
+            public bool WasAlive = true;
+            public bool WasChanneling;
+            public DVec2 LastPos;
             public HashSet<string> Params;
             public bool HasModel;
             public Transform Holder;      // parent of the model: gets the yaw offset and the procedural motion
             public float BaseYaw;         // the library's Yaw Offset
-            public float ExtraYaw;        // temporary rotation from the TOOLS panel while finding the right yaw
             public float PunchUntil;      // procedural attack cue for models without animations
             public string ModelId;
         }
@@ -111,11 +116,17 @@ namespace ProjectD.DuelDemo
             theirs.TrySet(1, SummonerSpellId.Cure, GameMode.Practice);
             Enemy = World.AddChampion(DuelRoster.ById(enemyChampionId), 1, new DVec2(6f, 6f), _level, theirs);
 
-            // The two summons stand in as neutral training targets (Ultima, Hunter's Resource). They do not fight back yet.
+            // The summons stand in as neutral training targets (Ultima, Hunter's Resource). They do not fight back yet.
             Shiva = World.AddMonster("Shiva", new DVec2(-6f, 8f), 1800f);
             Shiva.ModelId = "shiva";
             Garuda = World.AddMonster("Garuda", new DVec2(8f, -7f), 1800f);
             Garuda.ModelId = "garuda";
+            Bahamut = null;
+            if (HasModelFor("bahamut"))
+            {
+                Bahamut = World.AddMonster("Bahamut", new DVec2(1f, 11f), 3000f);
+                Bahamut.ModelId = "bahamut";
+            }
             World.AddWard(0, new DVec2(11f, -11f));
 
             EnemyBot = new DuelBot(Enemy.Id);
@@ -240,15 +251,6 @@ namespace ProjectD.DuelDemo
                 return false;
             }
 
-            if (u.Kind == UnitKind.Champion)
-            {
-                // Skeletons Unity could not make Humanoid stay in a T-pose; swing their arms down by geometry instead.
-                var anim = instance.GetComponentInChildren<Animator>();
-                bool humanRig = anim != null && anim.avatar != null && anim.avatar.isValid && anim.avatar.isHuman;
-                bool hasController = anim != null && anim.runtimeAnimatorController != null;
-                if (!humanRig && !hasController)
-                    Debug.Log("[Project D] " + u.ModelId + ": generic skeleton, arms " + (DuelGenericPose.LowerArms(instance) ? "lowered" : "left as imported (skeleton did not look like a T-posed biped)"));
-            }
             if (u.Kind == UnitKind.Champion) TintUntextured(renderers, u.Team == 0 ? new Color(0.72f, 0.84f, 1f) : new Color(1f, 0.74f, 0.72f));
 
             var bounds = renderers[0].bounds;
@@ -265,12 +267,47 @@ namespace ProjectD.DuelDemo
             if (view.Animator != null)
             {
                 view.Animator.applyRootMotion = false;
-                view.Pose = DuelHumanoidPose.TryAttach(view.Animator);
                 view.Params = new HashSet<string>();
                 var ps = view.Animator.parameters;   // empty if the prefab has no controller
                 for (int i = 0; i < ps.Length; i++) view.Params.Add(ps[i].name);
             }
+
+            bool ownClips = view.Animator != null && view.Animator.runtimeAnimatorController != null && view.Params.Count > 0;
+            if (u.Kind == UnitKind.Champion && !ownClips) AttachCharacterAnimator(view, instance, holder.transform, u);
+            else if (u.Kind == UnitKind.Monster)
+            {
+                view.Guard = holder.AddComponent<DuelSummonGuard>();
+                view.Guard.Init(u.ModelId);
+                view.Guard.Yaw = view.BaseYaw;
+            }
             return true;
+        }
+
+        /// <summary>Finds the bones and attaches the procedural animator. Without it the model just stands in its imported pose.</summary>
+        private static void AttachCharacterAnimator(UnitView view, GameObject instance, Transform holder, DuelUnit u)
+        {
+            var rig = DuelRigFinder.Find(instance, holder, out string why);
+            if (rig == null || !rig.Complete)
+            {
+                Debug.LogWarning("[Project D] " + u.ModelId + ": no animation rig found (" + why + "). It will use the simple bob-and-lean motion. " +
+                                 "Run Tools > Project D > Save Model Material Report and send me Builds/ModelMaterialReport.txt.");
+                return;
+            }
+            if (view.Animator != null) view.Animator.enabled = false;   // nothing else may move the bones
+            var smrs = instance.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            for (int i = 0; i < smrs.Length; i++) smrs[i].updateWhenOffscreen = true;   // limbs leave the imported bounds when posed
+
+            var anim = holder.gameObject.AddComponent<DuelCharacterAnimator>();
+            anim.Yaw = view.BaseYaw;
+            if (!anim.Init(rig, holder, DuelStyles.ForModel(u.ModelId)))
+            {
+                Debug.LogWarning("[Project D] " + u.ModelId + ": the rig's legs did not measure up (" + rig.Source + "); using the simple motion instead.");
+                Destroy(anim);
+                if (view.Animator != null) view.Animator.enabled = true;
+                return;
+            }
+            view.Anim = anim;
+            Debug.Log("[Project D] " + u.ModelId + ": procedural animation on (rig via " + rig.Source + ", style " + DuelStyles.ForModel(u.ModelId) + ")");
         }
 
         /// <summary>Materials with no texture would be plain white; give them a light team tint so the two sides can still be told apart.</summary>
@@ -370,6 +407,9 @@ namespace ProjectD.DuelDemo
 
         private static Vector3 ToWorld(DVec2 p) => new Vector3(p.X, 0f, p.Y);
 
+        private const float GuardAlertRange = 9f;
+        private const float GuardTurnSpeed = 150f;   // degrees per second
+
         private void SyncViews()
         {
             float now = World.Time;
@@ -377,48 +417,88 @@ namespace ProjectD.DuelDemo
             {
                 var v = kv.Value;
                 var u = v.Unit;
-                v.Root.gameObject.SetActive(u.Alive);
-                if (!u.Alive) continue;
-                v.Root.position = ToWorld(u.Pos);
-                if (u.Facing.Length > 0.01f) v.Root.rotation = Quaternion.LookRotation(ToWorld(u.Facing));
+                bool alive = u.Alive;
+                bool show = alive || (v.Anim != null && v.Anim.DeathVisible);
+                v.Root.gameObject.SetActive(show);
+                if (alive)
+                {
+                    v.Root.position = ToWorld(u.Pos);
+                    if (v.Guard != null) TurnGuard(v);
+                    else if (u.Facing.Length > 0.01f) v.Root.rotation = Quaternion.LookRotation(ToWorld(u.Facing));
+                }
+
+                if (v.Anim != null)
+                {
+                    if (v.WasAlive && !alive) v.Anim.PlayDeath();
+                    else if (!v.WasAlive && alive) v.Anim.PlayRise();
+                    if (alive)
+                    {
+                        // Teleport: kneel and pray while channelling, beam out when it completes (the position jumps to the ward).
+                        if (u.Channeling && !v.WasChanneling) v.Anim.BeginChannel(u.ChannelEndsAt - now);
+                        else if (!u.Channeling && v.WasChanneling) v.Anim.EndChannel(DVec2.Distance(u.Pos, v.LastPos) > 1.5f);
+                    }
+                    v.Anim.Yaw = v.BaseYaw;
+                }
+                v.WasAlive = alive;
+                v.WasChanneling = alive && u.Channeling;
+                v.LastPos = u.Pos;
+                if (!show) continue;
+
+                if (!alive)
+                {
+                    v.Shield.SetActive(false);
+                    v.Mark.SetActive(false);
+                    continue;
+                }
                 v.Shield.SetActive(u.ShieldAmount(now) > 0f);
                 v.Mark.SetActive(Player.MarkTargetId == u.Id && now < Player.MarkExpiresAt);
                 bool moving = u.MoveInput.Length > 0.1f && !u.IsStunned(now);
                 if (v.Animator != null && v.Params != null && v.Params.Contains("Speed"))
                     v.Animator.SetFloat("Speed", moving ? 1f : 0f);
-                if (v.HasModel && v.Holder != null) ApplyProceduralMotion(v, moving);
+                if (v.HasModel && v.Holder != null && v.Anim == null && v.Guard == null) ApplyProceduralMotion(v, moving);
             }
         }
 
+        /// <summary>Summons keep an eye on the nearest champion and rear up when one enters their territory.</summary>
+        private void TurnGuard(UnitView v)
+        {
+            DuelUnit nearest = null;
+            float best = float.MaxValue;
+            for (int i = 0; i < World.Units.Count; i++)
+            {
+                var c = World.Units[i];
+                if (c.Kind != UnitKind.Champion || !c.Alive) continue;
+                float d = DVec2.Distance(c.Pos, v.Unit.Pos);
+                if (d < best) { best = d; nearest = c; }
+            }
+            if (nearest == null) { v.Guard.AlertTarget = 0f; return; }
+            float dx = nearest.Pos.X - v.Unit.Pos.X, dz = nearest.Pos.Y - v.Unit.Pos.Y;
+            if (dx * dx + dz * dz > 0.01f)
+            {
+                var want = Quaternion.Euler(0f, Mathf.Atan2(dx, dz) * Mathf.Rad2Deg, 0f);
+                v.Root.rotation = Quaternion.RotateTowards(v.Root.rotation, want, GuardTurnSpeed * Time.deltaTime);
+            }
+            v.Guard.AlertTarget = best < GuardAlertRange ? 1f : 0f;
+        }
+
         /// <summary>
-        /// Raw rips usually have no animation clips, so models would just slide. This adds a small walk bob and lean,
-        /// an attack lunge, and applies the yaw offset. Skipped for models whose Animator already has a controller.
+        /// Fallback for models the animator could not rig: a small walk bob and lean, an attack lunge, and the yaw offset.
+        /// Skipped for models whose Animator already has a controller.
         /// </summary>
         private void ApplyProceduralMotion(UnitView v, bool moving)
         {
             bool animated = v.Animator != null && v.Animator.runtimeAnimatorController != null && v.Params != null && v.Params.Count > 0;
-            float yaw = v.BaseYaw + v.ExtraYaw;
             if (animated)
             {
-                v.Holder.localRotation = Quaternion.Euler(0f, yaw, 0f);
+                v.Holder.localRotation = Quaternion.Euler(0f, v.BaseYaw, 0f);
                 return;
             }
-            float bob = moving && v.Pose == null ? Mathf.Abs(Mathf.Sin(Time.time * 9f)) * 0.08f : 0f;
+            float bob = moving ? Mathf.Abs(Mathf.Sin(Time.time * 9f)) * 0.08f : 0f;
             float lean = moving ? 8f : 0f;
             float punch = Mathf.Clamp01((v.PunchUntil - Time.time) / 0.2f);
-            if (v.Pose != null) { v.Pose.Speed01 = moving ? 1f : 0f; v.Pose.Punch01 = Mathf.Clamp01((v.PunchUntil - Time.time) / 0.2f); }
             v.Holder.localPosition = new Vector3(0f, bob, 0f);
-            v.Holder.localRotation = Quaternion.Euler(lean + punch * 12f, yaw, 0f);
+            v.Holder.localRotation = Quaternion.Euler(lean + punch * 12f, v.BaseYaw, 0f);
             v.Holder.localScale = Vector3.one * (1f + punch * 0.06f);
-        }
-
-        /// <summary>Rotates a unit's model by 90 degrees (for finding the right Yaw Offset). Returns the total yaw now applied.</summary>
-        public float RotateModel(bool enemy)
-        {
-            var u = enemy ? Enemy : Player;
-            if (!_views.TryGetValue(u.Id, out var v) || !v.HasModel) return float.NaN;
-            v.ExtraYaw = Mathf.Repeat(v.ExtraYaw + 90f, 360f);
-            return Mathf.Repeat(v.BaseYaw + v.ExtraYaw, 360f);
         }
 
         private static readonly string[] AbilityTriggers = { "TrigQ", "TrigW", "TrigE", "TrigR" };
@@ -428,20 +508,43 @@ namespace ProjectD.DuelDemo
             if (v.Animator != null && v.Params != null && v.Params.Contains(name)) v.Animator.SetTrigger(name);
         }
 
-        /// <summary>Best-effort: fires TrigAttack / TrigQ..R / TrigHit if the prefab's Animator has those parameters.</summary>
+        /// <summary>
+        /// Routes duel events to the animators: basic attacks, ability casts (clip chosen from the ability's shape),
+        /// summoner spells (by name), hits and recoils. Death, respawn and teleport are driven from unit state in SyncViews.
+        /// Prefabs that ship their own Animator controller still get TrigAttack / TrigQ..R / TrigHit.
+        /// </summary>
         private void AnimateFromEvents(List<DuelEvent> events)
         {
             for (int i = 0; i < events.Count; i++)
             {
                 var e = events[i];
-                if (!_views.TryGetValue(e.UnitId, out var v) || v.Animator == null) continue;
-                if (e.Kind == DuelEventKind.Attack) { Trigger(v, "TrigAttack"); v.PunchUntil = Time.time + 0.2f; }
-                else if (e.Kind == DuelEventKind.Damage && e.Text != "Bio") Trigger(v, "TrigHit");
+                if (!_views.TryGetValue(e.UnitId, out var v)) continue;
+                if (e.Kind == DuelEventKind.Attack)
+                {
+                    Trigger(v, "TrigAttack");
+                    v.PunchUntil = Time.time + 0.2f;
+                    if (v.Anim != null) v.Anim.PlayBasic();
+                }
+                else if (e.Kind == DuelEventKind.Damage && e.Text != "Bio")
+                {
+                    Trigger(v, "TrigHit");
+                    if (v.Anim != null) v.Anim.PlayHit();
+                    if (v.Guard != null) v.Guard.Flinch();
+                }
                 else if (e.Kind == DuelEventKind.Text && v.Unit.Kind == UnitKind.Champion)
                 {
                     var abilities = v.Unit.Template.Abilities;
-                    for (int k = 0; k < abilities.Length && k < AbilityTriggers.Length; k++)
-                        if (abilities[k] != null && abilities[k].Name == e.Text) { Trigger(v, AbilityTriggers[k]); v.PunchUntil = Time.time + 0.2f; }
+                    bool isAbility = false;
+                    for (int k = 0; k < abilities.Length; k++)
+                    {
+                        if (abilities[k] == null || abilities[k].Name != e.Text) continue;
+                        isAbility = true;
+                        if (k < AbilityTriggers.Length) Trigger(v, AbilityTriggers[k]);
+                        v.PunchUntil = Time.time + 0.2f;
+                        if (v.Anim != null) v.Anim.PlayAbility(abilities[k].Shape, k);
+                        break;
+                    }
+                    if (!isAbility && v.Anim != null) v.Anim.PlaySpell(e.Text);
                 }
             }
         }
@@ -589,19 +692,42 @@ namespace ProjectD.DuelDemo
 
         public void ToolResetEnemy() { World.ForceRespawn(Enemy.Id); Ui.Toast("Enemy reset"); }
 
-        public void ToolRotateModel(bool enemy)
+        /// <summary>Turns a model by 90 degrees and remembers the result in the library (saved to the asset when played in the editor).</summary>
+        public void ToolTurnModel(string modelId)
         {
-            float yaw = RotateModel(enemy);
-            if (float.IsNaN(yaw)) { Ui.Toast("That fighter has no 3D model (placeholder shape)"); return; }
-            string id = enemy ? EnemyChampionId : PlayerChampionId;
-            Ui.Toast(id + ": facing looks right? Set Yaw Offset to " + Mathf.RoundToInt(yaw) + " in DuelModelLibrary");
+            var entry = models != null ? models.Find(modelId) : null;
+            if (entry == null) { Ui.Toast("No 3D model linked for " + modelId); return; }
+            entry.yawOffset = Mathf.Repeat(entry.yawOffset + 90f, 360f);
+            entry.yawTuned = true;
+            models.PersistYaw(modelId, entry.yawOffset);
+            var rebuild = new List<DuelUnit>();
+            foreach (var kv in _views) if (kv.Value.ModelId == modelId) rebuild.Add(kv.Value.Unit);
+            for (int i = 0; i < rebuild.Count; i++) RebuildView(rebuild[i]);
+            Ui.Toast(modelId + ": yaw " + Mathf.RoundToInt(entry.yawOffset) + (Application.isEditor ? " saved" : " (this run only)"));
+        }
+
+        public void ToolRotateModel(bool enemy) { ToolTurnModel(enemy ? EnemyChampionId : PlayerChampionId); }
+
+        private void RebuildView(DuelUnit u)
+        {
+            if (_views.TryGetValue(u.Id, out var old) && old.Root != null) Destroy(old.Root.gameObject);
+            _views.Remove(u.Id);
+            CreateView(u);
+            if (u == Player && cameraRig != null && _views.TryGetValue(u.Id, out var nv)) cameraRig.SetTarget(nv.Root);
+        }
+
+        public void ToolKillMe()
+        {
+            World.DealDamage(Enemy, Player, Player.MaxHp * 10f, DuelDamage.True, true, "Test damage");
+            Ui.Toast("Down! (test the death and respawn animation)");
         }
 
         public void ToolRestoreSummons()
         {
             World.ForceRespawn(Shiva.Id);
             World.ForceRespawn(Garuda.Id);
-            Ui.Toast("Shiva and Garuda restored");
+            if (Bahamut != null) World.ForceRespawn(Bahamut.Id);
+            Ui.Toast(Bahamut != null ? "Shiva, Garuda and Bahamut restored" : "Shiva and Garuda restored");
         }
 
         public void ToolPickFighters(string playerId, string enemyId)

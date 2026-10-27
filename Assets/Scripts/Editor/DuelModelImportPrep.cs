@@ -130,6 +130,7 @@ namespace ProjectD.EditorTools
         private void OnPostprocessMaterial(Material material)
         {
             if (!assetPath.StartsWith(Root)) return;
+            if (!(assetImporter is ModelImporter)) return;   // glTF/GLB (Bahamut) comes in with its own URP-ready materials
             ConvertToUrpLit(material, assetPath);
         }
 

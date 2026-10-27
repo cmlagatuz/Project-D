@@ -65,21 +65,42 @@ Assets/Models/WarriorOfLight   Firion   Cecil   Garland   Emperor   Golbez   Shi
 `Assets/Models/<unit>/Materials/` and remaps the model to them. Link Duel Demo Models, Build Duel Demo Scene and Fix Model
 Materials run it automatically.
 
-**White models / T-pose.** Rips usually come without clips. Champion bodies are imported with a Humanoid rig, and the demo
-then lowers the arms and adds a walk and attack swing by bending the avatar's muscles (`DuelHumanoidPose`). That only works if
-Unity could build a Humanoid avatar for the FBX. White models mean the materials have no texture: numbered or
-material-named textures are now matched automatically (run **Fix Model Materials (reimport models)** once). To see exactly
+**White models.** White means a material has no texture: run **Fix Model Materials (reimport models)** once, and to see exactly
 what each model got, run **Tools > Project D > Save Model Material Report** and read `Builds/ModelMaterialReport.txt`.
-Real animation: the Humanoid rig lets you retarget free humanoid clips (for example from Mixamo) with an Animator Controller
-that has the parameters `Speed`, `TrigAttack`, `TrigQ/W/E/R`, `TrigHit`; the demo drives them automatically.
+
+**Animation (procedural).** Rips come without clips, so the demo animates the skeleton itself (`DuelRigFinder` finds the
+hips, spine, arms and legs, from the Humanoid avatar or, for numbered-bone skeletons, by geometry; `DuelCharacterAnimator`
+poses them every frame). It does not need an Animator Controller and works on any skeleton:
+- Stance and run: arms down with bent elbows and weapon-ready poses, two-bone leg IK so knees bend and feet plant, hip bob,
+  torso lean and twist. Each champion has a style: Warrior of Light and Cecil (knight), Firion (rebel), Garland (brute,
+  two-handed), the Emperor (sorcerer, hovers), Golbez (dark mage, hovers low, arms crossed).
+- Basic attacks cycle through the style's slashes, thrusts, smashes or palm blasts. Abilities pick a clip from their shape
+  (cone = wide sweep or palm blast, line = thrust or two-hand cast, circle = smash or arms-to-the-sky, shield = guard,
+  dash = lunge, ground circle = sigil); the fourth ability always gets the big version.
+- Summoner spells: Warp and Warpstrike lunge, Cure/Esuna/Pray pray, Protect guards, Haste/Ultima raise the arms, Slow and Bio
+  cast. Teleport: kneel and pray while channelling, stretch into a beam on completion, reappear at the ward.
+- Hit flinch, death (falls back, lies, shrinks away) and respawn (rises). Use TOOLS > **Kill me** to see death.
+If a model cannot be rigged the console says why, and it falls back to a simple bob and lean. If you later get real clips
+(for example Mixamo, retargeted through the Humanoid rig) and give the prefab an Animator Controller with `Speed`,
+`TrigAttack`, `TrigQ/W/E/R`, `TrigHit`, those win and the procedural animation switches itself off for that model.
+All the numbers are first guesses; tune them in `DuelCharacterAnimator.cs` (the `DuelClips` table and `DuelStyles`).
+
+**Summons hold the pit.** Shiva, Garuda and Bahamut are the guardians of the arena (`DuelSummonGuard`): they turn to keep the
+nearest champion in view, breathe and sway (Garuda hovers), rear up and roar when a champion comes within 9 units, and recoil
+when hit. They do not attack yet: that needs a combat change in the duel rules, which is a separate step.
+
+**Bahamut (.glb).** Needs the glTFast package once: Window > Package Manager > + > **Add package by name** >
+`com.unity.cloud.gltfast`. Then put `Bahamut.glb` (and its textures) in `Assets/Models/Bahamut/`, run Link Duel Demo Models
+and Build Duel Demo Scene. He appears at the top of the arena only when his model is linked. The GLB is large (about 80 MB);
+if the phone build is slow or too big, reduce his textures.
 
 Weapons (e.g. Holy Fang) are separate FBX files; they are imported but not attached to a hand yet.
-Raw rips have no animations, so the demo adds a walk bob/lean and an attack lunge to models without an Animator controller.
 
 Each model is automatically scaled to a fixed height (champions 1.9, summons 3.6 units) and stood on the ground.
-If one faces the wrong way, use TOOLS > **Turn my model 90** / **Turn enemy model 90** until it faces forward; the toast
-shows the number to type into **Yaw Offset** of that entry in `Assets/Resources/DuelModelLibrary.asset` (then rebuild
-the scene). The same file has **Height** if a model is the wrong size.
+If one faces the wrong way, use TOOLS > **Turn my model 90**, **Turn enemy model 90**, **Turn Shiva 90**, **Turn Garuda 90** or
+**Turn Bahamut 90** until it faces forward. In the editor the answer is saved into `Assets/Resources/DuelModelLibrary.asset`
+(Yaw Offset) automatically, so you only do it once. First guesses: Shiva 180, Garuda 90 (a wing-on-edge model looks flat).
+The same file has **Height** if a model is the wrong size.
 
 Animation is best effort: if a prefab's Animator has the project's parameters (`Speed`, `TrigAttack`, `TrigQ/W/E/R`,
 `TrigHit`) they are driven; otherwise the model just slides around. Pink models mean the materials are not URP
@@ -95,7 +116,8 @@ ignore rule does not apply to it; run `git rm -r --cached Assets/Models` first.
 - **SPELLS** opens a picker with all 11 spells. Choose slot D or F, then tap a spell. The duel pauses while it is open.
   Changing a spell restarts its cooldown. Choosing the spell already in the other slot swaps the two.
 - **TOOLS** has: reset cooldowns, heal me, hurt me 50% (for Cure), stun me 2 s and slow me 3 s (for Esuna and Warp),
-  reset enemy, restore summons, unlock champion Ultima, level +/-1, and the enemy bot ON/OFF (OFF makes it a dummy).
+  reset enemy, restore summons, unlock champion Ultima, level +/-1, the model turn buttons, Kill me (death animation) and
+  the enemy bot ON/OFF (OFF makes it a dummy).
 - Status tags show above each unit panel as text (`[STUN]`, `[SLOW -35%]`, `[SHIELD 120]`, `[BIO]`, `[WOUNDS]`,
   `[IMMUNE]`, `[HASTE 4.2s]`, `[TELEPORT 2.1s]`, `[MARK 3.0s]`), so no state depends on colour alone.
 
@@ -147,7 +169,7 @@ without secrets.
 - Teleport only targets the ward (structures and minions do not exist yet), so the "structures only for the first
   6 minutes" rule is in the rules code but not exercised.
 - Placeholder numbers still to confirm are listed in `docs/summoner-spells.md`.
-- Audio, character models and animation are not used by this scene.
+- Audio is not used by this scene. Weapons are not attached to the models, and the animation is procedural (a stand-in for real clips).
 
 ## Roadmap: the rest of the game (rough order)
 

@@ -3,7 +3,7 @@
 //
 // Creates the drop folders for the duel demo's 3D models, automatically when the editor loads (and on demand):
 //
-//   Assets/Models/WarriorOfLight  Firion  Cecil  Garland  Emperor  Golbez  Shiva  Garuda
+//   Assets/Models/WarriorOfLight  Firion  Cecil  Garland  Emperor  Golbez  Shiva  Garuda  Bahamut
 //
 // Paste a character's "Raw Files" contents (the .fbx and its .tga textures, with sub-folders such as Model/ and
 // Weapon/ if you like) into that character's folder. Unity imports it, DuelModelImportPrep tidies the import for
@@ -24,7 +24,7 @@ namespace ProjectD.EditorTools
 
         public static readonly string[] Names =
         {
-            "WarriorOfLight", "Firion", "Cecil", "Garland", "Emperor", "Golbez", "Shiva", "Garuda"
+            "WarriorOfLight", "Firion", "Cecil", "Garland", "Emperor", "Golbez", "Shiva", "Garuda", "Bahamut"
         };
 
         private const string Readme =

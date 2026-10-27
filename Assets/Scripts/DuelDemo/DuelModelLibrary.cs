@@ -20,6 +20,8 @@ namespace ProjectD.DuelDemo
             public float height = 1.9f;
             [Tooltip("Extra rotation about Y if the model does not face +Z (forward) in its prefab.")]
             public float yawOffset;
+            [Tooltip("Set once the yaw was tuned (by hand or with the TOOLS turn buttons), so the linker stops applying its default.")]
+            public bool yawTuned;
         }
 
         public List<Entry> entries = new List<Entry>();
@@ -32,10 +34,39 @@ namespace ProjectD.DuelDemo
             return null;
         }
 
-        /// <summary>Default fitted height for an id: champions are human sized, summons are big.</summary>
+        /// <summary>Default fitted height for an id: champions are human sized, summons are big, Bahamut is huge.</summary>
         public static float DefaultHeight(string id)
         {
+            if (id == "bahamut") return 4.6f;
             return id == "shiva" || id == "garuda" ? 3.6f : 1.9f;
+        }
+
+        /// <summary>
+        /// First guess for how the rip is turned in its file (tune it with the TOOLS turn buttons, which save the answer here).
+        /// Shiva came in facing away; Garuda's wings came in edge-on to the camera so it read as flat.
+        /// </summary>
+        public static float DefaultYaw(string id)
+        {
+            if (id == "shiva") return 180f;
+            if (id == "garuda") return 90f;
+            return 0f;
+        }
+
+        /// <summary>Remembers a yaw found by eye while playing in the editor. Does nothing in a phone build.</summary>
+        public void PersistYaw(string id, float yaw)
+        {
+#if UNITY_EDITOR
+            for (int i = 0; i < entries.Count; i++)
+            {
+                var e = entries[i];
+                if (e == null || e.id != id) continue;
+                e.yawOffset = yaw;
+                e.yawTuned = true;
+                UnityEditor.EditorUtility.SetDirty(this);
+                UnityEditor.AssetDatabase.SaveAssets();
+                return;
+            }
+#endif
         }
     }
 }

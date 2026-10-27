@@ -5,7 +5,7 @@
 //
 // Finds your 3D models anywhere under Assets/ by name and records them in Assets/Resources/DuelModelLibrary.asset,
 // which the duel scene references (so the prefabs are included in phone builds).
-// Looks for: Warrior of Light, Firion, Cecil, Garland, The Emperor, Golbez, Shiva, Garuda.
+// Looks for: Warrior of Light, Firion, Cecil, Garland, The Emperor, Golbez, Shiva, Garuda, Bahamut (.fbx, .glb, .gltf).
 // Best match wins: an exact file name beats a partial one, a prefab beats a raw .fbx, and files in the project's
 // convention folders (Assets/Models/Champions/<id>/..., Assets/Models/Summons/<id>/...) get a bonus. Animation-only
 // files (Name@Run.fbx), LOD1+ meshes and weapon/VFX files are ignored.
@@ -24,7 +24,7 @@ namespace ProjectD.EditorTools
         public const string LibraryPath = "Assets/Resources/DuelModelLibrary.asset";   // in Resources so the game can always find it, in the editor and in phone builds
         private const string OldLibraryPath = "Assets/DuelDemo/DuelModelLibrary.asset";
 
-        private static readonly string[] Ids = { "wol", "firion", "cecil", "garland", "emperor", "golbez", "shiva", "garuda" };
+        private static readonly string[] Ids = { "wol", "firion", "cecil", "garland", "emperor", "golbez", "shiva", "garuda", "bahamut" };
 
         private static readonly Dictionary<string, string[]> Aliases = new Dictionary<string, string[]>
         {
@@ -36,6 +36,7 @@ namespace ProjectD.EditorTools
             { "golbez", new[] { "golbez" } },
             { "shiva", new[] { "shiva", "summonshiva" } },
             { "garuda", new[] { "garuda", "summongaruda" } },
+            { "bahamut", new[] { "bahamut", "summonbahamut" } },
         };
 
         private static readonly string[] Ignore = { "@", "lod1", "lod2", "lod3", "collider", "weapon", "sword", "vfx", "fx_", "anim", "icon", "portrait", "texture" };
@@ -98,6 +99,7 @@ namespace ProjectD.EditorTools
                     existing = new DuelModelLibrary.Entry { id = id, height = DuelModelLibrary.DefaultHeight(id) };
                     lib.entries.Add(existing);
                 }
+                if (!existing.yawTuned && Mathf.Abs(existing.yawOffset) < 0.01f) existing.yawOffset = DuelModelLibrary.DefaultYaw(id);
                 existing.prefab = prefab;
                 found++;
                 sb.AppendLine(id + ": " + best);
