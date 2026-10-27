@@ -13,6 +13,7 @@ namespace ProjectD.DuelDemo
     {
         private static readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
         private static Mesh _crystal;
+        private static Material _fallback;
 
         /// <summary>Adds the effects for a summon under its view root. fxMat is optional (additive particle material from the scene builder).</summary>
         public static void Attach(Transform root, string id, float height, Material fxMat)
@@ -320,26 +321,32 @@ namespace ProjectD.DuelDemo
 
         // ------------------------------------------------------------------ materials and textures
 
-        private static readonly Dictionary<string, Material> Mats = new Dictionary<string, Material>();
+        private static readonly Dictionary<Material, Dictionary<string, Material>> Mats = new Dictionary<Material, Dictionary<string, Material>>();
 
         private static Material BaseMaterial(Material assigned)
         {
             if (assigned != null) return assigned;
+            if (_fallback != null) return _fallback;
             var shader = Shader.Find("Sprites/Default");
             if (shader == null) shader = Shader.Find("Universal Render Pipeline/Particles/Unlit");
             if (shader == null) return null;
-            return new Material(shader);
+            _fallback = new Material(shader);
+            return _fallback;
         }
 
         private static Material Mat(Material baseMat, string textureName)
         {
-            string key = baseMat.GetInstanceID() + textureName;
-            if (Mats.TryGetValue(key, out var m) && m != null) return m;
+            if (!Mats.TryGetValue(baseMat, out var perTexture))
+            {
+                perTexture = new Dictionary<string, Material>();
+                Mats[baseMat] = perTexture;
+            }
+            if (perTexture.TryGetValue(textureName, out var m) && m != null) return m;
             m = new Material(baseMat);
             var tex = GetTexture(textureName);
             if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", tex);
             if (m.HasProperty("_MainTex")) m.SetTexture("_MainTex", tex);
-            Mats[key] = m;
+            perTexture[textureName] = m;
             return m;
         }
 
