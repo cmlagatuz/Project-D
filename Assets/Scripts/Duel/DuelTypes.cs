@@ -32,7 +32,7 @@ namespace ProjectD.Duel
         public static float Dot(DVec2 a, DVec2 b) => a.X * b.X + a.Y * b.Y;
     }
 
-    public enum UnitKind { Champion, Monster, Ward }
+    public enum UnitKind { Champion, Monster, Ward, Dummy }
 
     public enum DuelDamage { Physical, Magical, True }
 

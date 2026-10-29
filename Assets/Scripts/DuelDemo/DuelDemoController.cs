@@ -78,6 +78,18 @@ namespace ProjectD.DuelDemo
         private SummonerLoadout _playerLoadout;
         private int _level = 5;
 
+        // Practice-tool state that survives a rebuild of the duel (champion swap).
+        private bool _playerInvincible, _enemyInvincible, _playerNoCooldown, _enemyNoCooldown;
+        private int _speedIndex = 1;
+        private static readonly float[] GameSpeeds = { 0.5f, 1f, 2f };
+
+        public const int StartGold = 500;
+        public float GameSpeed => GameSpeeds[_speedIndex];
+        public bool PlayerInvincible => _playerInvincible;
+        public bool EnemyInvincible => _enemyInvincible;
+        public bool PlayerNoCooldown => _playerNoCooldown;
+        public bool EnemyNoCooldown => _enemyNoCooldown;
+
         // ------------------------------------------------------------------ setup
 
         private void Start()
@@ -110,7 +122,7 @@ namespace ProjectD.DuelDemo
 
             PlayerChampionId = playerChampionId;
             EnemyChampionId = enemyChampionId;
-            World = new DuelWorld { Mode = GameMode.Practice };
+            World = new DuelWorld { Mode = GameMode.Practice, PassiveGoldPerSecond = 2f, ChampionKillGold = 300 };
 
             var mine = _playerLoadout != null ? _playerLoadout.Clone() : SummonerLoadout.Default();   // Cure + Warp by default
             Player = World.AddChampion(DuelRoster.ById(playerChampionId), 0, new DVec2(-6f, -6f), _level, mine);
@@ -119,6 +131,12 @@ namespace ProjectD.DuelDemo
             theirs.TrySet(0, SummonerSpellId.Esuna, GameMode.Practice);
             theirs.TrySet(1, SummonerSpellId.Cure, GameMode.Practice);
             Enemy = World.AddChampion(DuelRoster.ById(enemyChampionId), 1, new DVec2(6f, 6f), _level, theirs);
+            Player.Gold = StartGold;
+            Enemy.Gold = StartGold;
+            World.SetInvincible(Player.Id, _playerInvincible);
+            World.SetInvincible(Enemy.Id, _enemyInvincible);
+            World.SetNoCooldown(Player.Id, _playerNoCooldown);
+            World.SetNoCooldown(Enemy.Id, _enemyNoCooldown);
 
             // The summons stand in as neutral training targets (Ultima, Hunter's Resource). They do not fight back yet.
             Shiva = World.AddMonster("Shiva", new DVec2(-6f, 8f), 1800f);
@@ -384,6 +402,18 @@ namespace ProjectD.DuelDemo
                 body.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
                 body.transform.localPosition = new Vector3(0f, 0.8f, 0f);
             }
+            else if (u.Kind == UnitKind.Dummy)
+            {
+                body.transform.localScale = new Vector3(0.9f, 1.0f, 0.9f);   // a training post
+                body.transform.localPosition = new Vector3(0f, 1.0f, 0f);
+                var cap = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                cap.name = "DummyHead";
+                RemoveCollider(cap);
+                cap.transform.SetParent(view.Root, false);
+                cap.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                cap.transform.localPosition = new Vector3(0f, 2.15f, 0f);
+                cap.GetComponent<Renderer>().sharedMaterial = mat;
+            }
             else
             {
                 body.transform.localScale = new Vector3(0.5f, 0.25f, 0.5f);
@@ -406,7 +436,7 @@ namespace ProjectD.DuelDemo
 
                 if (_attackHeld || Input.GetKey(KeyCode.Space)) World.TryBasicAttackNearest(Player.Id);
 
-                _accumulator = Mathf.Min(_accumulator + Time.deltaTime, 0.25f);
+                _accumulator = Mathf.Min(_accumulator + Time.deltaTime * GameSpeed, 0.25f);
                 while (_accumulator >= Step)
                 {
                     World.Tick(Step);
@@ -748,8 +778,116 @@ namespace ProjectD.DuelDemo
 
         public void ToolKillMe()
         {
-            World.DealDamage(Enemy, Player, Player.MaxHp * 10f, DuelDamage.True, true, "Test damage");
+            World.Slay(Player.Id, Enemy.Id);   // works even while invincible
             Ui.Toast("Down! (test the death and respawn animation)");
+        }
+
+        // ---- practice panel: per-champion tools (enemy = false is you)
+
+        private DuelUnit Who(bool enemy) { return enemy ? Enemy : Player; }
+
+        public void ToolRefresh(bool enemy)
+        {
+            World.Refresh(Who(enemy).Id);
+            Ui.Toast((enemy ? "Enemy" : "You") + ": health, mana and cooldowns refreshed");
+        }
+
+        public void ToolLevelUnit(bool enemy, int delta)
+        {
+            var u = Who(enemy);
+            World.SetLevel(u.Id, u.Level + delta);
+            Ui.Toast(u.Name + " is level " + u.Level);
+        }
+
+        public void ToolResetLevel(bool enemy)
+        {
+            var u = Who(enemy);
+            World.SetLevel(u.Id, 1);
+            Ui.Toast(u.Name + " is level 1");
+        }
+
+        public bool ToolToggleInvincible(bool enemy)
+        {
+            bool on = !(enemy ? _enemyInvincible : _playerInvincible);
+            if (enemy) _enemyInvincible = on; else _playerInvincible = on;
+            World.SetInvincible(Who(enemy).Id, on);
+            Ui.Toast((enemy ? "Enemy" : "You") + (on ? " cannot be hurt" : " can be hurt again"));
+            return on;
+        }
+
+        public bool ToolToggleNoCooldown(bool enemy)
+        {
+            bool on = !(enemy ? _enemyNoCooldown : _playerNoCooldown);
+            if (enemy) _enemyNoCooldown = on; else _playerNoCooldown = on;
+            World.SetNoCooldown(Who(enemy).Id, on);
+            Ui.Toast((enemy ? "Enemy" : "You") + (on ? ": no cooldowns, no mana cost" : ": cooldowns back to normal"));
+            return on;
+        }
+
+        public void ToolGold(bool enemy, int amount)
+        {
+            World.GrantGold(Who(enemy).Id, amount);
+        }
+
+        /// <summary>Puts a training dummy in front of you (enemy dummies can be hit; ally dummies just stand there).</summary>
+        public void ToolSpawnDummy(bool enemyTeam)
+        {
+            int count = World.CountDummies();
+            if (count >= 6) { Ui.Toast("Six dummies is plenty - clear some first"); return; }
+            var f = Player.Facing.Length > 0.01f ? Player.Facing.Normalized : new DVec2(0f, 1f);
+            var side = new DVec2(-f.Y, f.X);
+            float offset = (count % 3 - 1) * 2.2f;
+            var pos = DuelWorld.ClampToArena(Player.Pos + f * 4.5f + side * offset);
+            var d = World.AddDummy(enemyTeam ? 1 : 0, pos);
+            CreateView(d);
+            Ui.RebuildWorldBars();
+            Ui.Toast((enemyTeam ? "Enemy" : "Ally") + " dummy placed");
+        }
+
+        public void ToolClearDummies()
+        {
+            var ids = World.RemoveDummies();
+            for (int i = 0; i < ids.Count; i++)
+            {
+                if (_views.TryGetValue(ids[i], out var v) && v.Root != null) Destroy(v.Root.gameObject);
+                _views.Remove(ids[i]);
+            }
+            Ui.RebuildWorldBars();
+            Ui.Toast(ids.Count > 0 ? "Dummies cleared" : "No dummies to clear");
+        }
+
+        /// <summary>Cycles the simulation speed 1x, 2x, 0.5x (animation stays real time).</summary>
+        public float ToolCycleSpeed()
+        {
+            _speedIndex = (_speedIndex + 1) % GameSpeeds.Length;
+            Ui.Toast("Game speed " + GameSpeed.ToString("0.#") + "x");
+            return GameSpeed;
+        }
+
+        // ---- shop
+
+        public ShopOutcome ToolBuy(string itemId)
+        {
+            var item = DuelItemCatalog.Get(itemId);
+            int price = item != null ? World.PriceFor(Player, item) : 0;
+            var outcome = World.BuyItem(Player.Id, itemId);
+            switch (outcome)
+            {
+                case ShopOutcome.Ok: Ui.Toast("Bought " + item.Name + " for " + price); break;
+                case ShopOutcome.NotEnoughGold: Ui.Toast("Not enough gold (" + price + " needed, you have " + Player.Gold + ")"); break;
+                case ShopOutcome.InventoryFull: Ui.Toast("Inventory full - sell something first"); break;
+                case ShopOutcome.Dead: Ui.Toast("You can't shop while defeated"); break;
+                default: Ui.Toast("Can't buy that"); break;
+            }
+            return outcome;
+        }
+
+        public ShopOutcome ToolSell(int slot)
+        {
+            var outcome = World.SellItem(Player.Id, slot);
+            if (outcome == ShopOutcome.Ok) Ui.Toast("Item sold for 70% of its price");
+            else if (outcome == ShopOutcome.Dead) Ui.Toast("You can't shop while defeated");
+            return outcome;
         }
 
         public void ToolRestoreSummons()

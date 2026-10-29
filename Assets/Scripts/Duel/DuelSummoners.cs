@@ -40,7 +40,7 @@ namespace ProjectD.Duel
             {
                 case SummonerSpellId.Slow:
                 case SummonerSpellId.Bio:
-                    target = Nearest(u, def.RangeUnits, t => t.Kind == UnitKind.Champion && t.Team != u.Team);
+                    target = Nearest(u, def.RangeUnits, t => (t.Kind == UnitKind.Champion || t.Kind == UnitKind.Dummy) && t.Team != u.Team);
                     if (target == null) return CastOutcome.NoTarget;
                     break;
 

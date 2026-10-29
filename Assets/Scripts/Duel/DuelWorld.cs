@@ -84,15 +84,17 @@ namespace ProjectD.Duel
             var t = u.Template;
             int g = u.Level - 1;
             float frac = u.MaxHp > 0f ? u.Hp / u.MaxHp : 1f;
-            u.MaxHp = t.Hp + t.HpGrow * g;
-            u.MaxMana = t.Mana;
-            u.Ad = t.Ad + t.AdGrow * g;
-            u.Ap = t.Ap;
-            u.Armor = t.Armor + t.ArmorGrow * g;
-            u.Mr = t.Mr + t.MrGrow * g;
-            u.BaseMoveSpeed = t.MoveSpeed;
+            var it = DuelItemCatalog.StatsOf(u.Items);
+            u.MaxHp = t.Hp + t.HpGrow * g + it.Hp;
+            u.MaxMana = t.Mana + it.Mana;
+            u.Ad = t.Ad + t.AdGrow * g + it.Ad;
+            u.Ap = t.Ap + it.Ap;
+            u.Armor = t.Armor + t.ArmorGrow * g + it.Armor;
+            u.Mr = t.Mr + t.MrGrow * g + it.Mr;
+            u.BaseMoveSpeed = t.MoveSpeed * (1f + it.MoveSpeedPct);
             u.AttackRange = t.AttackRange;
-            u.AttackSpeed = t.AttackSpeed;
+            u.AttackSpeed = t.AttackSpeed * (1f + it.AttackSpeedPct);
+            u.AbilityHaste = it.AbilityHaste;
             if (fill) { u.Hp = u.MaxHp; u.Mana = u.MaxMana; }
             else u.Hp = Math.Max(1f, u.MaxHp * frac);
         }
@@ -222,9 +224,25 @@ namespace ProjectD.Duel
                 {
                     u.Hp = Math.Min(u.MaxHp, u.Hp + u.HpRegen * u.HealingMultiplier(Time) * dt);
                     u.Mana = Math.Min(u.MaxMana, u.Mana + u.ManaRegen * dt);
+                    if (PassiveGoldPerSecond > 0f)
+                    {
+                        u.GoldCarry += PassiveGoldPerSecond * dt;
+                        int whole = (int)u.GoldCarry;
+                        if (whole > 0) { u.Gold += whole; u.GoldCarry -= whole; }
+                    }
+                    if (u.NoCooldown)
+                    {
+                        u.Spells?.ResetCooldowns();
+                        u.Mana = u.MaxMana;
+                    }
                     TickDamageOverTime(u, dt);
                     if (!u.Alive) continue;
                     Move(u, dt);
+                }
+                else if (u.Kind == UnitKind.Dummy)
+                {
+                    u.Hp = Math.Min(u.MaxHp, u.Hp + u.MaxHp * 0.04f * dt);   // a dummy heals itself so it can be hit all day
+                    TickDamageOverTime(u, dt);
                 }
             }
         }
@@ -286,6 +304,11 @@ namespace ProjectD.Duel
         public float DealDamage(DuelUnit src, DuelUnit dst, float raw, DuelDamage type, bool emit = true, string label = null)
         {
             if (dst == null || !dst.Alive || dst.Kind == UnitKind.Ward || raw <= 0f) return 0f;
+            if (dst.Invincible)
+            {
+                if (emit) Emit(DuelEventKind.Text, dst, src, 0f, "Invincible");
+                return 0f;
+            }
 
             float dmg = raw * (src != null ? src.DamageDealtMultiplier(Time) : 1f);
             if (type == DuelDamage.Physical) dmg = ProjectD.Gameplay.Combat.DamageSystem.Mitigate(dmg, dst.Armor);
@@ -328,6 +351,11 @@ namespace ProjectD.Duel
             {
                 src.Kills++;
                 src.Haste.OnTakedown(Time);   // Haste: a takedown extends the buff
+                if (src.Kind == UnitKind.Champion && ChampionKillGold > 0)
+                {
+                    src.Gold += ChampionKillGold;
+                    Emit(DuelEventKind.Gold, src, null, ChampionKillGold, "+" + ChampionKillGold + " gold (takedown)");
+                }
             }
             else if (dst.Kind == UnitKind.Monster && src.Smite != null)
             {
@@ -419,11 +447,12 @@ namespace ProjectD.Duel
 
             var ab = u.Template.Abilities[slot];
             if (Time < u.AbilityReadyAt[slot]) return CastOutcome.OnCooldown;
-            if (u.Mana < ab.Cost) return CastOutcome.NoMana;
+            bool free = u.NoCooldown;   // practice tool: no cooldown, no mana cost
+            if (!free && u.Mana < ab.Cost) return CastOutcome.NoMana;
 
             var dir = aim.Length > 0.01f ? aim.Normalized : u.Facing;
-            u.Mana -= ab.Cost;
-            u.AbilityReadyAt[slot] = Time + ab.Cooldown;
+            if (!free) u.Mana -= ab.Cost;
+            u.AbilityReadyAt[slot] = free ? Time : Time + ab.Cooldown * (100f / (100f + Math.Max(0f, u.AbilityHaste)));
             u.Facing = dir;
             if (u.Channeling) { u.Channeling = false; Emit(DuelEventKind.Text, u, null, 0f, "Teleport cancelled"); }
 

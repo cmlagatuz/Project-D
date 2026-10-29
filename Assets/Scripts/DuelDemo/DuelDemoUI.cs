@@ -2,7 +2,7 @@
 // The duel demo's touch HUD, built entirely in code (no prefabs, no TextMeshPro) so it works in any scene:
 //   left thumb  : floating movement stick
 //   right thumb : hold-to-attack button, Q/W/E/R arc, and the two summoner spell buttons (D / F)
-//   top         : your and the enemy's HP / mana / status line, SPELLS and TOOLS buttons
+//   top         : your and the enemy's HP / mana / status line, SHOP, INFO and SPELLS buttons, PRACTICE tool (see DuelDemoUIPanels.cs)
 // Colour is never the only cue: cooldowns show numbers, statuses show text tags, damage/heal show signs.
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +15,7 @@ using ProjectD.SummonerSpells;
 
 namespace ProjectD.DuelDemo
 {
-    public sealed class DuelDemoUI : MonoBehaviour
+    public sealed partial class DuelDemoUI : MonoBehaviour
     {
         private static readonly string[] AbilityKeys = { "Q", "W", "E", "R" };
         private static readonly string[] SummonerKeys = { "D", "F" };
@@ -77,19 +77,16 @@ namespace ProjectD.DuelDemo
         private float _toastUntil;
         private Text _log;
         private GameObject _spellPanel;
-        private GameObject _toolsPanel;
         private GameObject _fighterPanel;
         private string _pendingPlayer;
         private string _pendingEnemy;
-        private readonly Dictionary<string, Text> _youTags = new Dictionary<string, Text>();
-        private readonly Dictionary<string, Text> _foeTags = new Dictionary<string, Text>();
         private int _pickSlot;
         private readonly Text[] _pickSlotLabels = new Text[2];
         private readonly Dictionary<SummonerSpellId, Text> _cardTags = new Dictionary<SummonerSpellId, Text>();
-        private Text _botLabel;
 
-        /// <summary>True while the (modal) spell picker is open. The world is paused meanwhile.</summary>
-        public bool PanelOpen => (_spellPanel != null && _spellPanel.activeSelf) || (_fighterPanel != null && _fighterPanel.activeSelf);
+        /// <summary>True while a modal panel (spells, fighters, shop) is open. The world is paused meanwhile.</summary>
+        public bool PanelOpen => (_spellPanel != null && _spellPanel.activeSelf) || (_fighterPanel != null && _fighterPanel.activeSelf)
+                                 || (_shopPanel != null && _shopPanel.activeSelf);
 
         // ------------------------------------------------------------------ build
 
@@ -128,15 +125,18 @@ namespace ProjectD.DuelDemo
             BuildStick(_safe);
             BuildRightControls(_safe);
             BuildLogAndToast(_safe);
+            BuildScoreBar(_safe);
             BuildTopButtons(_safe);
+            BuildPracticePanel(_safe);
+            BuildInfoPanel(_safe);
+            BuildShopPanel(_safe);      // modal panels last so they sit on top
             BuildSpellPanel(_safe);
             BuildFighterPanel(_safe);
-            BuildToolsPanel(_safe);
             BuildWorldBars();
 
             if (!Application.isMobilePlatform)
             {
-                var help = NewText(_safe, "KeyHelp", "WASD move | Space attack | 1-4 = Q/W/E/R | 5,6 or Z,X = summoners | mouse aims",
+                var help = NewText(_safe, "KeyHelp", "WASD move | Space attack | 1-4 = Q/W/E/R | Z,X summoners | B shop | Tab info | P practice | mouse aims",
                     22, TextAnchor.LowerCenter, new Color(1f, 1f, 1f, 0.7f));
                 help.rectTransform.anchorMin = new Vector2(0.2f, 0f);
                 help.rectTransform.anchorMax = new Vector2(0.8f, 0f);
@@ -161,31 +161,33 @@ namespace ProjectD.DuelDemo
 
         private void BuildTopPanels(Transform parent)
         {
-            _playerPanel = BuildUnitPanel(parent, "PlayerPanel", new Vector2(0f, 1f), new Vector2(30f, -20f));
-            _enemyPanel = BuildUnitPanel(parent, "EnemyPanel", new Vector2(0.5f, 1f), new Vector2(-280f, -20f));
+            // You: top-left under the PRACTICE button. Enemy: right of the score bar. The centre of the screen stays free.
+            _playerPanel = BuildUnitPanel(parent, "PlayerPanel", new Vector2(0f, 1f), new Vector2(30f, -86f), 520f);
+            _enemyPanel = BuildUnitPanel(parent, "EnemyPanel", new Vector2(0.5f, 1f), new Vector2(270f, -16f), 420f);
         }
 
-        private UnitPanel BuildUnitPanel(Transform parent, string name, Vector2 anchor, Vector2 pos)
+        private UnitPanel BuildUnitPanel(Transform parent, string name, Vector2 anchor, Vector2 pos, float width)
         {
             var root = NewImage(parent, name, null, new Color(0f, 0f, 0f, 0.45f), false);
             var rt = root.rectTransform;
             rt.anchorMin = anchor; rt.anchorMax = anchor; rt.pivot = new Vector2(0f, 1f);
-            rt.anchoredPosition = pos; rt.sizeDelta = new Vector2(560f, 132f);
+            rt.anchoredPosition = pos; rt.sizeDelta = new Vector2(width, 132f);
+            float inner = width - 20f;
 
             var p = new UnitPanel();
-            p.Name = NewText(rt, "Name", "", 28, TextAnchor.MiddleLeft, Color.white);
-            PlaceTL(p.Name.rectTransform, 10f, -4f, 540f, 34f);
+            p.Name = NewText(rt, "Name", "", 26, TextAnchor.MiddleLeft, Color.white);
+            PlaceTL(p.Name.rectTransform, 10f, -4f, inner, 34f);
 
             p.HpFill = NewBar(rt, "HpBar", new Color(0.25f, 0.8f, 0.35f), out var hpBg);
-            PlaceTL(hpBg, 10f, -42f, 540f, 28f);
+            PlaceTL(hpBg, 10f, -42f, inner, 28f);
             p.HpText = NewText(hpBg, "HpText", "", 22, TextAnchor.MiddleCenter, Color.white);
             Stretch(p.HpText.rectTransform);
 
             p.ManaFill = NewBar(rt, "ManaBar", new Color(0.3f, 0.5f, 1f), out var mpBg);
-            PlaceTL(mpBg, 10f, -74f, 540f, 14f);
+            PlaceTL(mpBg, 10f, -74f, inner, 14f);
 
             p.Status = NewText(rt, "Status", "", 22, TextAnchor.UpperLeft, new Color(1f, 0.9f, 0.5f));
-            PlaceTL(p.Status.rectTransform, 10f, -94f, 540f, 36f);
+            PlaceTL(p.Status.rectTransform, 10f, -94f, inner, 36f);
             return p;
         }
 
@@ -308,27 +310,24 @@ namespace ProjectD.DuelDemo
         private void BuildLogAndToast(Transform parent)
         {
             _log = NewText(parent, "Log", "", 24, TextAnchor.UpperLeft, new Color(1f, 1f, 1f, 0.9f));
-            PlaceTL(_log.rectTransform, 30f, -160f, 760f, 290f);
+            PlaceTL(_log.rectTransform, 30f, -228f, 760f, 250f);
 
-            _toast = NewText(parent, "Toast", "", 38, TextAnchor.MiddleCenter, new Color(1f, 0.95f, 0.6f));
+            _toast = NewText(parent, "Toast", "", 36, TextAnchor.MiddleCenter, new Color(1f, 0.95f, 0.6f));
             var rt = _toast.rectTransform;
             rt.anchorMin = new Vector2(0.5f, 1f); rt.anchorMax = new Vector2(0.5f, 1f); rt.pivot = new Vector2(0.5f, 1f);
-            rt.anchoredPosition = new Vector2(0f, -165f); rt.sizeDelta = new Vector2(1100f, 60f);
+            rt.anchoredPosition = new Vector2(0f, -150f); rt.sizeDelta = new Vector2(1100f, 60f);
         }
 
+        /// <summary>Right-edge column: SHOP, INFO (scoreboard / stats / skills) and SPELLS. PRACTICE lives top-left.</summary>
         private void BuildTopButtons(Transform parent)
         {
-            var spells = NewButton(parent, "SPELLS", new Vector2(1f, 1f), new Vector2(-30f, -20f), new Vector2(190f, 70f), 30,
-                () => { _toolsPanel.SetActive(false); OpenSpellPanel(); });
-            spells.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
-
-            var fighters = NewButton(parent, "FIGHTERS", new Vector2(1f, 1f), new Vector2(-450f, -20f), new Vector2(210f, 70f), 30,
-                () => { _toolsPanel.SetActive(false); OpenFighterPanel(); });
-            fighters.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
-
-            var tools = NewButton(parent, "TOOLS", new Vector2(1f, 1f), new Vector2(-240f, -20f), new Vector2(190f, 70f), 30,
-                () => _toolsPanel.SetActive(!_toolsPanel.activeSelf));
-            tools.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
+            string[] names = { "SHOP", "INFO", "SPELLS" };
+            System.Action[] actions = { ToggleShop, ToggleInfo, () => { _practicePanel.SetActive(false); OpenSpellPanel(); } };
+            for (int i = 0; i < names.Length; i++)
+            {
+                var b = NewButton(parent, names[i], new Vector2(1f, 1f), new Vector2(-30f, -20f - i * 76f), new Vector2(190f, 66f), 30, actions[i]);
+                b.GetComponent<RectTransform>().pivot = new Vector2(1f, 1f);
+            }
         }
 
         // ------------------------------------------------------------------ spell picker (modal)
@@ -423,148 +422,23 @@ namespace ProjectD.DuelDemo
             }
         }
 
-        // ------------------------------------------------------------------ fighter picker (modal)
-
-        private void BuildFighterPanel(Transform parent)
-        {
-            var dim = NewImage(parent, "FighterPanel", null, new Color(0f, 0f, 0f, 0.65f), true);
-            _fighterPanel = dim.gameObject;
-            Stretch(dim.rectTransform);
-
-            var box = NewImage(dim.transform, "Box", null, new Color(0.08f, 0.1f, 0.15f, 0.98f), true);
-            PlaceCenter(box.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1200f, 720f));
-
-            var title = NewText(box.transform, "Title", "Choose fighters (summons Shiva and Garuda are always in the arena)", 32,
-                TextAnchor.MiddleLeft, Color.white);
-            PlaceTL(title.rectTransform, 30f, -14f, 1140f, 50f);
-
-            BuildFighterRow(box.transform, "YOU", -80f, _youTags, id => { _pendingPlayer = id; RefreshFighterPanel(); });
-            BuildFighterRow(box.transform, "ENEMY", -330f, _foeTags, id => { _pendingEnemy = id; RefreshFighterPanel(); });
-
-            var go = NewButton(box.transform, "FIGHT", new Vector2(0f, 1f), new Vector2(330f, -620f), new Vector2(240f, 70f), 32,
-                () =>
-                {
-                    _fighterPanel.SetActive(false);
-                    _ctrl.ToolPickFighters(_pendingPlayer, _pendingEnemy);
-                });
-            go.GetComponent<RectTransform>().pivot = new Vector2(0f, 1f);
-            var cancel = NewButton(box.transform, "CANCEL", new Vector2(0f, 1f), new Vector2(630f, -620f), new Vector2(240f, 70f), 32,
-                () => _fighterPanel.SetActive(false));
-            cancel.GetComponent<RectTransform>().pivot = new Vector2(0f, 1f);
-
-            _fighterPanel.SetActive(false);
-        }
-
-        private void BuildFighterRow(Transform box, string label, float y, Dictionary<string, Text> tags, System.Action<string> onPick)
-        {
-            var rowLabel = NewText(box, label + "Label", label, 28, TextAnchor.MiddleLeft, new Color(1f, 0.9f, 0.5f));
-            PlaceTL(rowLabel.rectTransform, 30f, y, 400f, 40f);
-
-            int i = 0;
-            foreach (var id in DuelRoster.AllIds)
-            {
-                string captured = id;
-                var t = DuelRoster.ById(id);
-                var card = NewButton(box, "", new Vector2(0f, 1f), new Vector2(30f + i * 185f, y - 46f), new Vector2(170f, 170f), 20,
-                    () => onPick(captured));
-                var crt = card.GetComponent<RectTransform>();
-                crt.pivot = new Vector2(0f, 1f);
-                card.GetComponentInChildren<Text>().text = "";
-
-                var nm = NewText(crt, "Name", t.Name, 22, TextAnchor.UpperLeft, Color.white);
-                PlaceTL(nm.rectTransform, 10f, -10f, 150f, 56f);
-                string side = DuelRoster.IsLight(id) ? "LIGHT" : "DARK";
-                string look = _ctrl.HasModelFor(id) ? "3D model" : "placeholder shape";
-                var info = NewText(crt, "Info", side + "\n" + look, 20, TextAnchor.UpperLeft, new Color(0.8f, 0.9f, 1f));
-                PlaceTL(info.rectTransform, 10f, -70f, 150f, 56f);
-                var tag = NewText(crt, "Tag", "", 20, TextAnchor.LowerLeft, new Color(1f, 0.9f, 0.4f));
-                PlaceTL(tag.rectTransform, 10f, -134f, 150f, 30f);
-                tags[id] = tag;
-                i++;
-            }
-        }
-
-        private void OpenFighterPanel()
-        {
-            _pendingPlayer = _ctrl.PlayerChampionId;
-            _pendingEnemy = _ctrl.EnemyChampionId;
-            RefreshFighterPanel();
-            _fighterPanel.SetActive(true);
-        }
-
-        private void RefreshFighterPanel()
-        {
-            foreach (var kv in _youTags) kv.Value.text = kv.Key == _pendingPlayer ? ">> YOU <<" : "";
-            foreach (var kv in _foeTags) kv.Value.text = kv.Key == _pendingEnemy ? ">> ENEMY <<" : "";
-        }
-
         /// <summary>The controller rebuilt the duel: drop the old over-head bars and floating text and make new ones.</summary>
         public void OnDuelRestarted()
         {
-            for (int i = 0; i < _bars.Count; i++) if (_bars[i].Root != null) Destroy(_bars[i].Root.gameObject);
-            _bars.Clear();
             for (int i = 0; i < _floaters.Count; i++) if (_floaters[i].Text != null) Destroy(_floaters[i].Text.gameObject);
             _floaters.Clear();
             _logLines.Clear();
             if (_log != null) _log.text = "";
-            BuildWorldBars();
-            if (_botLabel != null) _botLabel.text = "Enemy bot: ON";
+            RebuildWorldBars();
             if (_spellPanel != null && _spellPanel.activeSelf) RefreshSpellPanel();
         }
 
-        // ------------------------------------------------------------------ tools panel (non-modal)
-
-        private void BuildToolsPanel(Transform parent)
+        /// <summary>Drops and recreates the over-head bars (after units were added or removed).</summary>
+        public void RebuildWorldBars()
         {
-            var panel = NewImage(parent, "ToolsPanel", null, new Color(0.05f, 0.07f, 0.1f, 0.95f), true);
-            _toolsPanel = panel.gameObject;
-            var rt = panel.rectTransform;
-            rt.anchorMin = new Vector2(1f, 1f); rt.anchorMax = new Vector2(1f, 1f); rt.pivot = new Vector2(1f, 1f);
-            rt.anchoredPosition = new Vector2(-30f, -100f); rt.sizeDelta = new Vector2(720f, 850f);
-
-            var title = NewText(rt, "Title", "Test tools", 32, TextAnchor.MiddleLeft, Color.white);
-            PlaceTL(title.rectTransform, 20f, -8f, 680f, 44f);
-
-            var items = new List<KeyValuePair<string, System.Action>>
-            {
-                new KeyValuePair<string, System.Action>("Reset cooldowns", () => _ctrl.ToolResetCooldowns()),
-                new KeyValuePair<string, System.Action>("Heal me fully", () => _ctrl.ToolHealMe()),
-                new KeyValuePair<string, System.Action>("Hurt me 50% (Cure)", () => _ctrl.ToolHurtMe()),
-                new KeyValuePair<string, System.Action>("Stun me 2s (Esuna)", () => _ctrl.ToolStunMe()),
-                new KeyValuePair<string, System.Action>("Slow me 3s (Esuna)", () => _ctrl.ToolSlowMe()),
-                new KeyValuePair<string, System.Action>("Reset enemy", () => _ctrl.ToolResetEnemy()),
-                new KeyValuePair<string, System.Action>("Restore summons", () => _ctrl.ToolRestoreSummons()),
-                new KeyValuePair<string, System.Action>("Unlock champion Ultima", () => _ctrl.ToolUnlockChampionUltima()),
-                new KeyValuePair<string, System.Action>("Level +1", () => _ctrl.ToolLevel(1)),
-                new KeyValuePair<string, System.Action>("Level -1", () => _ctrl.ToolLevel(-1)),
-                new KeyValuePair<string, System.Action>("Turn my model 90", () => _ctrl.ToolRotateModel(false)),
-                new KeyValuePair<string, System.Action>("Turn enemy model 90", () => _ctrl.ToolRotateModel(true)),
-                new KeyValuePair<string, System.Action>("Kill me (death anim)", () => _ctrl.ToolKillMe()),
-                new KeyValuePair<string, System.Action>("Camera closer", () => _ctrl.ToolZoom(0.85f)),
-                new KeyValuePair<string, System.Action>("Camera farther", () => _ctrl.ToolZoom(1.18f)),
-                new KeyValuePair<string, System.Action>("Turn Shiva 90", () => _ctrl.ToolTurnModel("shiva")),
-                new KeyValuePair<string, System.Action>("Turn Garuda 90", () => _ctrl.ToolTurnModel("garuda")),
-                new KeyValuePair<string, System.Action>("Turn Bahamut 90", () => _ctrl.ToolTurnModel("bahamut")),
-                new KeyValuePair<string, System.Action>("Enemy bot: ON", null),
-                new KeyValuePair<string, System.Action>("Close", () => _toolsPanel.SetActive(false)),
-            };
-            for (int i = 0; i < items.Count; i++)
-            {
-                int col = i % 2;
-                int row = i / 2;
-                var action = items[i].Value;
-                bool isBot = action == null;
-                var b = NewButton(rt, items[i].Key, new Vector2(0f, 1f), new Vector2(20f + col * 350f, -60f - row * 76f),
-                    new Vector2(330f, 66f), 25, null);
-                b.GetComponent<RectTransform>().pivot = new Vector2(0f, 1f);
-                if (isBot)
-                {
-                    _botLabel = b.GetComponentInChildren<Text>();
-                    b.onClick.AddListener(() => { bool on = _ctrl.ToolToggleBot(); _botLabel.text = on ? "Enemy bot: ON" : "Enemy bot: OFF"; });
-                }
-                else b.onClick.AddListener(() => action());
-            }
-            _toolsPanel.SetActive(false);
+            for (int i = 0; i < _bars.Count; i++) if (_bars[i].Root != null) Destroy(_bars[i].Root.gameObject);
+            _bars.Clear();
+            BuildWorldBars();
         }
 
         // ------------------------------------------------------------------ over-head bars and floating text
@@ -713,6 +587,7 @@ namespace ProjectD.DuelDemo
             if (_toast == null) return;
             _toast.text = message;
             _toastUntil = Time.time + 1.8f;
+            if (_shopMsg != null) _shopMsg.text = message;   // the shop sits on top of the toast, so it shows the last message itself
         }
 
         // ------------------------------------------------------------------ per-frame HUD refresh
@@ -734,6 +609,8 @@ namespace ProjectD.DuelDemo
 
             UpdateWorldBars();
             UpdateFloaters();
+            UpdateScoreBar();
+            UpdatePanels();
 
             if (_toast != null)
             {

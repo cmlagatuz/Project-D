@@ -25,8 +25,9 @@ deterministic, unit-tested); the Unity view and touch HUD live in `Assets/Script
 | Q W E R | keys 1 2 3 4 (aimed at the mouse) | tap = auto-aim, drag = aim |
 | Summoner D / F | keys 5 6, or Z X | the two round buttons under the arc |
 | Pick spells | SPELLS button | SPELLS button |
-| Pick fighters | FIGHTERS button | FIGHTERS button |
-| Test helpers | TOOLS button | TOOLS button |
+| Pick fighters | PRACTICE > Champion swap | PRACTICE > Champion swap |
+| Shop / info | keys B / Tab | SHOP / INFO buttons (right edge) |
+| Test helpers | PRACTICE button (key P) | PRACTICE button |
 
 ## Fighters and 3D models
 
@@ -79,7 +80,7 @@ poses them every frame). It does not need an Animator Controller and works on an
   dash = lunge, ground circle = sigil); the fourth ability always gets the big version.
 - Summoner spells: Warp and Warpstrike lunge, Cure/Esuna/Pray pray, Protect guards, Haste/Ultima raise the arms, Slow and Bio
   cast. Teleport: kneel and pray while channelling, stretch into a beam on completion, reappear at the ward.
-- Hit flinch, death (falls back, lies, shrinks away) and respawn (rises). Use TOOLS > **Kill me** to see death.
+- Hit flinch, death (falls back, lies, shrinks away) and respawn (rises). Use PRACTICE > **Kill me** to see death.
 If a model cannot be rigged the console says why, and it falls back to a simple bob and lean. If you later get real clips
 (for example Mixamo, retargeted through the Humanoid rig) and give the prefab an Animator Controller with `Speed`,
 `TrigAttack`, `TrigQ/W/E/R`, `TrigHit`, those win and the procedural animation switches itself off for that model.
@@ -103,7 +104,7 @@ wing motion opens them outward first and then beats them.
 find his A-pose arms) and Golbez (geometry picked cloth bones as legs).
 
 **Size on screen.** The demo camera now sits closer (zoom 0.72) and models are bigger (champions 2.5, Shiva and Garuda 5, Bahamut 7).
-TOOLS > Camera closer / Camera farther adjusts the zoom and remembers it. Heights you already tuned in the library are kept.
+PRACTICE > Camera closer / Camera farther adjusts the zoom and remembers it. Heights you already tuned in the library are kept.
 
 **Bahamut (.glb).** Needs the glTFast package once: Window > Package Manager > + > **Add package by name** >
 `com.unity.cloud.gltfast`. Then put `Bahamut.glb` (and its textures) in `Assets/Models/Bahamut/`, run Link Duel Demo Models
@@ -113,7 +114,7 @@ if the phone build is slow or too big, reduce his textures.
 Weapons (e.g. Holy Fang) are separate FBX files; they are imported but not attached to a hand yet.
 
 Each model is automatically scaled to a fixed height (champions 2.5, Shiva and Garuda 5, Bahamut 7 units) and stood on the ground.
-If one faces the wrong way, use TOOLS > **Turn my model 90**, **Turn enemy model 90**, **Turn Shiva 90**, **Turn Garuda 90** or
+If one faces the wrong way, use PRACTICE > **Turn my model 90**, **Turn enemy model 90**, **Turn Shiva 90**, **Turn Garuda 90** or
 **Turn Bahamut 90** until it faces forward. In the editor the answer is saved into `Assets/Resources/DuelModelLibrary.asset`
 (Yaw Offset) automatically, so you only do it once. First guesses: Shiva 180, Garuda 90 (a wing-on-edge model looks flat).
 The same file has **Height** if a model is the wrong size.
@@ -138,22 +139,44 @@ ignore rule does not apply to it; run `git rm -r --cached Assets/Models` first.
 
 - **SPELLS** opens a picker with all 11 spells. Choose slot D or F, then tap a spell. The duel pauses while it is open.
   Changing a spell restarts its cooldown. Choosing the spell already in the other slot swaps the two.
-- **TOOLS** has: reset cooldowns, heal me, hurt me 50% (for Cure), stun me 2 s and slow me 3 s (for Esuna and Warp),
-  reset enemy, restore summons, unlock champion Ultima, level +/-1, the model turn buttons, Kill me (death animation) and
-  the enemy bot ON/OFF (OFF makes it a dummy).
+- **PRACTICE** (top-left, or key P) is the practice tool. Three sections, two columns of buttons, scrollable. Toggles say
+  `[ON]` / `[OFF]` in the label, not just by colour.
+  - *My champion*: Refresh state (health, mana, cooldowns, statuses), Level up, Reset level, **Invincible**, **No cooldown**
+    (abilities and summoner spells recharge instantly, no mana cost), +10000 gold, Hurt me 50% (test Cure), Stun me 2 s and
+    Slow me 3 s (test Esuna / Warp), Kill me (death animation; works while invincible).
+  - *Enemy champion*: Refresh state, Level up, Reset level, **Computer (AI)** on/off (off = a dummy), Invincible, No cooldown,
+    +1000 gold, **Champion swap** (opens champion select).
+  - *Other*: Enemy dummy and Ally dummy (training posts, up to six; enemy dummies can be hit, slowed and poisoned and heal back
+    on their own), Clear dummies, Restore summons, Game speed (0.5x / 1x / 2x), Unlock Ultima. **Minion waves** and **Fog of
+    war** are shown disabled with "(soon)": the duel engine has no minions or vision yet.
+  - *View and model tuning*: camera closer / farther, turn my / enemy / Shiva / Garuda / Bahamut model by 90 degrees.
+- **Top bar**: BLUE kills, match clock, RED kills (team marks differ by shape and text: square = BLUE, circle = RED) and a
+  strip with your level, K/D and gold. Gold comes from a small passive income (2 per second), takedowns (300) and
+  Hunter's Resource; everyone starts with 500.
+- **INFO** (right column, or key Tab) has three tabs: **Scoreboard** (team kills and gold, then per-champion level, K/D, gold,
+  item count and summoner spells), **Stats** (health, mana, attack, ability power, armor, magic resist, attack speed, range,
+  move speed, ability haste, gold, items; you next to the enemy) and **Skills** (Q/W/E/R: rank, shape, range, computed damage,
+  cooldown, mana, slow/stun/shield/lifesteal text).
+- **SHOP** (right column, or key B) pauses the duel. Category tabs (All, Attack, Magic, Defense, Move, Utility), an original
+  catalog of 18 items (9 basic pieces, 9 tier-2 items built from them), detail panel, **recipe credit** (pieces you own are
+  taken off the price and used up), six inventory slots, sell for 70%. Items change stats (attack, ability power, health,
+  armor, magic resist, mana, attack speed, move speed) and **ability haste** (shortens ability cooldowns). Gold only comes
+  from play; nothing is bought with real money.
+- **FIGHTERS** is now **Champion select** in a VS layout: pick for YOU or for ENEMY, see health, attack, armor, magic resist,
+  range and the four abilities of each side, then FIGHT. It opens from PRACTICE > Champion swap.
 - Status tags show above each unit panel as text (`[STUN]`, `[SLOW -35%]`, `[SHIELD 120]`, `[BIO]`, `[WOUNDS]`,
   `[IMMUNE]`, `[HASTE 4.2s]`, `[TELEPORT 2.1s]`, `[MARK 3.0s]`), so no state depends on colour alone.
 
 | Spell | How to see it work |
 |---|---|
 | Haste | Cast, then run: speed starts high and eases off. Kill the enemy while it is active to extend it. |
-| Cure | TOOLS > Hurt me 50%, then cast. A second Cure within the recently-healed window heals half. |
+| Cure | PRACTICE > Hurt me 50%, then cast. A second Cure within the recently-healed window heals half. |
 | Protect | Cast, let the bot hit you: the `[SHIELD]` tag drains and hits read "Blocked". |
 | Slow | Cast within range of the enemy: it slows and its damage drops. |
-| Esuna | TOOLS > Stun me, then cast: the stun clears and `[IMMUNE]` appears. |
+| Esuna | PRACTICE > Stun me, then cast: the stun clears and `[IMMUNE]` appears. |
 | Warp | Cast while holding the stick to blink that way. Stunned = refused. |
 | Bio | Cast near the enemy: damage ticks every second and the enemy's healing is reduced. |
-| Ultima | Cast near Shiva or Garuda (monsters). Two charges. TOOLS > Unlock champion Ultima lets it hit the enemy too. |
+| Ultima | Cast near Shiva or Garuda (monsters). Two charges. PRACTICE > Unlock Ultima lets it hit the enemy too. |
 | Teleport | Stand still for the channel to the ward at the far corner. Moving, attacking or Warp cancels it. |
 | Pray | Spend mana on abilities first, then cast to see the restore. |
 | Warpstrike | Cast toward the enemy to mark it; press again (button shows AGAIN) to dash to it. |
@@ -187,7 +210,7 @@ without secrets.
 
 ## Known limits of the demo
 
-- One map-less arena (28 x 28), no minions, towers, jungle, shop, XP or fog of war.
+- One map-less arena (28 x 28), no minions, towers, XP, runes or fog of war. The shop and gold exist but the catalog is a first pass (numbers are placeholders). Ally dummies only stand there. No assists are counted yet. Runes and a skill-point screen are not built (the engine derives ability ranks from level).
 - Two placeholder champions with shortened cooldowns; the enemy is a scripted bot, not the production bot brain.
 - Teleport only targets the ward (structures and minions do not exist yet), so the "structures only for the first
   6 minutes" rule is in the rules code but not exercised.

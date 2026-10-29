@@ -46,6 +46,15 @@ namespace ProjectD.Duel
         public int Gold;
         public int Kills;
         public int Deaths;
+        public float GoldCarry;          // fractions of passive gold not yet paid out
+
+        /// <summary>Item ids bought in the shop (DuelItemCatalog), at most DuelItemCatalog.MaxSlots.</summary>
+        public readonly List<string> Items = new List<string>();
+        public float AbilityHaste;       // from items; ability cooldowns scale by 100 / (100 + haste)
+
+        // Practice-tool flags
+        public bool Invincible;          // takes no damage
+        public bool NoCooldown;          // abilities and summoner spells recharge instantly and cost no mana
 
         // Teleport channel
         public bool Channeling;
