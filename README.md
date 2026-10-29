@@ -8,10 +8,10 @@
 
 </div>
 
-> **CONFIDENTIAL — RESTRICTED DISTRIBUTION.** Project D is a fan-made, Dissidia-inspired concept.
-> All Final Fantasy / Dissidia / Square Enix names in this repo are **placeholders**. Game mechanics are
-> original. Art in `docs/images/` is original placeholder vector art. Licensed assets require a
-> documented chain of title, or must be replaced with original IP, before any public build, test or release.
+> A fan-made, educational, non-commercial Dissidia-inspired project. It is not published or monetised.
+> All Final Fantasy / Dissidia / Square Enix names are **placeholders** and the game mechanics are original.
+> Art in `docs/images/` is original placeholder vector art. The 3D character models used locally in the duel demo
+> are **not part of this repository** (see [IP notes](#ip-notes)).
 
 ---
 
@@ -77,8 +77,25 @@ Details: [`docs/game-modes-and-world-rift.md`](docs/game-modes-and-world-rift.md
 Two slots per player. Normal and Ranked use the nine standard spells; Pray and Warpstrike are only for Co-Op,
 Practice and World Rift. Details and tuning: [`docs/summoner-spells.md`](docs/summoner-spells.md)
 
-**Try them:** the 1v1 duel demo (`Tools > Project D > Build Duel Demo Scene`, then Play; Android APK via
+---
+
+## 1v1 duel demo (practice tool)
+
+A playable test bed: `Tools > Project D > Build Duel Demo Scene`, then Play (Android APK via
 `Build and Run Duel Demo on Phone`). Guide and roadmap: [`docs/duel-demo.md`](docs/duel-demo.md)
+
+- **Practice tool** (top-left, key P): refresh, level up/reset, invincible, no cooldown, gold, AI on/off, training
+  dummies, game speed, champion swap, camera and model tuning.
+- **Top bar**: team kills, match clock, your K/D and gold.
+- **Info** (key Tab): scoreboard, stats and skills tabs.
+- **Shop** (key B): original 18-item catalog with recipe credits, six slots, sell-back, ability haste.
+- **Champion select**: VS layout for you and the enemy.
+- Procedural character animation, summon guard behaviour and particle effects for rips that ship without clips.
+- The duel engine (`Assets/Scripts/Duel`) is deterministic and engine-agnostic, with EditMode tests.
+
+**Status:** this is the most developed playable part. Many other folders under `Assets/Scripts` are tested logic
+modules that so far have only a thin screen or none. Not built yet: minions and fog in the duel,
+runes screen, weapons on the models, real animation clips.
 
 ---
 
@@ -188,8 +205,11 @@ are in the repository root.
 
 ---
 
-## IP & confidentiality
+## IP notes
 
 - Final Fantasy / Dissidia / Square Enix names are **placeholders** pending original replacements or licensing.
-- Do not reproduce copyrighted art, likenesses, lyrics or long copyrighted text in this repo.
-- Do not distribute builds or this repository outside the approved group.
+- The repository contains original code, data and placeholder art only. The ripped 3D models used in the duel demo
+  live in a local, git-ignored `Assets/Models/` folder and are not committed.
+- Do not add copyrighted art, likenesses, lyrics or long copyrighted text to the repo.
+- Anything that is ever released or monetised must first replace licensed material with original IP or obtain a
+  documented licence.
